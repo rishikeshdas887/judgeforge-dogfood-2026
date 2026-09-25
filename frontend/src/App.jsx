@@ -1,0 +1,205 @@
+import { useEffect, useState } from 'react'
+import OrganizerDashboard from './OrganizerDashboard'
+import './App.css'
+
+const ROLES = [
+  { value: 'participant', label: 'Participant' },
+  { value: 'judge_a', label: 'Judge A' },
+  { value: 'judge_b', label: 'Judge B' },
+  { value: 'organizer', label: 'Organizer' },
+]
+
+function App() {
+  const [user, setUser] = useState(null)
+  const [projects, setProjects] = useState([])
+  const [role, setRole] = useState('participant')
+  const [loading, setLoading] = useState(true)
+  const [loginLoading, setLoginLoading] = useState(false)
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    checkSession()
+  }, [])
+
+  async function checkSession() {
+    try {
+      const response = await fetch('/api/auth/me')
+
+      if (response.ok) {
+        const data = await response.json()
+        setUser(data)
+      }
+    } catch {
+      setError('Could not connect to the portal.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  async function login() {
+    setLoginLoading(true)
+    setError('')
+
+    try {
+      const response = await fetch(
+        `/api/auth/login?role=${encodeURIComponent(role)}`,
+        {
+          method: 'POST',
+          credentials: 'include',
+        },
+      )
+
+      if (!response.ok) {
+        throw new Error('Login failed')
+      }
+
+      await checkSession()
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoginLoading(false)
+    }
+  }
+
+  async function logout() {
+    await fetch('/api/auth/logout', {
+      method: 'POST',
+      credentials: 'include',
+    })
+
+    setUser(null)
+  }
+
+  useEffect(() => {
+    loadProjects()
+  }, [])
+
+  async function loadProjects() {
+    try {
+      const response = await fetch('/projects')
+
+      if (!response.ok) {
+        throw new Error(`Request failed: ${response.status}`)
+      }
+
+      const data = await response.json()
+      setProjects(data)
+    } catch {
+      setError('Could not load projects.')
+    }
+  }
+
+  if (loading) {
+    return <main className="center-state">Loading portal...</main>
+  }
+
+  return (
+    <main className="app">
+      <header className="topbar">
+        <div>
+          <p className="eyebrow">DOGFOOD 2026</p>
+          <h1>Hackathon Portal</h1>
+        </div>
+
+        {user && (
+          <button className="secondary-button" onClick={logout}>
+            Logout
+          </button>
+        )}
+      </header>
+
+      {!user ? (
+        <section className="login-card">
+          <p className="eyebrow">ACCESS PORTAL</p>
+          <h2>Choose your role</h2>
+          <p>
+            Sign in as a participant, judge, or organizer to access the
+            corresponding portal features.
+          </p>
+
+          <div className="role-grid">
+            {ROLES.map((item) => (
+              <button
+                key={item.value}
+                className={
+                  role === item.value
+                    ? 'role-button selected'
+                    : 'role-button'
+                }
+                onClick={() => setRole(item.value)}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+
+          <button
+            className="primary-button"
+            onClick={login}
+            disabled={loginLoading}
+          >
+            {loginLoading ? 'Signing in...' : 'Continue'}
+          </button>
+
+          {error && <p className="error">{error}</p>}
+        </section>
+      ) : (
+        <>
+          <section className="welcome">
+            <div>
+              <p className="eyebrow">SIGNED IN</p>
+              <h2>{formatRole(user.role)}</h2>
+              <p>
+                Account: <strong>{user.id}</strong>
+              </p>
+            </div>
+          </section>
+
+          {user.role === 'ORGANIZER' && <OrganizerDashboard />}
+
+          <section className="gallery-section">
+            <div className="section-header">
+              <h2>Project Gallery</h2>
+              <span>{projects.length} projects</span>
+            </div>
+
+            <div className="project-grid">
+              {projects.map((project) => (
+                <article className="project-card" key={project.id}>
+                  <div className="project-meta">
+                    <span>{project.track}</span>
+                    <span>{project.id}</span>
+                  </div>
+
+                  <h3>{project.title}</h3>
+                  <p>{project.summary}</p>
+
+                  <div className="project-footer">
+                    <span>{project.team}</span>
+
+                    <a
+                      href={project.repo_url}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Repository →
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        </>
+      )}
+    </main>
+  )
+}
+
+function formatRole(role) {
+  return role
+    .replace('_', ' ')
+    .toLowerCase()
+    .replace(/\b\w/g, (letter) => letter.toUpperCase())
+}
+
+export default App

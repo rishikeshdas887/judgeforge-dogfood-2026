@@ -1,0 +1,1262 @@
+[
+  {
+    "judge": "jdg_08",
+    "project": "prj_01",
+    "criteria": {
+      "functionality": 2,
+      "quality": 4,
+      "innovation": 2
+    },
+    "comment": "Runs clean."
+  },
+  {
+    "judge": "jdg_03",
+    "project": "prj_01",
+    "criteria": {
+      "functionality": 4,
+      "quality": 5,
+      "innovation": 4
+    },
+    "comment": "Runs clean."
+  },
+  {
+    "judge": "jdg_28",
+    "project": "prj_01",
+    "criteria": {
+      "functionality": 2,
+      "quality": 5,
+      "innovation": 3
+    },
+    "comment": "Solid."
+  },
+  {
+    "judge": "jdg_21",
+    "project": "prj_02",
+    "criteria": {
+      "functionality": 4,
+      "quality": 5,
+      "innovation": 2
+    },
+    "comment": "Solid."
+  },
+  {
+    "judge": "jdg_12",
+    "project": "prj_02",
+    "criteria": {
+      "functionality": 4,
+      "quality": 3,
+      "innovation": 2
+    },
+    "comment": "Solid."
+  },
+  {
+    "judge": "jdg_26",
+    "project": "prj_02",
+    "criteria": {
+      "functionality": 4,
+      "quality": 5,
+      "innovation": 3
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_26",
+    "project": "prj_03",
+    "criteria": {
+      "functionality": 4,
+      "quality": 4,
+      "innovation": 3
+    },
+    "comment": "Runs clean."
+  },
+  {
+    "judge": "jdg_19",
+    "project": "prj_03",
+    "criteria": {
+      "functionality": 3,
+      "quality": 5,
+      "innovation": 3
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_21",
+    "project": "prj_03",
+    "criteria": {
+      "functionality": 4,
+      "quality": 2,
+      "innovation": 2
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_22",
+    "project": "prj_04",
+    "criteria": {
+      "functionality": 4,
+      "quality": 5,
+      "innovation": 2
+    },
+    "comment": "Solid."
+  },
+  {
+    "judge": "jdg_11",
+    "project": "prj_04",
+    "criteria": {
+      "functionality": 3,
+      "quality": 5,
+      "innovation": 5
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_04",
+    "project": "prj_04",
+    "criteria": {
+      "functionality": 3,
+      "quality": 5,
+      "innovation": 2
+    },
+    "comment": "Runs clean."
+  },
+  {
+    "judge": "jdg_25",
+    "project": "prj_05",
+    "criteria": {
+      "functionality": 2,
+      "quality": 2,
+      "innovation": 5
+    },
+    "comment": "Runs clean."
+  },
+  {
+    "judge": "jdg_02",
+    "project": "prj_05",
+    "criteria": {
+      "functionality": 4,
+      "quality": 3,
+      "innovation": 2
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_16",
+    "project": "prj_05",
+    "criteria": {
+      "functionality": 4,
+      "quality": 2,
+      "innovation": 2
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_24",
+    "project": "prj_06",
+    "criteria": {
+      "functionality": 2,
+      "quality": 3,
+      "innovation": 5
+    },
+    "comment": "Runs clean."
+  },
+  {
+    "judge": "jdg_26",
+    "project": "prj_06",
+    "criteria": {
+      "functionality": 3,
+      "quality": 3,
+      "innovation": 4
+    },
+    "comment": "Runs clean."
+  },
+  {
+    "judge": "jdg_09",
+    "project": "prj_06",
+    "criteria": {
+      "functionality": 3,
+      "quality": 3,
+      "innovation": 2
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_19",
+    "project": "prj_07",
+    "criteria": {
+      "functionality": 2,
+      "quality": 3,
+      "innovation": 2
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_21",
+    "project": "prj_07",
+    "criteria": {
+      "functionality": 4,
+      "quality": 3,
+      "innovation": 4
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_26",
+    "project": "prj_07",
+    "criteria": {
+      "functionality": 4,
+      "quality": 5,
+      "innovation": 5
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_01",
+    "project": "prj_07",
+    "criteria": {
+      "functionality": 2,
+      "quality": 2,
+      "innovation": 2
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_12",
+    "project": "prj_07",
+    "criteria": {
+      "functionality": 4,
+      "quality": 5,
+      "innovation": 3
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_10",
+    "project": "prj_08",
+    "criteria": {
+      "functionality": 3,
+      "quality": 2,
+      "innovation": 3
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_08",
+    "project": "prj_08",
+    "criteria": {
+      "functionality": 3,
+      "quality": 3,
+      "innovation": 4
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_23",
+    "project": "prj_08",
+    "criteria": {
+      "functionality": 3,
+      "quality": 2,
+      "innovation": 5
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_02",
+    "project": "prj_08",
+    "criteria": {
+      "functionality": 5,
+      "quality": 5,
+      "innovation": 5
+    },
+    "comment": "Solid."
+  },
+  {
+    "judge": "jdg_13",
+    "project": "prj_08",
+    "criteria": {
+      "functionality": 5,
+      "quality": 4,
+      "innovation": 5
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_27",
+    "project": "prj_09",
+    "criteria": {
+      "functionality": 2,
+      "quality": 2,
+      "innovation": 4
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_07",
+    "project": "prj_09",
+    "criteria": {
+      "functionality": 4,
+      "quality": 4,
+      "innovation": 4
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_29",
+    "project": "prj_09",
+    "criteria": {
+      "functionality": 3,
+      "quality": 4,
+      "innovation": 5
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_15",
+    "project": "prj_10",
+    "criteria": {
+      "functionality": 4,
+      "quality": 5,
+      "innovation": 5
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_29",
+    "project": "prj_10",
+    "criteria": {
+      "functionality": 5,
+      "quality": 4,
+      "innovation": 2
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_30",
+    "project": "prj_11",
+    "criteria": {
+      "functionality": 5,
+      "quality": 4,
+      "innovation": 4
+    },
+    "comment": "Solid."
+  },
+  {
+    "judge": "jdg_02",
+    "project": "prj_11",
+    "criteria": {
+      "functionality": 4,
+      "quality": 5,
+      "innovation": 5
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_25",
+    "project": "prj_11",
+    "criteria": {
+      "functionality": 5,
+      "quality": 3,
+      "innovation": 4
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_16",
+    "project": "prj_11",
+    "criteria": {
+      "functionality": 5,
+      "quality": 3,
+      "innovation": 5
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_24",
+    "project": "prj_12",
+    "criteria": {
+      "functionality": 5,
+      "quality": 3,
+      "innovation": 3
+    },
+    "comment": "Runs clean."
+  },
+  {
+    "judge": "jdg_14",
+    "project": "prj_12",
+    "criteria": {
+      "functionality": 2,
+      "quality": 2,
+      "innovation": 3
+    },
+    "comment": "Solid."
+  },
+  {
+    "judge": "jdg_22",
+    "project": "prj_12",
+    "criteria": {
+      "functionality": 5,
+      "quality": 3,
+      "innovation": 5
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_11",
+    "project": "prj_13",
+    "criteria": {
+      "functionality": 5,
+      "quality": 4,
+      "innovation": 2
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_05",
+    "project": "prj_13",
+    "criteria": {
+      "functionality": 3,
+      "quality": 2,
+      "innovation": 5
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_06",
+    "project": "prj_13",
+    "criteria": {
+      "functionality": 3,
+      "quality": 3,
+      "innovation": 3
+    },
+    "comment": "Solid."
+  },
+  {
+    "judge": "jdg_24",
+    "project": "prj_14",
+    "criteria": {
+      "functionality": 4,
+      "quality": 2,
+      "innovation": 5
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_22",
+    "project": "prj_14",
+    "criteria": {
+      "functionality": 3,
+      "quality": 2,
+      "innovation": 4
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_04",
+    "project": "prj_14",
+    "criteria": {
+      "functionality": 4,
+      "quality": 5,
+      "innovation": 3
+    },
+    "comment": "Solid."
+  },
+  {
+    "judge": "jdg_14",
+    "project": "prj_14",
+    "criteria": {
+      "functionality": 2,
+      "quality": 5,
+      "innovation": 2
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_11",
+    "project": "prj_14",
+    "criteria": {
+      "functionality": 5,
+      "quality": 2,
+      "innovation": 3
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_10",
+    "project": "prj_15",
+    "criteria": {
+      "functionality": 2,
+      "quality": 3,
+      "innovation": 5
+    },
+    "comment": "Solid."
+  },
+  {
+    "judge": "jdg_13",
+    "project": "prj_15",
+    "criteria": {
+      "functionality": 5,
+      "quality": 4,
+      "innovation": 3
+    },
+    "comment": "Solid."
+  },
+  {
+    "judge": "jdg_10",
+    "project": "prj_16",
+    "criteria": {
+      "functionality": 3,
+      "quality": 4,
+      "innovation": 4
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_08",
+    "project": "prj_16",
+    "criteria": {
+      "functionality": 4,
+      "quality": 5,
+      "innovation": 4
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_02",
+    "project": "prj_16",
+    "criteria": {
+      "functionality": 5,
+      "quality": 5,
+      "innovation": 2
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_07",
+    "project": "prj_17",
+    "criteria": {
+      "functionality": 4,
+      "quality": 4,
+      "innovation": 4
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_29",
+    "project": "prj_17",
+    "criteria": {
+      "functionality": 3,
+      "quality": 4,
+      "innovation": 3
+    },
+    "comment": "Runs clean."
+  },
+  {
+    "judge": "jdg_27",
+    "project": "prj_17",
+    "criteria": {
+      "functionality": 3,
+      "quality": 5,
+      "innovation": 2
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_04",
+    "project": "prj_18",
+    "criteria": {
+      "functionality": 5,
+      "quality": 3,
+      "innovation": 5
+    },
+    "comment": "Solid."
+  },
+  {
+    "judge": "jdg_24",
+    "project": "prj_18",
+    "criteria": {
+      "functionality": 2,
+      "quality": 3,
+      "innovation": 3
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_29",
+    "project": "prj_19",
+    "criteria": {
+      "functionality": 3,
+      "quality": 2,
+      "innovation": 5
+    },
+    "comment": "Runs clean."
+  },
+  {
+    "judge": "jdg_07",
+    "project": "prj_19",
+    "criteria": {
+      "functionality": 4,
+      "quality": 4,
+      "innovation": 4
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_15",
+    "project": "prj_20",
+    "criteria": {
+      "functionality": 3,
+      "quality": 5,
+      "innovation": 5
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_29",
+    "project": "prj_20",
+    "criteria": {
+      "functionality": 5,
+      "quality": 2,
+      "innovation": 2
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_20",
+    "project": "prj_20",
+    "criteria": {
+      "functionality": 3,
+      "quality": 2,
+      "innovation": 2
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_25",
+    "project": "prj_21",
+    "criteria": {
+      "functionality": 3,
+      "quality": 4,
+      "innovation": 4
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_16",
+    "project": "prj_21",
+    "criteria": {
+      "functionality": 5,
+      "quality": 2,
+      "innovation": 2
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_02",
+    "project": "prj_21",
+    "criteria": {
+      "functionality": 5,
+      "quality": 5,
+      "innovation": 5
+    },
+    "comment": "Runs clean."
+  },
+  {
+    "judge": "jdg_13",
+    "project": "prj_22",
+    "criteria": {
+      "functionality": 2,
+      "quality": 5,
+      "innovation": 3
+    },
+    "comment": "Runs clean."
+  },
+  {
+    "judge": "jdg_20",
+    "project": "prj_22",
+    "criteria": {
+      "functionality": 2,
+      "quality": 4,
+      "innovation": 3
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_28",
+    "project": "prj_22",
+    "criteria": {
+      "functionality": 3,
+      "quality": 3,
+      "innovation": 3
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_20",
+    "project": "prj_23",
+    "criteria": {
+      "functionality": 2,
+      "quality": 2,
+      "innovation": 2
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_15",
+    "project": "prj_23",
+    "criteria": {
+      "functionality": 5,
+      "quality": 4,
+      "innovation": 2
+    },
+    "comment": "Runs clean."
+  },
+  {
+    "judge": "jdg_29",
+    "project": "prj_23",
+    "criteria": {
+      "functionality": 2,
+      "quality": 3,
+      "innovation": 4
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_19",
+    "project": "prj_24",
+    "criteria": {
+      "functionality": 3,
+      "quality": 4,
+      "innovation": 4
+    },
+    "comment": "Runs clean."
+  },
+  {
+    "judge": "jdg_18",
+    "project": "prj_24",
+    "criteria": {
+      "functionality": 4,
+      "quality": 2,
+      "innovation": 4
+    },
+    "comment": "Solid."
+  },
+  {
+    "judge": "jdg_30",
+    "project": "prj_25",
+    "criteria": {
+      "functionality": 3,
+      "quality": 4,
+      "innovation": 5
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_25",
+    "project": "prj_25",
+    "criteria": {
+      "functionality": 4,
+      "quality": 5,
+      "innovation": 2
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_16",
+    "project": "prj_25",
+    "criteria": {
+      "functionality": 5,
+      "quality": 4,
+      "innovation": 5
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_06",
+    "project": "prj_26",
+    "criteria": {
+      "functionality": 2,
+      "quality": 5,
+      "innovation": 3
+    },
+    "comment": "Runs clean."
+  },
+  {
+    "judge": "jdg_11",
+    "project": "prj_26",
+    "criteria": {
+      "functionality": 2,
+      "quality": 3,
+      "innovation": 3
+    },
+    "comment": "Runs clean."
+  },
+  {
+    "judge": "jdg_17",
+    "project": "prj_26",
+    "criteria": {
+      "functionality": 3,
+      "quality": 4,
+      "innovation": 4
+    },
+    "comment": "Runs clean."
+  },
+  {
+    "judge": "jdg_20",
+    "project": "prj_27",
+    "criteria": {
+      "functionality": 3,
+      "quality": 4,
+      "innovation": 4
+    },
+    "comment": "Solid."
+  },
+  {
+    "judge": "jdg_29",
+    "project": "prj_27",
+    "criteria": {
+      "functionality": 5,
+      "quality": 3,
+      "innovation": 4
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_15",
+    "project": "prj_27",
+    "criteria": {
+      "functionality": 2,
+      "quality": 2,
+      "innovation": 4
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_02",
+    "project": "prj_28",
+    "criteria": {
+      "functionality": 3,
+      "quality": 3,
+      "innovation": 5
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_30",
+    "project": "prj_28",
+    "criteria": {
+      "functionality": 3,
+      "quality": 5,
+      "innovation": 2
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_16",
+    "project": "prj_28",
+    "criteria": {
+      "functionality": 3,
+      "quality": 3,
+      "innovation": 4
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_24",
+    "project": "prj_29",
+    "criteria": {
+      "functionality": 3,
+      "quality": 2,
+      "innovation": 3
+    },
+    "comment": "Runs clean."
+  },
+  {
+    "judge": "jdg_09",
+    "project": "prj_29",
+    "criteria": {
+      "functionality": 4,
+      "quality": 3,
+      "innovation": 5
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_14",
+    "project": "prj_30",
+    "criteria": {
+      "functionality": 4,
+      "quality": 5,
+      "innovation": 2
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_24",
+    "project": "prj_30",
+    "criteria": {
+      "functionality": 3,
+      "quality": 2,
+      "innovation": 3
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_22",
+    "project": "prj_30",
+    "criteria": {
+      "functionality": 2,
+      "quality": 4,
+      "innovation": 3
+    },
+    "comment": "Solid."
+  },
+  {
+    "judge": "jdg_26",
+    "project": "prj_31",
+    "criteria": {
+      "functionality": 5,
+      "quality": 5,
+      "innovation": 2
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_24",
+    "project": "prj_31",
+    "criteria": {
+      "functionality": 2,
+      "quality": 4,
+      "innovation": 4
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_09",
+    "project": "prj_31",
+    "criteria": {
+      "functionality": 4,
+      "quality": 3,
+      "innovation": 3
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_09",
+    "project": "prj_32",
+    "criteria": {
+      "functionality": 5,
+      "quality": 2,
+      "innovation": 3
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_26",
+    "project": "prj_32",
+    "criteria": {
+      "functionality": 2,
+      "quality": 3,
+      "innovation": 4
+    },
+    "comment": "Solid."
+  },
+  {
+    "judge": "jdg_24",
+    "project": "prj_32",
+    "criteria": {
+      "functionality": 5,
+      "quality": 4,
+      "innovation": 3
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_24",
+    "project": "prj_33",
+    "criteria": {
+      "functionality": 3,
+      "quality": 5,
+      "innovation": 4
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_26",
+    "project": "prj_33",
+    "criteria": {
+      "functionality": 5,
+      "quality": 3,
+      "innovation": 4
+    },
+    "comment": "Runs clean."
+  },
+  {
+    "judge": "jdg_09",
+    "project": "prj_33",
+    "criteria": {
+      "functionality": 5,
+      "quality": 5,
+      "innovation": 2
+    },
+    "comment": "Runs clean."
+  },
+  {
+    "judge": "jdg_15",
+    "project": "prj_34",
+    "criteria": {
+      "functionality": 5,
+      "quality": 5,
+      "innovation": 5
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_29",
+    "project": "prj_34",
+    "criteria": {
+      "functionality": 4,
+      "quality": 3,
+      "innovation": 5
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_20",
+    "project": "prj_34",
+    "criteria": {
+      "functionality": 5,
+      "quality": 4,
+      "innovation": 3
+    },
+    "comment": "Solid."
+  },
+  {
+    "judge": "jdg_11",
+    "project": "prj_35",
+    "criteria": {
+      "functionality": 2,
+      "quality": 5,
+      "innovation": 2
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_06",
+    "project": "prj_35",
+    "criteria": {
+      "functionality": 3,
+      "quality": 4,
+      "innovation": 5
+    },
+    "comment": "Runs clean."
+  },
+  {
+    "judge": "jdg_03",
+    "project": "prj_35",
+    "criteria": {
+      "functionality": 5,
+      "quality": 2,
+      "innovation": 3
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_17",
+    "project": "prj_35",
+    "criteria": {
+      "functionality": 4,
+      "quality": 2,
+      "innovation": 4
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_05",
+    "project": "prj_35",
+    "criteria": {
+      "functionality": 5,
+      "quality": 3,
+      "innovation": 3
+    },
+    "comment": "Runs clean."
+  },
+  {
+    "judge": "jdg_15",
+    "project": "prj_36",
+    "criteria": {
+      "functionality": 3,
+      "quality": 5,
+      "innovation": 4
+    },
+    "comment": "Solid."
+  },
+  {
+    "judge": "jdg_20",
+    "project": "prj_36",
+    "criteria": {
+      "functionality": 3,
+      "quality": 4,
+      "innovation": 4
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_29",
+    "project": "prj_36",
+    "criteria": {
+      "functionality": 3,
+      "quality": 2,
+      "innovation": 5
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_11",
+    "project": "prj_37",
+    "criteria": {
+      "functionality": 5,
+      "quality": 5,
+      "innovation": 4
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_24",
+    "project": "prj_37",
+    "criteria": {
+      "functionality": 4,
+      "quality": 5,
+      "innovation": 4
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_04",
+    "project": "prj_37",
+    "criteria": {
+      "functionality": 2,
+      "quality": 2,
+      "innovation": 4
+    },
+    "comment": "Runs clean."
+  },
+  {
+    "judge": "jdg_22",
+    "project": "prj_37",
+    "criteria": {
+      "functionality": 5,
+      "quality": 5,
+      "innovation": 4
+    },
+    "comment": "Solid."
+  },
+  {
+    "judge": "jdg_30",
+    "project": "prj_38",
+    "criteria": {
+      "functionality": 5,
+      "quality": 5,
+      "innovation": 4
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_25",
+    "project": "prj_38",
+    "criteria": {
+      "functionality": 3,
+      "quality": 2,
+      "innovation": 4
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_16",
+    "project": "prj_38",
+    "criteria": {
+      "functionality": 3,
+      "quality": 5,
+      "innovation": 3
+    },
+    "comment": "Solid."
+  },
+  {
+    "judge": "jdg_18",
+    "project": "prj_39",
+    "criteria": {
+      "functionality": 3,
+      "quality": 3,
+      "innovation": 5
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_26",
+    "project": "prj_39",
+    "criteria": {
+      "functionality": 2,
+      "quality": 3,
+      "innovation": 5
+    },
+    "comment": "Runs clean."
+  },
+  {
+    "judge": "jdg_26",
+    "project": "prj_40",
+    "criteria": {
+      "functionality": 5,
+      "quality": 3,
+      "innovation": 2
+    },
+    "comment": "Solid."
+  },
+  {
+    "judge": "jdg_24",
+    "project": "prj_40",
+    "criteria": {
+      "functionality": 2,
+      "quality": 2,
+      "innovation": 4
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_19",
+    "project": "prj_41",
+    "criteria": {
+      "functionality": 5,
+      "quality": 4,
+      "innovation": 2
+    },
+    "comment": ""
+  },
+  {
+    "judge": "jdg_18",
+    "project": "prj_41",
+    "criteria": {
+      "functionality": 4,
+      "quality": 3,
+      "innovation": 3
+    },
+    "comment": "Docs are thin."
+  },
+  {
+    "judge": "jdg_21",
+    "project": "prj_41",
+    "criteria": {
+      "functionality": 4,
+      "quality": 5,
+      "innovation": 5
+    },
+    "comment": "Solid."
+  },
+  {
+    "judge": "jdg_26",
+    "project": "prj_41",
+    "criteria": {
+      "functionality": 4,
+      "quality": 2,
+      "innovation": 5
+    },
+    "comment": ""
+  }
+]

@@ -1,0 +1,156 @@
+{
+  "version" : 1,
+  "judges" : [ {
+    "judge" : "jdg_01",
+    "name" : "Tomas Varga",
+    "email" : "tomas.varga@example.org",
+    "status" : "INVITED",
+    "invited_at" : "2026-09-25T21:04:23.137688321Z",
+    "invite_token" : "1eb8c96900e4e21d3cbb50d7d0f74f448441"
+  }, {
+    "judge" : "jdg_02",
+    "name" : "Wei Lindqvist",
+    "email" : "wei.lindqvist@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_03",
+    "name" : "Priya Nair",
+    "email" : "priya.nair@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_04",
+    "name" : "Noor Haddad",
+    "email" : "noor.haddad@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_05",
+    "name" : "Kofi Mensah",
+    "email" : "kofi.mensah@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_06",
+    "name" : "Lena Kovac",
+    "email" : "lena.kovac@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_07",
+    "name" : "Iva Petrova",
+    "email" : "iva.petrova@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_08",
+    "name" : "Marek Nowak",
+    "email" : "marek.nowak@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_09",
+    "name" : "Sofia Duarte",
+    "email" : "sofia.duarte@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_10",
+    "name" : "Hiro Tanaka",
+    "email" : "hiro.tanaka@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_11",
+    "name" : "Amara Silva",
+    "email" : "amara.silva@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_12",
+    "name" : "Dilan Yilmaz",
+    "email" : "dilan.yilmaz@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_13",
+    "name" : "Rosa Moreau",
+    "email" : "rosa.moreau@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_14",
+    "name" : "Emeka Adeyemi",
+    "email" : "emeka.adeyemi@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_15",
+    "name" : "Yuki Sato",
+    "email" : "yuki.sato@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_16",
+    "name" : "Nadia Rahman",
+    "email" : "nadia.rahman@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_17",
+    "name" : "Bruno Costa",
+    "email" : "bruno.costa@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_18",
+    "name" : "Lars Berg",
+    "email" : "lars.berg@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_19",
+    "name" : "Mira Kaur",
+    "email" : "mira.kaur@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_20",
+    "name" : "Otto Brandt",
+    "email" : "otto.brandt@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_21",
+    "name" : "Sana Aziz",
+    "email" : "sana.aziz@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_22",
+    "name" : "Felix Roth",
+    "email" : "felix.roth@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_23",
+    "name" : "Anya Sokolova",
+    "email" : "anya.sokolova@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_24",
+    "name" : "Diego Herrera",
+    "email" : "diego.herrera@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_25",
+    "name" : "Thandi Dlamini",
+    "email" : "thandi.dlamini@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_26",
+    "name" : "Jonas Vogel",
+    "email" : "jonas.vogel@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_27",
+    "name" : "Leila Nasser",
+    "email" : "leila.nasser@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_28",
+    "name" : "Pavel Ivanov",
+    "email" : "pavel.ivanov@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_29",
+    "name" : "Ines Rocha",
+    "email" : "ines.rocha@example.org",
+    "status" : "ACTIVE"
+  }, {
+    "judge" : "jdg_30",
+    "name" : "Rafa Okonkwo",
+    "email" : "rafa.okonkwo@example.org",
+    "status" : "ACTIVE"
+  } ]
+}

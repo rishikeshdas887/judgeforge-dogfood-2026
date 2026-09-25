@@ -1,0 +1,19 @@
+services:
+
+  backend:
+    build:
+      context: ./backend
+    container_name: dogfood-backend
+    restart: unless-stopped
+    volumes:
+      - ./backend/data:/app/data
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: dogfood-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"

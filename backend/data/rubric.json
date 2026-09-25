@@ -1,0 +1,19 @@
+{
+  "version" : 2,
+  "criteria" : [ {
+    "id" : "functionality",
+    "name" : "Functionality",
+    "weight" : 40,
+    "max_score" : 5
+  }, {
+    "id" : "quality",
+    "name" : "Quality",
+    "weight" : 35,
+    "max_score" : 5
+  }, {
+    "id" : "innovation",
+    "name" : "Innovation",
+    "weight" : 25,
+    "max_score" : 5
+  } ]
+}

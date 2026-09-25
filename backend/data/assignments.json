@@ -1,0 +1,1397 @@
+{
+  "version" : 1,
+  "assignments" : [ {
+    "id" : "asg_jdg_02_prj_01",
+    "judge" : "jdg_02",
+    "project" : "prj_01",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_02_prj_05",
+    "judge" : "jdg_02",
+    "project" : "prj_05",
+    "track" : "trk_02",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_02_prj_08",
+    "judge" : "jdg_02",
+    "project" : "prj_08",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_02_prj_11",
+    "judge" : "jdg_02",
+    "project" : "prj_11",
+    "track" : "trk_02",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_02_prj_15",
+    "judge" : "jdg_02",
+    "project" : "prj_15",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_02_prj_16",
+    "judge" : "jdg_02",
+    "project" : "prj_16",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_02_prj_21",
+    "judge" : "jdg_02",
+    "project" : "prj_21",
+    "track" : "trk_02",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_02_prj_22",
+    "judge" : "jdg_02",
+    "project" : "prj_22",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_02_prj_25",
+    "judge" : "jdg_02",
+    "project" : "prj_25",
+    "track" : "trk_02",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_02_prj_28",
+    "judge" : "jdg_02",
+    "project" : "prj_28",
+    "track" : "trk_02",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_02_prj_38",
+    "judge" : "jdg_02",
+    "project" : "prj_38",
+    "track" : "trk_02",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_03_prj_01",
+    "judge" : "jdg_03",
+    "project" : "prj_01",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_03_prj_08",
+    "judge" : "jdg_03",
+    "project" : "prj_08",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_03_prj_13",
+    "judge" : "jdg_03",
+    "project" : "prj_13",
+    "track" : "trk_05",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_03_prj_15",
+    "judge" : "jdg_03",
+    "project" : "prj_15",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_03_prj_16",
+    "judge" : "jdg_03",
+    "project" : "prj_16",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_03_prj_22",
+    "judge" : "jdg_03",
+    "project" : "prj_22",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_03_prj_26",
+    "judge" : "jdg_03",
+    "project" : "prj_26",
+    "track" : "trk_05",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_03_prj_35",
+    "judge" : "jdg_03",
+    "project" : "prj_35",
+    "track" : "trk_05",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_04_prj_04",
+    "judge" : "jdg_04",
+    "project" : "prj_04",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_04_prj_12",
+    "judge" : "jdg_04",
+    "project" : "prj_12",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_04_prj_14",
+    "judge" : "jdg_04",
+    "project" : "prj_14",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_04_prj_18",
+    "judge" : "jdg_04",
+    "project" : "prj_18",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_04_prj_30",
+    "judge" : "jdg_04",
+    "project" : "prj_30",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_04_prj_37",
+    "judge" : "jdg_04",
+    "project" : "prj_37",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_05_prj_13",
+    "judge" : "jdg_05",
+    "project" : "prj_13",
+    "track" : "trk_05",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_05_prj_26",
+    "judge" : "jdg_05",
+    "project" : "prj_26",
+    "track" : "trk_05",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_05_prj_35",
+    "judge" : "jdg_05",
+    "project" : "prj_35",
+    "track" : "trk_05",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_06_prj_13",
+    "judge" : "jdg_06",
+    "project" : "prj_13",
+    "track" : "trk_05",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_06_prj_26",
+    "judge" : "jdg_06",
+    "project" : "prj_26",
+    "track" : "trk_05",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_06_prj_35",
+    "judge" : "jdg_06",
+    "project" : "prj_35",
+    "track" : "trk_05",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_07_prj_09",
+    "judge" : "jdg_07",
+    "project" : "prj_09",
+    "track" : "trk_06",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_07_prj_17",
+    "judge" : "jdg_07",
+    "project" : "prj_17",
+    "track" : "trk_06",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_07_prj_19",
+    "judge" : "jdg_07",
+    "project" : "prj_19",
+    "track" : "trk_06",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_08_prj_01",
+    "judge" : "jdg_08",
+    "project" : "prj_01",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_08_prj_08",
+    "judge" : "jdg_08",
+    "project" : "prj_08",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_08_prj_15",
+    "judge" : "jdg_08",
+    "project" : "prj_15",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_08_prj_16",
+    "judge" : "jdg_08",
+    "project" : "prj_16",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_08_prj_22",
+    "judge" : "jdg_08",
+    "project" : "prj_22",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_09_prj_06",
+    "judge" : "jdg_09",
+    "project" : "prj_06",
+    "track" : "trk_01",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_09_prj_29",
+    "judge" : "jdg_09",
+    "project" : "prj_29",
+    "track" : "trk_01",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_09_prj_31",
+    "judge" : "jdg_09",
+    "project" : "prj_31",
+    "track" : "trk_01",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_09_prj_32",
+    "judge" : "jdg_09",
+    "project" : "prj_32",
+    "track" : "trk_01",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_09_prj_33",
+    "judge" : "jdg_09",
+    "project" : "prj_33",
+    "track" : "trk_01",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_09_prj_40",
+    "judge" : "jdg_09",
+    "project" : "prj_40",
+    "track" : "trk_01",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_10_prj_01",
+    "judge" : "jdg_10",
+    "project" : "prj_01",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_10_prj_08",
+    "judge" : "jdg_10",
+    "project" : "prj_08",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_10_prj_15",
+    "judge" : "jdg_10",
+    "project" : "prj_15",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_10_prj_16",
+    "judge" : "jdg_10",
+    "project" : "prj_16",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_10_prj_22",
+    "judge" : "jdg_10",
+    "project" : "prj_22",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_11_prj_04",
+    "judge" : "jdg_11",
+    "project" : "prj_04",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_11_prj_12",
+    "judge" : "jdg_11",
+    "project" : "prj_12",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_11_prj_13",
+    "judge" : "jdg_11",
+    "project" : "prj_13",
+    "track" : "trk_05",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_11_prj_14",
+    "judge" : "jdg_11",
+    "project" : "prj_14",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_11_prj_18",
+    "judge" : "jdg_11",
+    "project" : "prj_18",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_11_prj_26",
+    "judge" : "jdg_11",
+    "project" : "prj_26",
+    "track" : "trk_05",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_11_prj_30",
+    "judge" : "jdg_11",
+    "project" : "prj_30",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_11_prj_35",
+    "judge" : "jdg_11",
+    "project" : "prj_35",
+    "track" : "trk_05",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_11_prj_37",
+    "judge" : "jdg_11",
+    "project" : "prj_37",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_12_prj_02",
+    "judge" : "jdg_12",
+    "project" : "prj_02",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_12_prj_03",
+    "judge" : "jdg_12",
+    "project" : "prj_03",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_12_prj_04",
+    "judge" : "jdg_12",
+    "project" : "prj_04",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_12_prj_07",
+    "judge" : "jdg_12",
+    "project" : "prj_07",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_12_prj_12",
+    "judge" : "jdg_12",
+    "project" : "prj_12",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_12_prj_14",
+    "judge" : "jdg_12",
+    "project" : "prj_14",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_12_prj_18",
+    "judge" : "jdg_12",
+    "project" : "prj_18",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_12_prj_24",
+    "judge" : "jdg_12",
+    "project" : "prj_24",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_12_prj_30",
+    "judge" : "jdg_12",
+    "project" : "prj_30",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_12_prj_37",
+    "judge" : "jdg_12",
+    "project" : "prj_37",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_12_prj_39",
+    "judge" : "jdg_12",
+    "project" : "prj_39",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_12_prj_41",
+    "judge" : "jdg_12",
+    "project" : "prj_41",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_13_prj_01",
+    "judge" : "jdg_13",
+    "project" : "prj_01",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_13_prj_08",
+    "judge" : "jdg_13",
+    "project" : "prj_08",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_13_prj_15",
+    "judge" : "jdg_13",
+    "project" : "prj_15",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_13_prj_16",
+    "judge" : "jdg_13",
+    "project" : "prj_16",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_13_prj_22",
+    "judge" : "jdg_13",
+    "project" : "prj_22",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_14_prj_04",
+    "judge" : "jdg_14",
+    "project" : "prj_04",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_14_prj_12",
+    "judge" : "jdg_14",
+    "project" : "prj_12",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_14_prj_14",
+    "judge" : "jdg_14",
+    "project" : "prj_14",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_14_prj_18",
+    "judge" : "jdg_14",
+    "project" : "prj_18",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_14_prj_30",
+    "judge" : "jdg_14",
+    "project" : "prj_30",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_14_prj_37",
+    "judge" : "jdg_14",
+    "project" : "prj_37",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_15_prj_10",
+    "judge" : "jdg_15",
+    "project" : "prj_10",
+    "track" : "trk_08",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_15_prj_20",
+    "judge" : "jdg_15",
+    "project" : "prj_20",
+    "track" : "trk_08",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_15_prj_23",
+    "judge" : "jdg_15",
+    "project" : "prj_23",
+    "track" : "trk_08",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_15_prj_27",
+    "judge" : "jdg_15",
+    "project" : "prj_27",
+    "track" : "trk_08",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_15_prj_34",
+    "judge" : "jdg_15",
+    "project" : "prj_34",
+    "track" : "trk_08",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_15_prj_36",
+    "judge" : "jdg_15",
+    "project" : "prj_36",
+    "track" : "trk_08",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_16_prj_05",
+    "judge" : "jdg_16",
+    "project" : "prj_05",
+    "track" : "trk_02",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_16_prj_11",
+    "judge" : "jdg_16",
+    "project" : "prj_11",
+    "track" : "trk_02",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_16_prj_21",
+    "judge" : "jdg_16",
+    "project" : "prj_21",
+    "track" : "trk_02",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_16_prj_25",
+    "judge" : "jdg_16",
+    "project" : "prj_25",
+    "track" : "trk_02",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_16_prj_28",
+    "judge" : "jdg_16",
+    "project" : "prj_28",
+    "track" : "trk_02",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_16_prj_38",
+    "judge" : "jdg_16",
+    "project" : "prj_38",
+    "track" : "trk_02",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_17_prj_13",
+    "judge" : "jdg_17",
+    "project" : "prj_13",
+    "track" : "trk_05",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_17_prj_26",
+    "judge" : "jdg_17",
+    "project" : "prj_26",
+    "track" : "trk_05",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_17_prj_35",
+    "judge" : "jdg_17",
+    "project" : "prj_35",
+    "track" : "trk_05",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_18_prj_02",
+    "judge" : "jdg_18",
+    "project" : "prj_02",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_18_prj_03",
+    "judge" : "jdg_18",
+    "project" : "prj_03",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_18_prj_07",
+    "judge" : "jdg_18",
+    "project" : "prj_07",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_18_prj_24",
+    "judge" : "jdg_18",
+    "project" : "prj_24",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_18_prj_39",
+    "judge" : "jdg_18",
+    "project" : "prj_39",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_18_prj_41",
+    "judge" : "jdg_18",
+    "project" : "prj_41",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_19_prj_02",
+    "judge" : "jdg_19",
+    "project" : "prj_02",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_19_prj_03",
+    "judge" : "jdg_19",
+    "project" : "prj_03",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_19_prj_07",
+    "judge" : "jdg_19",
+    "project" : "prj_07",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_19_prj_24",
+    "judge" : "jdg_19",
+    "project" : "prj_24",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_19_prj_39",
+    "judge" : "jdg_19",
+    "project" : "prj_39",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_19_prj_41",
+    "judge" : "jdg_19",
+    "project" : "prj_41",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_20_prj_01",
+    "judge" : "jdg_20",
+    "project" : "prj_01",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_20_prj_08",
+    "judge" : "jdg_20",
+    "project" : "prj_08",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_20_prj_10",
+    "judge" : "jdg_20",
+    "project" : "prj_10",
+    "track" : "trk_08",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_20_prj_15",
+    "judge" : "jdg_20",
+    "project" : "prj_15",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_20_prj_16",
+    "judge" : "jdg_20",
+    "project" : "prj_16",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_20_prj_20",
+    "judge" : "jdg_20",
+    "project" : "prj_20",
+    "track" : "trk_08",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_20_prj_22",
+    "judge" : "jdg_20",
+    "project" : "prj_22",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_20_prj_23",
+    "judge" : "jdg_20",
+    "project" : "prj_23",
+    "track" : "trk_08",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_20_prj_27",
+    "judge" : "jdg_20",
+    "project" : "prj_27",
+    "track" : "trk_08",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_20_prj_34",
+    "judge" : "jdg_20",
+    "project" : "prj_34",
+    "track" : "trk_08",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_20_prj_36",
+    "judge" : "jdg_20",
+    "project" : "prj_36",
+    "track" : "trk_08",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_21_prj_02",
+    "judge" : "jdg_21",
+    "project" : "prj_02",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_21_prj_03",
+    "judge" : "jdg_21",
+    "project" : "prj_03",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_21_prj_07",
+    "judge" : "jdg_21",
+    "project" : "prj_07",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_21_prj_24",
+    "judge" : "jdg_21",
+    "project" : "prj_24",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_21_prj_39",
+    "judge" : "jdg_21",
+    "project" : "prj_39",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_21_prj_41",
+    "judge" : "jdg_21",
+    "project" : "prj_41",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_22_prj_04",
+    "judge" : "jdg_22",
+    "project" : "prj_04",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_22_prj_12",
+    "judge" : "jdg_22",
+    "project" : "prj_12",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_22_prj_14",
+    "judge" : "jdg_22",
+    "project" : "prj_14",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_22_prj_18",
+    "judge" : "jdg_22",
+    "project" : "prj_18",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_22_prj_30",
+    "judge" : "jdg_22",
+    "project" : "prj_30",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_22_prj_37",
+    "judge" : "jdg_22",
+    "project" : "prj_37",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_23_prj_01",
+    "judge" : "jdg_23",
+    "project" : "prj_01",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_23_prj_08",
+    "judge" : "jdg_23",
+    "project" : "prj_08",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_23_prj_09",
+    "judge" : "jdg_23",
+    "project" : "prj_09",
+    "track" : "trk_06",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_23_prj_15",
+    "judge" : "jdg_23",
+    "project" : "prj_15",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_23_prj_16",
+    "judge" : "jdg_23",
+    "project" : "prj_16",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_23_prj_17",
+    "judge" : "jdg_23",
+    "project" : "prj_17",
+    "track" : "trk_06",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_23_prj_19",
+    "judge" : "jdg_23",
+    "project" : "prj_19",
+    "track" : "trk_06",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_23_prj_22",
+    "judge" : "jdg_23",
+    "project" : "prj_22",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_24_prj_04",
+    "judge" : "jdg_24",
+    "project" : "prj_04",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_24_prj_06",
+    "judge" : "jdg_24",
+    "project" : "prj_06",
+    "track" : "trk_01",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_24_prj_12",
+    "judge" : "jdg_24",
+    "project" : "prj_12",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_24_prj_14",
+    "judge" : "jdg_24",
+    "project" : "prj_14",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_24_prj_18",
+    "judge" : "jdg_24",
+    "project" : "prj_18",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_24_prj_29",
+    "judge" : "jdg_24",
+    "project" : "prj_29",
+    "track" : "trk_01",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_24_prj_30",
+    "judge" : "jdg_24",
+    "project" : "prj_30",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_24_prj_31",
+    "judge" : "jdg_24",
+    "project" : "prj_31",
+    "track" : "trk_01",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_24_prj_32",
+    "judge" : "jdg_24",
+    "project" : "prj_32",
+    "track" : "trk_01",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_24_prj_33",
+    "judge" : "jdg_24",
+    "project" : "prj_33",
+    "track" : "trk_01",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_24_prj_37",
+    "judge" : "jdg_24",
+    "project" : "prj_37",
+    "track" : "trk_07",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_24_prj_40",
+    "judge" : "jdg_24",
+    "project" : "prj_40",
+    "track" : "trk_01",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_25_prj_05",
+    "judge" : "jdg_25",
+    "project" : "prj_05",
+    "track" : "trk_02",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_25_prj_11",
+    "judge" : "jdg_25",
+    "project" : "prj_11",
+    "track" : "trk_02",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_25_prj_21",
+    "judge" : "jdg_25",
+    "project" : "prj_21",
+    "track" : "trk_02",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_25_prj_25",
+    "judge" : "jdg_25",
+    "project" : "prj_25",
+    "track" : "trk_02",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_25_prj_28",
+    "judge" : "jdg_25",
+    "project" : "prj_28",
+    "track" : "trk_02",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_25_prj_38",
+    "judge" : "jdg_25",
+    "project" : "prj_38",
+    "track" : "trk_02",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_26_prj_02",
+    "judge" : "jdg_26",
+    "project" : "prj_02",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_26_prj_03",
+    "judge" : "jdg_26",
+    "project" : "prj_03",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_26_prj_06",
+    "judge" : "jdg_26",
+    "project" : "prj_06",
+    "track" : "trk_01",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_26_prj_07",
+    "judge" : "jdg_26",
+    "project" : "prj_07",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_26_prj_24",
+    "judge" : "jdg_26",
+    "project" : "prj_24",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_26_prj_29",
+    "judge" : "jdg_26",
+    "project" : "prj_29",
+    "track" : "trk_01",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_26_prj_31",
+    "judge" : "jdg_26",
+    "project" : "prj_31",
+    "track" : "trk_01",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_26_prj_32",
+    "judge" : "jdg_26",
+    "project" : "prj_32",
+    "track" : "trk_01",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_26_prj_33",
+    "judge" : "jdg_26",
+    "project" : "prj_33",
+    "track" : "trk_01",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_26_prj_39",
+    "judge" : "jdg_26",
+    "project" : "prj_39",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_26_prj_40",
+    "judge" : "jdg_26",
+    "project" : "prj_40",
+    "track" : "trk_01",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_26_prj_41",
+    "judge" : "jdg_26",
+    "project" : "prj_41",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_27_prj_09",
+    "judge" : "jdg_27",
+    "project" : "prj_09",
+    "track" : "trk_06",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_27_prj_17",
+    "judge" : "jdg_27",
+    "project" : "prj_17",
+    "track" : "trk_06",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_27_prj_19",
+    "judge" : "jdg_27",
+    "project" : "prj_19",
+    "track" : "trk_06",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_28_prj_01",
+    "judge" : "jdg_28",
+    "project" : "prj_01",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_28_prj_08",
+    "judge" : "jdg_28",
+    "project" : "prj_08",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_28_prj_15",
+    "judge" : "jdg_28",
+    "project" : "prj_15",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_28_prj_16",
+    "judge" : "jdg_28",
+    "project" : "prj_16",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_28_prj_22",
+    "judge" : "jdg_28",
+    "project" : "prj_22",
+    "track" : "trk_04",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_29_prj_09",
+    "judge" : "jdg_29",
+    "project" : "prj_09",
+    "track" : "trk_06",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_29_prj_10",
+    "judge" : "jdg_29",
+    "project" : "prj_10",
+    "track" : "trk_08",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_29_prj_17",
+    "judge" : "jdg_29",
+    "project" : "prj_17",
+    "track" : "trk_06",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_29_prj_19",
+    "judge" : "jdg_29",
+    "project" : "prj_19",
+    "track" : "trk_06",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_29_prj_20",
+    "judge" : "jdg_29",
+    "project" : "prj_20",
+    "track" : "trk_08",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_29_prj_23",
+    "judge" : "jdg_29",
+    "project" : "prj_23",
+    "track" : "trk_08",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_29_prj_27",
+    "judge" : "jdg_29",
+    "project" : "prj_27",
+    "track" : "trk_08",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_29_prj_34",
+    "judge" : "jdg_29",
+    "project" : "prj_34",
+    "track" : "trk_08",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_29_prj_36",
+    "judge" : "jdg_29",
+    "project" : "prj_36",
+    "track" : "trk_08",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_30_prj_05",
+    "judge" : "jdg_30",
+    "project" : "prj_05",
+    "track" : "trk_02",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_30_prj_11",
+    "judge" : "jdg_30",
+    "project" : "prj_11",
+    "track" : "trk_02",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_30_prj_21",
+    "judge" : "jdg_30",
+    "project" : "prj_21",
+    "track" : "trk_02",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_30_prj_25",
+    "judge" : "jdg_30",
+    "project" : "prj_25",
+    "track" : "trk_02",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_30_prj_28",
+    "judge" : "jdg_30",
+    "project" : "prj_28",
+    "track" : "trk_02",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_30_prj_38",
+    "judge" : "jdg_30",
+    "project" : "prj_38",
+    "track" : "trk_02",
+    "status" : "ACTIVE",
+    "source" : "fixture_track_seed"
+  }, {
+    "id" : "asg_jdg_01_prj_41",
+    "judge" : "jdg_01",
+    "project" : "prj_41",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "organizer_assignment"
+  }, {
+    "id" : "asg_jdg_01_prj_07",
+    "judge" : "jdg_01",
+    "project" : "prj_07",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "organizer_assignment"
+  }, {
+    "id" : "asg_jdg_01_prj_39",
+    "judge" : "jdg_01",
+    "project" : "prj_39",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "organizer_assignment"
+  }, {
+    "id" : "asg_jdg_01_prj_03",
+    "judge" : "jdg_01",
+    "project" : "prj_03",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "organizer_assignment"
+  }, {
+    "id" : "asg_jdg_01_prj_02",
+    "judge" : "jdg_01",
+    "project" : "prj_02",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "organizer_assignment"
+  }, {
+    "id" : "asg_jdg_01_prj_24",
+    "judge" : "jdg_01",
+    "project" : "prj_24",
+    "track" : "trk_03",
+    "status" : "ACTIVE",
+    "source" : "organizer_assignment"
+  } ]
+}

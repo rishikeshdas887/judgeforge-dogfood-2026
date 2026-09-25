@@ -1,0 +1,152 @@
+[ {
+  "id" : "aud_61a716c3-2d4c-41a9-be31-56db28946d13",
+  "actor" : "organizer",
+  "action" : "NORMALIZATION_EXECUTED",
+  "target" : "results:normalization",
+  "timestamp" : "2026-09-25T21:55:11.966264473Z",
+  "before" : null,
+  "after" : {
+    "normalization_version" : "zscore-v1",
+    "eligible_ballots" : 126,
+    "input_fingerprint_sha256" : "7f95fe88f690c08bb14cc99c5cc5f675edde59e536ed306dc0f9934a198057d6",
+    "epsilon" : 1.0E-6,
+    "minimum_sample_size" : 3
+  },
+  "reason" : "normalization_run",
+  "request_id" : "req_8a08bf47-0162-4eee-97db-a9916a603328"
+}, {
+  "id" : "aud_470c2483-a72d-46a5-99e3-d7b924c0b782",
+  "actor" : "judge_a",
+  "action" : "BALLOT_EDITED",
+  "target" : "ballot:jdg_01:prj_07",
+  "timestamp" : "2026-09-25T21:56:39.803369366Z",
+  "before" : {
+    "judge" : "jdg_01",
+    "project" : "prj_07",
+    "criteria" : {
+      "functionality" : 2,
+      "quality" : 2,
+      "innovation" : 2
+    },
+    "comment" : "Docs are thin."
+  },
+  "after" : {
+    "judge" : "jdg_01",
+    "project" : "prj_07",
+    "criteria" : {
+      "functionality" : 2,
+      "quality" : 2,
+      "innovation" : 2
+    },
+    "comment" : "Docs are thin."
+  },
+  "reason" : "judge_edit",
+  "request_id" : "req_1c7f78bd-65d8-4ea4-8afb-90b4ad631319"
+}, {
+  "id" : "aud_c4827195-d17c-4d83-bd89-e1ad3f449220",
+  "actor" : "organizer",
+  "action" : "JUDGE_ASSIGNED",
+  "target" : "judge:jdg_01",
+  "timestamp" : "2026-09-25T22:03:03.248929688Z",
+  "before" : {
+    "project_ids" : [ "prj_02", "prj_03", "prj_07", "prj_24", "prj_39", "prj_41" ]
+  },
+  "after" : {
+    "project_ids" : [ "prj_02", "prj_03", "prj_07", "prj_24", "prj_39", "prj_41" ]
+  },
+  "reason" : "assignment_updated",
+  "request_id" : "req_149c3ea0-92dd-4f9b-9ca8-e9fe8b5166e0"
+}, {
+  "id" : "aud_998beb11-9b93-4e5a-8cce-fc5fc7609554",
+  "actor" : "judge_a",
+  "action" : "BALLOT_SUBMITTED",
+  "target" : "ballot:jdg_01:prj_41",
+  "timestamp" : "2026-09-25T22:04:17.261309049Z",
+  "before" : null,
+  "after" : {
+    "judge" : "jdg_01",
+    "project" : "prj_41",
+    "criteria" : {
+      "functionality" : 4,
+      "quality" : 4,
+      "innovation" : 4
+    },
+    "comment" : "Audit submission test."
+  },
+  "reason" : "initial_submission",
+  "request_id" : "req_ad4c665a-65b1-4e3c-a07c-cb3a5c1c075c"
+}, {
+  "id" : "aud_82471995-8d7c-47ac-8b74-00a42d80f9bf",
+  "actor" : "judge_b",
+  "action" : "BALLOT_ACCESS_DENIED",
+  "target" : "ballot:jdg_02:prj_41",
+  "timestamp" : "2026-09-25T22:10:24.386926269Z",
+  "before" : null,
+  "after" : null,
+  "reason" : "judge_assignment_denied",
+  "request_id" : "req_b39646fc-af86-43ad-9f5b-325cd55bf2b1"
+}, {
+  "id" : "aud_8266a32d-9c6a-41e1-bc1c-2f961369713c",
+  "actor" : "organizer",
+  "action" : "NORMALIZATION_EXECUTED",
+  "target" : "results:normalization",
+  "timestamp" : "2026-09-25T22:12:45.696041199Z",
+  "before" : null,
+  "after" : {
+    "normalization_version" : "zscore-v1",
+    "eligible_ballots" : 127,
+    "input_fingerprint_sha256" : "f92c0dc17ea1045d0c4d160bb6f348b20b4ace89ea1794554194a34b8707e179",
+    "epsilon" : 1.0E-6,
+    "minimum_sample_size" : 3
+  },
+  "reason" : "normalization_run",
+  "request_id" : "req_33e61ec9-912a-4d42-800e-5e262421910d"
+}, {
+  "id" : "aud_e1e09450-1402-41ac-9e29-378a295d0c8d",
+  "actor" : "organizer",
+  "action" : "NORMALIZATION_EXECUTED",
+  "target" : "results:normalization",
+  "timestamp" : "2026-09-25T22:12:45.787775829Z",
+  "before" : null,
+  "after" : {
+    "normalization_version" : "zscore-v1",
+    "eligible_ballots" : 127,
+    "input_fingerprint_sha256" : "f92c0dc17ea1045d0c4d160bb6f348b20b4ace89ea1794554194a34b8707e179",
+    "epsilon" : 1.0E-6,
+    "minimum_sample_size" : 3
+  },
+  "reason" : "normalization_run",
+  "request_id" : "req_a9b3a043-a97c-4d6f-bc83-8f4fed09edcb"
+}, {
+  "id" : "aud_8d3a90d6-2316-4a24-91df-c9d95f4bae55",
+  "actor" : "organizer",
+  "action" : "NORMALIZATION_EXECUTED",
+  "target" : "results:normalization",
+  "timestamp" : "2026-09-25T22:17:11.108828975Z",
+  "before" : null,
+  "after" : {
+    "normalization_version" : "zscore-v1",
+    "eligible_ballots" : 126,
+    "input_fingerprint_sha256" : "7f95fe88f690c08bb14cc99c5cc5f675edde59e536ed306dc0f9934a198057d6",
+    "epsilon" : 1.0E-6,
+    "minimum_sample_size" : 3
+  },
+  "reason" : "normalization_run",
+  "request_id" : "req_fd48ddd2-a7e8-4311-8f53-50755123b0f3"
+}, {
+  "id" : "aud_a8815ead-cadf-4fcb-a965-aa343e62300c",
+  "actor" : "organizer",
+  "action" : "NORMALIZATION_EXECUTED",
+  "target" : "results:normalization",
+  "timestamp" : "2026-09-25T22:17:50.187411070Z",
+  "before" : null,
+  "after" : {
+    "normalization_version" : "zscore-v1",
+    "eligible_ballots" : 126,
+    "input_fingerprint_sha256" : "7f95fe88f690c08bb14cc99c5cc5f675edde59e536ed306dc0f9934a198057d6",
+    "epsilon" : 1.0E-6,
+    "minimum_sample_size" : 3
+  },
+  "reason" : "normalization_run",
+  "request_id" : "req_cded8ddf-007b-4902-9e4e-4fd3f9a22dac"
+} ]
