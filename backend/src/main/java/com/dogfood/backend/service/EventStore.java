@@ -67,17 +67,27 @@ public class EventStore {
     public synchronized ObjectNode write(
             JsonNode event
     ) {
-        validateEvent(event);
+        ObjectNode normalized =
+                (ObjectNode) event.deepCopy();
+
+        if (!normalized.has("custom_questions")) {
+            normalized.set(
+                    "custom_questions",
+                    JsonNodeFactory.instance.arrayNode()
+            );
+        }
+
+        validateEvent(normalized);
 
         ObjectNode root =
                 JsonNodeFactory.instance.objectNode();
 
         root.put("version", 1);
-        root.set("event", event.deepCopy());
+        root.set("event", normalized);
 
         writeRoot(root);
 
-        return (ObjectNode) event.deepCopy();
+        return (ObjectNode) normalized.deepCopy();
     }
 
     public synchronized boolean submissionsOpen() {
@@ -150,6 +160,11 @@ public class EventStore {
 
         event.set(
                 "prizes",
+                JsonNodeFactory.instance.arrayNode()
+        );
+
+        event.set(
+                "custom_questions",
                 JsonNodeFactory.instance.arrayNode()
         );
 
@@ -249,6 +264,47 @@ public class EventStore {
 
                 throw new IllegalArgumentException(
                         "Every prize requires id and name"
+                );
+            }
+        }
+
+        JsonNode customQuestions =
+                event.path("custom_questions");
+
+        if (!customQuestions.isArray()) {
+            throw new IllegalArgumentException(
+                    "custom_questions must be an array"
+            );
+        }
+
+        for (JsonNode question : customQuestions) {
+            if (!question.isObject()) {
+                throw new IllegalArgumentException(
+                        "Every custom question must be an object"
+                );
+            }
+
+            String questionId =
+                    question.path("id").asText("");
+
+            String prompt =
+                    question.path("prompt").asText("");
+
+            String type =
+                    question.path("type")
+                            .asText("text");
+
+            if (questionId.isBlank()
+                    || prompt.isBlank()) {
+                throw new IllegalArgumentException(
+                        "Every custom question requires id and prompt"
+                );
+            }
+
+            if (!"text".equals(type)
+                    && !"textarea".equals(type)) {
+                throw new IllegalArgumentException(
+                        "Custom question type must be text or textarea"
                 );
             }
         }

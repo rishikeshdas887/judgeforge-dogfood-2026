@@ -11,7 +11,9 @@ const blankForm = {
   live_link: '',
   demo_video_url: '',
   thumbnail: '',
+  image_gallery: '',
   tech_tags: '',
+  custom_answers: {},
 }
 
 function projectToForm(project) {
@@ -26,9 +28,18 @@ function projectToForm(project) {
     live_link: project.live_link || '',
     demo_video_url: project.demo_video_url || '',
     thumbnail: project.thumbnail || '',
+    image_gallery: Array.isArray(project.image_gallery)
+      ? project.image_gallery.join(', ')
+      : '',
     tech_tags: Array.isArray(project.tech_tags)
       ? project.tech_tags.join(', ')
       : '',
+    custom_answers:
+      project.custom_answers &&
+      typeof project.custom_answers === 'object' &&
+      !Array.isArray(project.custom_answers)
+        ? project.custom_answers
+        : {},
   }
 }
 
@@ -43,10 +54,15 @@ function formToPayload(form) {
     live_link: form.live_link,
     demo_video_url: form.demo_video_url,
     thumbnail: form.thumbnail,
+    image_gallery: form.image_gallery
+      .split(',')
+      .map((url) => url.trim())
+      .filter(Boolean),
     tech_tags: form.tech_tags
       .split(',')
       .map((tag) => tag.trim())
       .filter(Boolean),
+    custom_answers: form.custom_answers,
   }
 }
 
@@ -223,6 +239,32 @@ export default function ParticipantDashboard({ user }) {
     }
   }
 
+  function updateCustomAnswer(questionId, value) {
+    setForm((current) => ({
+      ...current,
+      custom_answers: {
+        ...current.custom_answers,
+        [questionId]: value,
+      },
+    }))
+  }
+
+  function validateRequiredCustomQuestions() {
+    const missing = (event?.custom_questions || []).filter(
+      (question) =>
+        question.required &&
+        !String(form.custom_answers?.[question.id] || '').trim(),
+    )
+
+    if (missing.length > 0) {
+      throw new Error(
+        `Required questions missing: ${missing
+          .map((question) => question.prompt)
+          .join(', ')}`,
+      )
+    }
+  }
+
   async function saveDraft(e) {
     e.preventDefault()
     setSaving(true)
@@ -277,6 +319,8 @@ export default function ParticipantDashboard({ user }) {
     setMessage('')
 
     try {
+      validateRequiredCustomQuestions()
+
       const updated = await api(`/api/projects/${form.id}`, {
         method: 'PUT',
         body: JSON.stringify(formToPayload(form)),
@@ -539,6 +583,17 @@ export default function ParticipantDashboard({ user }) {
               />
             </label>
 
+            <label>
+              Image gallery URLs
+              <input
+                value={form.image_gallery}
+                placeholder="https://..., https://..."
+                onChange={(e) =>
+                  setForm({ ...form, image_gallery: e.target.value })
+                }
+              />
+            </label>
+
             <label className="form-wide">
               Tech tags
               <input
@@ -549,6 +604,46 @@ export default function ParticipantDashboard({ user }) {
                 }
               />
             </label>
+
+            {(event?.custom_questions || []).length > 0 && (
+              <div className="form-wide">
+                <div className="section-header">
+                  <div>
+                    <p className="eyebrow">EVENT QUESTIONS</p>
+                    <h3>Additional submission questions</h3>
+                  </div>
+                </div>
+
+                <div className="form-grid">
+                  {event.custom_questions.map((question, index) => (
+                    <label
+                      className={question.type === 'textarea' ? 'form-wide' : ''}
+                      key={`${question.id}-${index}`}
+                    >
+                      {question.prompt}
+                      {question.required ? ' *' : ''}
+
+                      {question.type === 'textarea' ? (
+                        <textarea
+                          rows="5"
+                          value={form.custom_answers?.[question.id] || ''}
+                          onChange={(e) =>
+                            updateCustomAnswer(question.id, e.target.value)
+                          }
+                        />
+                      ) : (
+                        <input
+                          value={form.custom_answers?.[question.id] || ''}
+                          onChange={(e) =>
+                            updateCustomAnswer(question.id, e.target.value)
+                          }
+                        />
+                      )}
+                    </label>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="form-actions">

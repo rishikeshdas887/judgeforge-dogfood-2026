@@ -748,6 +748,35 @@ public class ProjectStore {
                     "Team is required before submission"
             );
         }
+
+        JsonNode customQuestions =
+                eventStore.read().path("custom_questions");
+
+        JsonNode customAnswers =
+                project.path("custom_answers");
+
+        if (customQuestions.isArray()) {
+            for (JsonNode question : customQuestions) {
+                if (!question.path("required").asBoolean(false)) {
+                    continue;
+                }
+
+                String questionId =
+                        question.path("id").asText("");
+
+                String answer =
+                        customAnswers.path(questionId)
+                                .asText("");
+
+                if (answer.isBlank()) {
+                    throw new IllegalArgumentException(
+                            "Required custom question is unanswered: "
+                                    + question.path("prompt")
+                                            .asText(questionId)
+                    );
+                }
+            }
+        }
     }
 
     private void ensureSubmissionsOpen() {

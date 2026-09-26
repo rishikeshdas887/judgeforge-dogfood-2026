@@ -27,6 +27,15 @@ function createPrize() {
   }
 }
 
+function createCustomQuestion() {
+  return {
+    id: `question_${Date.now()}`,
+    prompt: '',
+    type: 'text',
+    required: false,
+  }
+}
+
 export default function EventConfiguration() {
   const [event, setEvent] = useState(null)
   const [saving, setSaving] = useState(false)
@@ -51,6 +60,9 @@ export default function EventConfiguration() {
       submissions_close: toLocalInput(data.submissions_close),
       tracks: Array.isArray(data.tracks) ? data.tracks : [],
       prizes: Array.isArray(data.prizes) ? data.prizes : [],
+      custom_questions: Array.isArray(data.custom_questions)
+        ? data.custom_questions
+        : [],
     })
   }
 
@@ -110,6 +122,34 @@ export default function EventConfiguration() {
     )
   }
 
+  function updateCustomQuestion(index, field, value) {
+    setEvent((current) => ({
+      ...current,
+      custom_questions: current.custom_questions.map(
+        (question, questionIndex) =>
+          questionIndex === index
+            ? { ...question, [field]: value }
+            : question,
+      ),
+    }))
+  }
+
+  function addCustomQuestion() {
+    update('custom_questions', [
+      ...event.custom_questions,
+      createCustomQuestion(),
+    ])
+  }
+
+  function removeCustomQuestion(index) {
+    update(
+      'custom_questions',
+      event.custom_questions.filter(
+        (_, questionIndex) => questionIndex !== index,
+      ),
+    )
+  }
+
   function buildPayload(source) {
     return {
       ...source,
@@ -122,6 +162,12 @@ export default function EventConfiguration() {
       prizes: source.prizes.map((prize) => ({
         id: prize.id.trim(),
         name: prize.name.trim(),
+      })),
+      custom_questions: source.custom_questions.map((question) => ({
+        id: question.id.trim(),
+        prompt: question.prompt.trim(),
+        type: question.type || 'text',
+        required: Boolean(question.required),
       })),
     }
   }
@@ -178,6 +224,7 @@ export default function EventConfiguration() {
         submissions_close: toIso(event.submissions_close),
         tracks: event.tracks,
         prizes: event.prizes,
+        custom_questions: event.custom_questions,
       }
 
       const response = await fetch('/api/organizer/events', {
@@ -358,6 +405,82 @@ export default function EventConfiguration() {
 
         {event.prizes.length === 0 && (
           <p className="muted">No prizes configured.</p>
+        )}
+      </div>
+
+      <div className="event-list-header">
+        <div>
+          <h4>Custom submission questions</h4>
+          <p>
+            Questions shown to participants as part of their submission.
+          </p>
+        </div>
+
+        <button
+          className="secondary-button"
+          type="button"
+          onClick={addCustomQuestion}
+        >
+          Add question
+        </button>
+      </div>
+
+      <div className="event-item-list">
+        {event.custom_questions.map((question, index) => (
+          <div className="custom-question-row" key={question.id}>
+            <input
+              value={question.id}
+              onChange={(e) =>
+                updateCustomQuestion(index, 'id', e.target.value)
+              }
+              placeholder="Question ID"
+            />
+
+            <input
+              value={question.prompt}
+              onChange={(e) =>
+                updateCustomQuestion(index, 'prompt', e.target.value)
+              }
+              placeholder="Question prompt"
+            />
+
+            <select
+              value={question.type || 'text'}
+              onChange={(e) =>
+                updateCustomQuestion(index, 'type', e.target.value)
+              }
+            >
+              <option value="text">Text</option>
+              <option value="textarea">Long text</option>
+            </select>
+
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={Boolean(question.required)}
+                onChange={(e) =>
+                  updateCustomQuestion(
+                    index,
+                    'required',
+                    e.target.checked,
+                  )
+                }
+              />
+              Required
+            </label>
+
+            <button
+              className="secondary-button"
+              type="button"
+              onClick={() => removeCustomQuestion(index)}
+            >
+              Remove
+            </button>
+          </div>
+        ))}
+
+        {event.custom_questions.length === 0 && (
+          <p className="muted">No custom submission questions.</p>
         )}
       </div>
 
