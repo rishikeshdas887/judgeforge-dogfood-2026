@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import EventConfiguration from './EventConfiguration'
 
 export default function OrganizerDashboard() {
   const [rubric, setRubric] = useState(null)
@@ -125,6 +126,8 @@ export default function OrganizerDashboard() {
 
   return (
     <section className="organizer-section">
+      <EventConfiguration />
+
       <div className="section-header organizer-header">
         <div>
           <p className="eyebrow">ORGANIZER</p>
