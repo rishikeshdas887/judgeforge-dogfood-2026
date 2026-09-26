@@ -14,6 +14,9 @@ const ROLES = [
 function App() {
   const [user, setUser] = useState(null)
   const [projects, setProjects] = useState([])
+  const [tracks, setTracks] = useState([])
+  const [search, setSearch] = useState('')
+  const [trackFilter, setTrackFilter] = useState('')
   const [role, setRole] = useState('participant')
   const [loading, setLoading] = useState(true)
   const [loginLoading, setLoginLoading] = useState(false)
@@ -22,6 +25,10 @@ function App() {
   useEffect(() => {
     checkSession()
   }, [])
+
+  useEffect(() => {
+    loadProjects()
+  }, [search, trackFilter])
 
   async function checkSession() {
     try {
@@ -72,13 +79,22 @@ function App() {
     setUser(null)
   }
 
-  useEffect(() => {
-    loadProjects()
-  }, [])
-
   async function loadProjects() {
     try {
-      const response = await fetch('/projects')
+      const params = new URLSearchParams()
+
+      if (search.trim()) {
+        params.set('search', search.trim())
+      }
+
+      if (trackFilter) {
+        params.set('track', trackFilter)
+      }
+
+      const query = params.toString()
+      const response = await fetch(
+        query ? `/projects?${query}` : '/projects',
+      )
 
       if (!response.ok) {
         throw new Error(`Request failed: ${response.status}`)
@@ -86,6 +102,18 @@ function App() {
 
       const data = await response.json()
       setProjects(data)
+
+      setTracks((current) => {
+        const values = new Set(current)
+
+        for (const project of data) {
+          if (project.track) {
+            values.add(project.track)
+          }
+        }
+
+        return [...values].sort()
+      })
     } catch {
       setError('Could not load projects.')
     }
@@ -166,41 +194,72 @@ function App() {
           {user.role === 'PARTICIPANT' && (
             <ParticipantDashboard user={user} />
           )}
-
-          <section className="gallery-section">
-            <div className="section-header">
-              <h2>Project Gallery</h2>
-              <span>{projects.length} projects</span>
-            </div>
-
-            <div className="project-grid">
-              {projects.map((project) => (
-                <article className="project-card" key={project.id}>
-                  <div className="project-meta">
-                    <span>{project.track}</span>
-                    <span>{project.id}</span>
-                  </div>
-
-                  <h3>{project.title}</h3>
-                  <p>{project.summary}</p>
-
-                  <div className="project-footer">
-                    <span>{project.team}</span>
-
-                    <a
-                      href={project.repo_url}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Repository →
-                    </a>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </section>
         </>
       )}
+
+      <section className="gallery-section">
+        <div className="section-header">
+          <div>
+            <p className="eyebrow">PUBLIC GALLERY</p>
+            <h2>Projects</h2>
+          </div>
+
+          <span>{projects.length} projects</span>
+        </div>
+
+        <div className="gallery-controls">
+          <input
+            type="search"
+            value={search}
+            placeholder="Search projects, teams, or tracks..."
+            onChange={(e) => setSearch(e.target.value)}
+          />
+
+          <select
+            value={trackFilter}
+            onChange={(e) => setTrackFilter(e.target.value)}
+          >
+            <option value="">All tracks</option>
+            {tracks.map((track) => (
+              <option key={track} value={track}>
+                {track}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="project-grid">
+          {projects.length === 0 ? (
+            <div className="empty-state">
+              No projects match the current filters.
+            </div>
+          ) : (
+            projects.map((project) => (
+              <article className="project-card" key={project.id}>
+                <div className="project-meta">
+                  <span>{project.track}</span>
+                  <span>{project.id}</span>
+                </div>
+
+                <h3>{project.title}</h3>
+                <p>{project.summary}</p>
+
+                <div className="project-footer">
+                  <span>{project.team}</span>
+
+                  <a
+                    href={project.repo_url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Repository →
+                  </a>
+                </div>
+              </article>
+            ))
+          )}
+        </div>
+      </section>
     </main>
   )
 }
