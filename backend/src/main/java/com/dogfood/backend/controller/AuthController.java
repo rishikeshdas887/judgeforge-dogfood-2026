@@ -25,6 +25,7 @@ public class AuthController {
             HttpServletResponse response
     ) {
         String value = switch (role.toLowerCase()) {
+            case "admin" -> "adm_1a2b";
             case "organizer" -> "org_7f2a";
             case "judge_a" -> "jdg_a_91bc";
             case "judge_b" -> "jdg_b_44de";
