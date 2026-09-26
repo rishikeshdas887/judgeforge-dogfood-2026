@@ -62,6 +62,45 @@ class EventControllerTest {
     }
 
     @Test
+    void participantCanReadEvent() {
+        Mockito.when(
+                authService.currentUser(request)
+        ).thenReturn(
+                java.util.Optional.of(
+                        new AuthService.User(
+                                "participant",
+                                AuthService.Role.PARTICIPANT
+                        )
+                )
+        );
+
+        ObjectNode event =
+                objectMapper.createObjectNode();
+
+        event.put("id", "evt_test");
+        event.put("name", "Test Event");
+
+        Mockito.when(eventStore.read())
+                .thenReturn(event);
+
+        var response =
+                controller.getParticipantEvent(request);
+
+        assertEquals(
+                200,
+                response.getStatusCode().value()
+        );
+
+        assertNotNull(response.getBody());
+        assertEquals(
+                "evt_test",
+                ((ObjectNode) response.getBody())
+                        .path("id")
+                        .asText()
+        );
+    }
+
+    @Test
     void organizerCanReadEvent() {
         Mockito.when(
                 authService.currentUser(request)

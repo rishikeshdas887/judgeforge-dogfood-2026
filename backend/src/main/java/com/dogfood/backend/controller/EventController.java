@@ -41,6 +41,25 @@ public class EventController {
         return ResponseEntity.ok(eventStore.read());
     }
 
+    @GetMapping("/api/participant/event")
+    public ResponseEntity<?> getParticipantEvent(
+            HttpServletRequest request
+    ) {
+        var user = authService.currentUser(request);
+
+        if (user.isEmpty()) {
+            return ResponseEntity.status(401)
+                    .body("Authentication required");
+        }
+
+        if (user.get().role() != AuthService.Role.PARTICIPANT) {
+            return ResponseEntity.status(403)
+                    .body("Participant access required");
+        }
+
+        return ResponseEntity.ok(eventStore.read());
+    }
+
     @PostMapping("/api/organizer/events")
     public ResponseEntity<?> createEvent(
             @RequestBody JsonNode body,
