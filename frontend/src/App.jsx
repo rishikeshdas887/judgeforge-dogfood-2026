@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import OrganizerDashboard from './OrganizerDashboard'
+import JudgeDashboard from './JudgeDashboard'
 import './App.css'
 
 const ROLES = [
@@ -156,6 +157,10 @@ function App() {
           </section>
 
           {user.role === 'ORGANIZER' && <OrganizerDashboard />}
+
+          {(user.role === 'JUDGE_A' || user.role === 'JUDGE_B') && (
+            <JudgeDashboard />
+          )}
 
           <section className="gallery-section">
             <div className="section-header">

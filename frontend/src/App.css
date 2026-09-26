@@ -499,3 +499,72 @@ select {
     grid-template-columns: 1fr;
   }
 }
+
+.judge-project-list {
+  display: grid;
+  gap: 16px;
+}
+
+.judge-project-list .dashboard-card {
+  margin: 0;
+}
+
+.judge-rubric-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.judge-rubric-grid > div {
+  padding: 14px;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  background: #fafafa;
+}
+
+.judge-rubric-grid label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.judge-rubric-grid input {
+  width: 100%;
+  padding: 10px 11px;
+  border: 1px solid #d7d7d7;
+  border-radius: 10px;
+  background: white;
+}
+
+.judge-rubric-grid small {
+  display: block;
+  margin-top: 7px;
+  color: #777;
+  font-size: 0.75rem;
+}
+
+.judge-comment-label {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.judge-comment {
+  width: 100%;
+  resize: vertical;
+  padding: 12px;
+  border: 1px solid #d7d7d7;
+  border-radius: 10px;
+  font: inherit;
+  line-height: 1.5;
+}
+
+@media (max-width: 700px) {
+  .judge-rubric-grid {
+    grid-template-columns: 1fr;
+  }
+}
