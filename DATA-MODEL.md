@@ -230,9 +230,35 @@ Root structure:
 
 ```json
 {
-  "runs": []
+  "runs": [],
+  "published": null,
+  "history": []
 }
 ```
+
+`runs` stores each normalization execution. `published` stores the latest
+publicly published result snapshot, or `null` before the first publication.
+`history` retains previously published snapshots.
+
+A published snapshot has this structure:
+
+```json
+{
+  "normalization_version": "zscore-v1",
+  "published_at": "<ISO-8601 timestamp>",
+  "results": [
+    {
+      "project": "<project id>",
+      "title": "<project title>",
+      "normalized_average": 0.0,
+      "rank": 1
+    }
+  ]
+}
+```
+
+The published result objects contain project-level results only. Judge
+identities and raw judge scores are not exposed in the published snapshot.
 
 Each normalization run stores the parameters and generated results for one
 normalization execution.

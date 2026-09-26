@@ -20,7 +20,7 @@ public class AuditStore {
 
     public AuditStore(JsonMapper jsonMapper) {
         this.jsonMapper = jsonMapper;
-        this.auditPath = Path.of("/app/data/audit-events.json");
+        this.auditPath = Path.of("data/audit-events.json");
 
         try {
             Files.createDirectories(auditPath.getParent());

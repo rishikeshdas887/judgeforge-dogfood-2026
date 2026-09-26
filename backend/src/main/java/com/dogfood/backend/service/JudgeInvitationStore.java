@@ -30,7 +30,7 @@ public class JudgeInvitationStore {
         this.jsonMapper = jsonMapper;
         this.fixtureStore = fixtureStore;
         this.invitationPath =
-                Path.of("/app/data/judge-invitations.json");
+                Path.of("data/judge-invitations.json");
 
         try {
             Files.createDirectories(

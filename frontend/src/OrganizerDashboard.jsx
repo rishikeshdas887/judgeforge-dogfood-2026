@@ -391,6 +391,28 @@ export default function OrganizerDashboard() {
     }
   }
 
+  async function publishResults() {
+    setResultMessage("")
+
+    try {
+      const response = await fetch("/api/results/publish", {
+        method: "POST",
+        credentials: "include",
+      })
+
+      const data = await readResponse(
+        response,
+        "Could not publish results",
+      )
+
+      setResultMessage(
+        `Results published at ${data.published_at}.`,
+      )
+    } catch (error) {
+      setResultMessage(error.message)
+    }
+  }
+
   async function refreshResults() {
     setResultMessage('')
 
@@ -757,6 +779,14 @@ export default function OrganizerDashboard() {
             onClick={normalizeResults}
           >
             Run normalization
+          </button>
+
+          <button
+            className="secondary-button compact-button"
+            onClick={publishResults}
+            disabled={!results}
+          >
+            Publish results
           </button>
 
           <button

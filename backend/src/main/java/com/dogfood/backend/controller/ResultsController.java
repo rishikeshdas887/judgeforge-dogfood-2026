@@ -796,6 +796,131 @@ public class ResultsController {
         return ResponseEntity.ok(run);
     }
 
+    @PostMapping("/api/results/publish")
+    public ResponseEntity<?> publishResults(
+            HttpServletRequest request
+    ) {
+        var user =
+                authService.currentUser(request);
+
+        if (user.isEmpty()) {
+            return ResponseEntity.status(401)
+                    .body("Authentication required");
+        }
+
+        if (!AuthService.isOrganizerOrAdmin(user.get().role())) {
+            return ResponseEntity.status(403)
+                    .body("Organizer access required");
+        }
+
+        ObjectNode latest =
+                normalizationStore.latestRun();
+
+        if (latest == null) {
+            return ResponseEntity.badRequest()
+                    .body("Run normalization before publishing results");
+        }
+
+        ArrayNode sourceResults =
+                latest.withArray("results");
+
+        ArrayNode publicResults =
+                JsonNodeFactory.instance.arrayNode();
+
+        List<ObjectNode> ranked =
+                new ArrayList<>();
+
+        for (JsonNode result : sourceResults) {
+            ObjectNode publicResult =
+                    JsonNodeFactory.instance.objectNode();
+
+            publicResult.put(
+                    "project",
+                    result.path("project").asText()
+            );
+
+            publicResult.put(
+                    "title",
+                    result.path("title").asText()
+            );
+
+            publicResult.put(
+                    "normalized_average",
+                    result.path("normalized_average").asDouble()
+            );
+
+            ranked.add(publicResult);
+        }
+
+        ranked.sort(
+                Comparator.comparingDouble(
+                        (ObjectNode value) ->
+                                -value.path(
+                                        "normalized_average"
+                                ).asDouble()
+                ).thenComparing(
+                        (ObjectNode value) ->
+                                value.path(
+                                        "project"
+                                ).asText()
+                )
+        );
+
+        int rank = 1;
+
+        for (ObjectNode result : ranked) {
+            result.put("rank", rank++);
+            publicResults.add(result);
+        }
+
+        ObjectNode published =
+                JsonNodeFactory.instance.objectNode();
+
+        published.put(
+                "normalization_version",
+                latest.path(
+                        "normalization_version"
+                ).asText()
+        );
+
+        published.put(
+                "published_at",
+                Instant.now().toString()
+        );
+
+        published.set(
+                "results",
+                publicResults
+        );
+
+        normalizationStore.publish(published);
+
+        auditStore.append(
+                user.get().id(),
+                "RESULT_PUBLISHED",
+                "results:published",
+                null,
+                published,
+                "results_publication",
+                RequestIdFilter.getRequestId(request)
+        );
+
+        return ResponseEntity.ok(published);
+    }
+
+    @GetMapping("/api/results/published")
+    public ResponseEntity<?> publishedResults() {
+        ObjectNode published =
+                normalizationStore.latestPublished();
+
+        if (published == null) {
+            return ResponseEntity.status(404)
+                    .body("No published results exist");
+        }
+
+        return ResponseEntity.ok(published);
+    }
+
     @GetMapping("/api/results")
     public ResponseEntity<?> latestResults(
             HttpServletRequest request

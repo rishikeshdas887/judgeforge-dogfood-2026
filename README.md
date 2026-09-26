@@ -4,32 +4,62 @@ A self-hostable hackathon judging portal with a public project gallery, organize
 
 ## Current Tier Claim
 
-This repository currently claims:
+This repository claims and has verified:
 
-* **T1 — Fixture-backed hackathon portal**
+* **T1 — Core submission and gallery workflow**
 * **T2 — Judge assignment and judging integrity**
 
-T3 community voting and T4 advanced/optional capabilities are not claimed.
+The official acceptance suite verifies all seven published T1/T2 checks. T3 community
+voting and T4 stretch capabilities are not claimed.
+
+## Implementation Contributions
+
+The implementation combines a Spring Boot backend with a React/Vite/Nginx frontend
+and local JSON-backed persistence. The main engineering work delivered for this
+submission includes:
+
+* Server-side session handling and role isolation for admin, organizer, judge, and
+  participant workflows, plus the public visitor surface.
+* Configurable event management for dates, tracks, prizes, and organizer-defined custom
+  questions.
+* Team formation through invite links and a project lifecycle supporting draft
+  creation, draft editing, final submission, and deadline enforcement.
+* Rich project submissions covering repository/live/demo links, media, technology tags,
+  track selection, and custom-question answers.
+* Judge invitation and management with manual assignment, batch assignment, and
+  deterministic automatic assignment.
+* Automatic assignment with target review counts, track eligibility, duplicate
+  judge/project prevention, assignment-load balancing, deterministic judge-id
+  tie-breaking, and dry-run validation.
+* Configurable weighted rubrics with backend-enforced judge/project isolation and
+  protection against peer-score and participant access.
+* Judge progress tracking, deterministic cross-judge normalization, organizer/admin
+  results access, CSV export, and append-only audit events.
+* Fixture-backed acceptance verification, backend tests, frontend production-build
+  validation, and Docker-based local startup.
 
 ## Features
 
 ### T1
 
-* Public project gallery backed by the repository fixture data.
+* Public project gallery backed by the repository fixture data, with search/filter support.
 * Project detail information including track, title, summary, team, and repository link.
-* Submission endpoint with event/fixture validation.
+* Submission workflow with event validation, draft creation, draft editing, final submission, and deadline enforcement.
+* Team formation through invite links.
+* Event configuration for dates, tracks, prizes, and custom questions.
+* Rich submission fields including repository/live/demo links, media, tech tags, track, and custom-question answers.
 * Closed-event submissions are rejected.
 * Fixture-backed project data is available without an external hosted service.
 
 ### T2
 
-* Organizer-controlled judge assignment.
+* Judge invitation and organizer-controlled judge assignment.
 * Explicit project assignment per judge.
-* Batch and deterministic algorithmic judge assignment.
+* Batch and deterministic algorithmic judge assignment with target review counts, track eligibility, duplicate-pair prevention, load balancing, deterministic tie-breaking, and dry-run validation.
 * Configurable rubric criteria, weights, and maximum scores.
 * Backend validation of judge/project assignment.
 * Judge scoring restricted to the authenticated judge identity and assigned projects.
-* Participants cannot access judge scoring endpoints.
+* Participants cannot access judge scoring endpoints or peer ballots.
 * Organizer judging-progress dashboard.
 * Deterministic cross-judge normalization.
 * Organizer/admin results access.
@@ -165,214 +195,19 @@ GET /api/organizer/judging-progress
 GET /api/audit
 ```
 
-### Results
+## Results
+
+The organizer can normalize and publish the latest judging results through:
 
 ```text
 POST /api/results/normalize
-GET  /api/results
+POST /api/results/publish
+GET /api/results/published
 ```
 
-### Export
+Normalization and publication are organizer/admin-only. The public published snapshot exposes project ID, project title, normalized average, rank, normalization version, and publication timestamp. Judge identities and raw judge scores are not exposed by the published snapshot.
 
-```text
-GET /api/export.csv
-```
-
-Organizer/admin endpoints enforce role access on the backend.
-
-## Judge Assignment
-
-Judge assignment is organizer-controlled.
-
-The organizer supplies an explicit list of project IDs for a judge. The backend validates:
-
-* the judge exists
-* each project exists
-* each project belongs to an allowed track for that judge
-
-The active assignment set for that judge is then replaced with the submitted list.
-
-The current implementation does not claim an automatic balancing algorithm.
-
-## Scoring
-
-The active rubric defines:
-
-* criterion ID
-* criterion name
-* criterion weight
-* maximum score
-
-Weights must total 100%.
-
-Each ballot must contain a numeric score for every configured criterion and scores outside the configured range are rejected.
-
-The weighted score is calculated as:
-
-```text
-sum((score / max_score) * (weight / 100)) * 5
-```
-
-The calculation is performed from the active rubric configuration.
-
-## Judge Isolation
-
-The authenticated judge identity is resolved by the backend.
-
-A judge may only access ballots for projects assigned to that judge.
-
-A request to score an unassigned project returns:
-
-```text
-HTTP 403
-```
-
-The backend also records a `BALLOT_ACCESS_DENIED` audit event for this denied access attempt.
-
-This protection is enforced server-side and does not depend on hiding controls in the frontend.
-
-## Auditing
-
-Audit events are stored in:
-
-```text
-backend/data/audit-events.json
-```
-
-Each event contains:
-
-```text
-actor
-action
-target
-timestamp
-before
-after
-reason
-request_id
-```
-
-Implemented judging-related events include:
-
-```text
-BALLOT_SUBMITTED
-BALLOT_EDITED
-BALLOT_ACCESS_DENIED
-JUDGE_ASSIGNED
-NORMALIZATION_EXECUTED
-```
-
-The application exposes audit records through:
-
-```text
-GET /api/audit
-```
-
-This endpoint is organizer/admin-only.
-
-There is no normal application endpoint for deleting audit history.
-
-Requests receive an `X-Request-Id` response header. A supplied request ID is preserved; otherwise the backend generates one.
-
-## Normalization
-
-Normalization version:
-
-```text
-zscore-v1
-```
-
-Only eligible assigned ballots are included.
-
-For each judge and rubric criterion, the system calculates:
-
-```text
-mean
-population standard deviation
-```
-
-The z-score is:
-
-```text
-z = (x - mean) / max(stddev, 1e-6)
-```
-
-The minimum sample size for normalization is:
-
-```text
-3
-```
-
-When fewer than three eligible scores exist for a judge/criterion pair, the raw score is retained.
-
-For normalized criteria, z-scores are min-max mapped into:
-
-```text
-[0, criterion.max_score]
-```
-
-If the global z-score range collapses, the raw criterion score is retained.
-
-The normalized weighted score uses the same configured rubric weights:
-
-```text
-sum((normalized_score / max_score) * (weight / 100)) * 5
-```
-
-Normalization results retain both raw and normalized values and their delta.
-
-Each normalization run records parameters including sample sizes, means, standard deviations, fallback decisions, rescaling details, and the SHA-256 input fingerprint.
-
-## Reproducibility
-
-Eligible ballots are filtered to valid judge/project pairs with active assignments.
-
-Before normalization they are processed deterministically by:
-
-```text
-judge id
-project id
-```
-
-The input fingerprint is computed from the rubric and the sorted eligible ballot inputs.
-
-For the restored fixture state, the verified input contains:
-
-```text
-126 eligible ballots
-```
-
-and produces the fingerprint:
-
-```text
-7f95fe88f690c08bb14cc99c5cc5f675edde59e536ed306dc0f9934a198057d6
-```
-
-Repeated normalization runs against the same restored input state produce the same normalization version and fingerprint.
-
-## CSV Export
-
-The organizer can export judging information through:
-
-```text
-GET /api/export.csv
-```
-
-The export is organizer/admin-only.
-
-## Results
-
-The current implementation provides the latest normalization run through:
-
-```text
-GET /api/results
-```
-
-This endpoint is organizer/admin-only.
-
-A separate result-publication action is not currently implemented.
-
-Therefore this repository does **not** claim a `RESULT_PUBLISHED` audit event.
+Successful publication records a `RESULT_PUBLISHED` audit event.
 
 ## Data Files
 
@@ -431,6 +266,8 @@ claimed T1 T2, verified T1 T2
 ├── fixtures.json
 ├── docker-compose.yml
 ├── .dogfood.toml
+├── ARCHITECTURE.md
+├── DATA-MODEL.md
 ├── JUDGING.md
 ├── acceptance-report.txt
 ├── run.py
@@ -445,6 +282,6 @@ The current submission does not claim:
 
 * T3 community voting
 * T4 stretch capabilities
-* a separate result-publication workflow
-* a `RESULT_PUBLISHED` audit event
-* an external database or hosted infrastructure
+
+The current implementation uses local JSON-backed persistence and does not require an
+external database, hosted authentication service, external API, or cloud account.

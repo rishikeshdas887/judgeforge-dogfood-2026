@@ -173,14 +173,17 @@ These stores persist application state in JSON files under `backend/data/`.
 
 ## 5. Authentication and Roles
 
-The local demo defines four roles:
+The local demo defines the following roles:
 
 ```text
+ADMIN
 ORGANIZER
 JUDGE_A
 JUDGE_B
 PARTICIPANT
 ```
+
+Unauthenticated public requests provide the visitor/public surface.
 
 The current demo authentication uses deterministic session cookies.
 
@@ -203,9 +206,9 @@ Participants cannot access judge scoring operations.
 
 ## 6. Judge Assignment Flow
 
-Judge assignment is organizer-controlled.
+Judge assignment is organizer-controlled and supports both explicit batch assignment and deterministic automatic assignment.
 
-The organizer submits an explicit project list for a judge.
+For explicit assignment, the organizer submits a project list for a judge.
 
 The backend validates:
 
@@ -215,10 +218,21 @@ The backend validates:
 
 The assignment store then replaces the active project set for that judge.
 
-The current implementation does not contain an automatic load-balancing
-algorithm.
+Automatic assignment accepts a target number of reviews per project and:
 
-Successful assignment changes create:
+1. respects judge track eligibility
+2. avoids duplicate judge/project pairs
+3. balances by current assignment load
+4. uses natural judge-id order as a deterministic tie-break
+5. supports dry-run validation before applying changes
+
+Automatic assignment changes create:
+
+```text
+ALGORITHMIC_ASSIGNMENT_UPDATED
+```
+
+and explicit assignment changes create:
 
 ```text
 JUDGE_ASSIGNED
@@ -513,6 +527,4 @@ The current implementation does not claim:
 * T3 community voting
 * T4 stretch capabilities
 * automatic judge balancing
-* a separate result-publication workflow
-* `RESULT_PUBLISHED` audit events
 * external database infrastructure

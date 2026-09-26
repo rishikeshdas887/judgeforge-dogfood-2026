@@ -16,7 +16,7 @@ public class RubricStore {
 
     public RubricStore(JsonMapper jsonMapper) {
         this.jsonMapper = jsonMapper;
-        this.rubricPath = Path.of("/app/data/rubric.json");
+        this.rubricPath = Path.of("data/rubric.json");
 
         try {
             Files.createDirectories(rubricPath.getParent());

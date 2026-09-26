@@ -35,7 +35,7 @@ public class ProjectStore {
         this.fixtureStore = fixtureStore;
         this.eventStore = eventStore;
         this.teamStore = teamStore;
-        this.projectPath = Path.of("/app/data/projects.json");
+        this.projectPath = Path.of("data/projects.json");
 
         try {
             Files.createDirectories(projectPath.getParent());

@@ -26,7 +26,7 @@ public class EventStore {
     ) {
         this.jsonMapper = jsonMapper;
         this.fixtureStore = fixtureStore;
-        this.eventPath = Path.of("/app/data/event.json");
+        this.eventPath = Path.of("data/event.json");
 
         try {
             Files.createDirectories(eventPath.getParent());

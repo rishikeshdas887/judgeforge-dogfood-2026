@@ -24,7 +24,7 @@ public class AssignmentStore {
     public AssignmentStore(JsonMapper jsonMapper) {
         this.jsonMapper = jsonMapper;
         this.assignmentPath =
-                Path.of("/app/data/assignments.json");
+                Path.of("data/assignments.json");
 
         if (!Files.exists(assignmentPath)) {
             throw new IllegalStateException(

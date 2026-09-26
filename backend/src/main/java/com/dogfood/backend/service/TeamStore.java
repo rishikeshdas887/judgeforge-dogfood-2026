@@ -27,7 +27,7 @@ public class TeamStore {
     ) {
         this.jsonMapper = jsonMapper;
         this.fixtureStore = fixtureStore;
-        this.teamPath = Path.of("/app/data/teams.json");
+        this.teamPath = Path.of("data/teams.json");
 
         try {
             Files.createDirectories(teamPath.getParent());

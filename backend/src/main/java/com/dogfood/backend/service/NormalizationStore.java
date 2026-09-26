@@ -1,20 +1,21 @@
 package com.dogfood.backend.service;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.springframework.stereotype.Service;
+
+import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.json.JsonMapper;
 import tools.jackson.databind.node.ArrayNode;
 import tools.jackson.databind.node.JsonNodeFactory;
 import tools.jackson.databind.node.ObjectNode;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
 @Service
 public class NormalizationStore {
 
     private static final Path FILE =
-            Path.of("/app/data/normalization-results.json");
+            Path.of("data/normalization-results.json");
 
     private final JsonMapper jsonMapper;
 
@@ -34,6 +35,11 @@ public class NormalizationStore {
                 root.set(
                         "runs",
                         JsonNodeFactory.instance.arrayNode()
+                );
+
+                root.set(
+                        "published",
+                        JsonNodeFactory.instance.nullNode()
                 );
 
                 write(root);
@@ -59,6 +65,44 @@ public class NormalizationStore {
         } catch (IOException e) {
             throw new IllegalStateException(
                     "Could not save normalization run",
+                    e
+            );
+        }
+    }
+
+    public synchronized void publish(ObjectNode published) {
+        try {
+            ObjectNode root = readRoot();
+
+            root.set(
+                    "published",
+                    published.deepCopy()
+            );
+
+            write(root);
+        } catch (IOException e) {
+            throw new IllegalStateException(
+                    "Could not publish results",
+                    e
+            );
+        }
+    }
+
+    public synchronized ObjectNode latestPublished() {
+        try {
+            ObjectNode root = readRoot();
+
+            JsonNode published =
+                    root.path("published");
+
+            if (!published.isObject()) {
+                return null;
+            }
+
+            return (ObjectNode) published;
+        } catch (IOException e) {
+            throw new IllegalStateException(
+                    "Could not read published results",
                     e
             );
         }

@@ -196,8 +196,22 @@ and feedback.
 
 ## 9. Result Publication
 
-The current implementation provides organizer/admin normalization results
-through the results endpoint.
+The organizer can run normalization through the results endpoint and publish
+the latest normalized results as a public snapshot.
 
-A separate result-publication action is not currently implemented, so this
-repository does not claim a `RESULT_PUBLISHED` audit event.
+The workflow is:
+
+```text
+POST /api/results/normalize
+        ↓
+POST /api/results/publish
+        ↓
+GET /api/results/published
+```
+
+Normalization and publication require organizer access. The published endpoint
+exposes project ID, project title, normalized average, rank, normalization
+version, and publication timestamp. Judge identities and raw judge scores are
+not exposed by the public snapshot.
+
+Successful publication records a `RESULT_PUBLISHED` audit event.

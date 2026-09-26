@@ -23,7 +23,7 @@ public class BallotStore {
     ) {
         this.jsonMapper = jsonMapper;
         this.fixtureStore = fixtureStore;
-        this.ballotPath = Path.of("/app/data/ballots.json");
+        this.ballotPath = Path.of("data/ballots.json");
 
         try {
             Files.createDirectories(ballotPath.getParent());
