@@ -1,8 +1,11 @@
 package com.dogfood.backend.controller;
 
 import com.dogfood.backend.security.AuthService;
+import com.dogfood.backend.security.RequestIdFilter;
 import com.dogfood.backend.service.AssignmentStore;
+import com.dogfood.backend.service.AuditStore;
 import com.dogfood.backend.service.FixtureStore;
+import com.dogfood.backend.service.ProjectStore;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -21,26 +24,36 @@ public class PortalController {
     private final FixtureStore fixtureStore;
     private final AuthService authService;
     private final AssignmentStore assignmentStore;
+    private final ProjectStore projectStore;
+    private final AuditStore auditStore;
 
     public PortalController(
             FixtureStore fixtureStore,
             AuthService authService,
-            AssignmentStore assignmentStore
+            AssignmentStore assignmentStore,
+            ProjectStore projectStore,
+            AuditStore auditStore
     ) {
         this.fixtureStore = fixtureStore;
         this.authService = authService;
         this.assignmentStore = assignmentStore;
+        this.projectStore = projectStore;
+        this.auditStore = auditStore;
     }
 
-    // T1: public gallery
     @GetMapping("/projects")
-    public ResponseEntity<List<JsonNode>> gallery() {
-        return ResponseEntity.ok(fixtureStore.projects());
+    public ResponseEntity<List<JsonNode>> gallery(
+            @RequestParam(required = false) String search,
+            @RequestParam(required = false) String track
+    ) {
+        return ResponseEntity.ok(
+                projectStore.publicSubmitted(search, track)
+        );
     }
 
-    // T1: submission endpoint
     @PostMapping("/projects/new")
-    public ResponseEntity<String> submit(
+    public ResponseEntity<?> submit(
+            @RequestBody(required = false) JsonNode body,
             HttpServletRequest request
     ) {
         var user = authService.currentUser(request);
@@ -50,16 +63,193 @@ public class PortalController {
                     .body("Authentication required");
         }
 
-        if (fixtureStore.submissionsClosed()) {
-            return ResponseEntity.badRequest()
-                    .body("Submissions are closed");
+        if (user.get().role() != AuthService.Role.PARTICIPANT) {
+            return ResponseEntity.status(403)
+                    .body("Participant access required");
         }
 
-        return ResponseEntity.status(201)
-                .body("Submission accepted");
+        try {
+            JsonNode input =
+                    body == null
+                            ? tools.jackson.databind.node.JsonNodeFactory
+                                    .instance.objectNode()
+                            : body;
+
+            var draft =
+                    projectStore.createDraft(
+                            input,
+                            user.get().id()
+                    );
+
+            var submitted =
+                    projectStore.submit(
+                            draft.path("id").asText(),
+                            user.get().id()
+                    );
+
+            auditStore.append(
+                    user.get().id(),
+                    "PROJECT_SUBMITTED",
+                    "project:" + submitted.path("id").asText(),
+                    draft,
+                    submitted,
+                    "project_submitted",
+                    RequestIdFilter.getRequestId(request)
+            );
+
+            return ResponseEntity.status(201)
+                    .body(submitted);
+
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest()
+                    .body(e.getMessage());
+        }
     }
 
-    // T2: judges can only see explicitly assigned projects
+    @PostMapping("/api/projects")
+    public ResponseEntity<?> createDraft(
+            @RequestBody JsonNode body,
+            HttpServletRequest request
+    ) {
+        var user = authService.currentUser(request);
+
+        if (!isParticipant(user)) {
+            return participantResponse(user);
+        }
+
+        try {
+            var created =
+                    projectStore.createDraft(
+                            body,
+                            user.get().id()
+                    );
+
+            auditStore.append(
+                    user.get().id(),
+                    "PROJECT_DRAFT_CREATED",
+                    "project:" + created.path("id").asText(),
+                    null,
+                    created,
+                    "project_draft_created",
+                    RequestIdFilter.getRequestId(request)
+            );
+
+            return ResponseEntity.status(201)
+                    .body(created);
+
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest()
+                    .body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/api/projects/mine")
+    public ResponseEntity<?> myProjects(
+            HttpServletRequest request
+    ) {
+        var user = authService.currentUser(request);
+
+        if (!isParticipant(user)) {
+            return participantResponse(user);
+        }
+
+        return ResponseEntity.ok(
+                projectStore.projectsForUser(
+                        user.get().id()
+                )
+        );
+    }
+
+    @PutMapping("/api/projects/{projectId}")
+    public ResponseEntity<?> updateDraft(
+            @PathVariable String projectId,
+            @RequestBody JsonNode body,
+            HttpServletRequest request
+    ) {
+        var user = authService.currentUser(request);
+
+        if (!isParticipant(user)) {
+            return participantResponse(user);
+        }
+
+        try {
+            var before =
+                    projectStore.find(projectId);
+
+            if (before == null) {
+                return ResponseEntity.notFound()
+                        .build();
+            }
+
+            var updated =
+                    projectStore.updateDraft(
+                            projectId,
+                            body,
+                            user.get().id()
+                    );
+
+            auditStore.append(
+                    user.get().id(),
+                    "PROJECT_DRAFT_EDITED",
+                    "project:" + projectId,
+                    before,
+                    updated,
+                    "project_draft_edited",
+                    RequestIdFilter.getRequestId(request)
+            );
+
+            return ResponseEntity.ok(updated);
+
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest()
+                    .body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/api/projects/{projectId}/submit")
+    public ResponseEntity<?> submitDraft(
+            @PathVariable String projectId,
+            HttpServletRequest request
+    ) {
+        var user = authService.currentUser(request);
+
+        if (!isParticipant(user)) {
+            return participantResponse(user);
+        }
+
+        try {
+            var before =
+                    projectStore.find(projectId);
+
+            if (before == null) {
+                return ResponseEntity.notFound()
+                        .build();
+            }
+
+            var submitted =
+                    projectStore.submit(
+                            projectId,
+                            user.get().id()
+                    );
+
+            auditStore.append(
+                    user.get().id(),
+                    "PROJECT_SUBMITTED",
+                    "project:" + projectId,
+                    before,
+                    submitted,
+                    "project_submitted",
+                    RequestIdFilter.getRequestId(request)
+            );
+
+            return ResponseEntity.ok(submitted);
+
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest()
+                    .body(e.getMessage());
+        }
+    }
+
     @GetMapping("/api/judge/projects")
     public ResponseEntity<?> judgeProjects(
             HttpServletRequest request
@@ -100,7 +290,6 @@ public class PortalController {
         return ResponseEntity.ok(assignedProjects);
     }
 
-    // T2: judges can only see their own scores
     @GetMapping("/api/judge/scores")
     public ResponseEntity<?> judgeScores(
             @RequestParam(required = false) String judge,
@@ -128,7 +317,9 @@ public class PortalController {
 
         if (judge != null && !judge.equals(currentJudge)) {
             return ResponseEntity.status(403)
-                    .body("Access to another judge's scores is forbidden");
+                    .body(
+                            "Access to another judge's scores is forbidden"
+                    );
         }
 
         String fixtureJudgeId =
@@ -136,19 +327,19 @@ public class PortalController {
                         ? "jdg_01"
                         : "jdg_02";
 
-        List<JsonNode> scores = fixtureStore.scores()
-                .stream()
-                .filter(score ->
-                        fixtureJudgeId.equals(
-                                score.path("judge").asText()
+        List<JsonNode> scores =
+                fixtureStore.scores()
+                        .stream()
+                        .filter(score ->
+                                fixtureJudgeId.equals(
+                                        score.path("judge").asText()
+                                )
                         )
-                )
-                .collect(Collectors.toList());
+                        .collect(Collectors.toList());
 
         return ResponseEntity.ok(scores);
     }
 
-    // T2: organizer-only CSV export
     @GetMapping(
             value = "/api/export.csv",
             produces = "text/csv"
@@ -196,8 +387,30 @@ public class PortalController {
                         HttpHeaders.CONTENT_DISPOSITION,
                         "attachment; filename=\"scores.csv\""
                 )
-                .contentType(MediaType.parseMediaType("text/csv"))
+                .contentType(
+                        MediaType.parseMediaType("text/csv")
+                )
                 .body(csv.toString());
+    }
+
+    private boolean isParticipant(
+            java.util.Optional<AuthService.User> user
+    ) {
+        return user.isPresent()
+                && user.get().role()
+                == AuthService.Role.PARTICIPANT;
+    }
+
+    private ResponseEntity<?> participantResponse(
+            java.util.Optional<AuthService.User> user
+    ) {
+        if (user.isEmpty()) {
+            return ResponseEntity.status(401)
+                    .body("Authentication required");
+        }
+
+        return ResponseEntity.status(403)
+                .body("Participant access required");
     }
 
     private String csvEscape(String value) {
