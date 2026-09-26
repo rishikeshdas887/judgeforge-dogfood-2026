@@ -62,7 +62,7 @@ public class JudgingConfigController {
         var user = authService.currentUser(request);
 
         return user.isPresent()
-                && user.get().role() == AuthService.Role.ORGANIZER;
+                && AuthService.isOrganizerOrAdmin(user.get().role());
     }
 
     private String validateRubric(JsonNode rubric) {

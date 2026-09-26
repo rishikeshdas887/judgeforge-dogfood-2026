@@ -72,7 +72,7 @@ public class EventController {
                     .body("Authentication required");
         }
 
-        if (user.get().role() != AuthService.Role.ORGANIZER) {
+        if (!AuthService.isOrganizerOrAdmin(user.get().role())) {
             return ResponseEntity.status(403)
                     .body("Organizer access required");
         }
@@ -127,7 +127,7 @@ public class EventController {
                     .body("Authentication required");
         }
 
-        if (user.get().role() != AuthService.Role.ORGANIZER) {
+        if (!AuthService.isOrganizerOrAdmin(user.get().role())) {
             return ResponseEntity.status(403)
                     .body("Organizer access required");
         }
@@ -186,7 +186,6 @@ public class EventController {
         var user = authService.currentUser(request);
 
         return user.isPresent()
-                && user.get().role()
-                == AuthService.Role.ORGANIZER;
+                && AuthService.isOrganizerOrAdmin(user.get().role());
     }
 }

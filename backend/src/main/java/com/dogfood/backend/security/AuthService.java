@@ -18,6 +18,10 @@ public class AuthService {
 
     public record User(String id, Role role) {}
 
+    public static boolean isOrganizerOrAdmin(Role role) {
+        return role == Role.ORGANIZER || role == Role.ADMIN;
+    }
+
     public Optional<User> currentUser(HttpServletRequest request) {
         String cookie = request.getHeader("Cookie");
 

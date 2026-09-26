@@ -9,6 +9,7 @@ const ROLES = [
   { value: 'judge_a', label: 'Judge A' },
   { value: 'judge_b', label: 'Judge B' },
   { value: 'organizer', label: 'Organizer' },
+  { value: 'admin', label: 'Admin' },
 ]
 
 function App() {
@@ -143,8 +144,8 @@ function App() {
           <p className="eyebrow">ACCESS PORTAL</p>
           <h2>Choose your role</h2>
           <p>
-            Sign in as a participant, judge, or organizer to access the
-            corresponding portal features.
+            Sign in as a participant, judge, organizer, or admin to access
+            the corresponding portal features.
           </p>
 
           <div className="role-grid">
@@ -185,7 +186,9 @@ function App() {
             </div>
           </section>
 
-          {user.role === 'ORGANIZER' && <OrganizerDashboard />}
+          {(user.role === 'ORGANIZER' || user.role === 'ADMIN') && (
+            <OrganizerDashboard />
+          )}
 
           {(user.role === 'JUDGE_A' || user.role === 'JUDGE_B') && (
             <JudgeDashboard />

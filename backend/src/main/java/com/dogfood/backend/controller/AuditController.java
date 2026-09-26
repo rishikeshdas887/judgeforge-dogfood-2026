@@ -33,8 +33,7 @@ public class AuditController {
                     .body("Authentication required");
         }
 
-        if (user.get().role()
-                != AuthService.Role.ORGANIZER) {
+        if (!AuthService.isOrganizerOrAdmin(user.get().role())) {
             return ResponseEntity.status(403)
                     .body("Organizer access required");
         }
