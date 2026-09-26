@@ -45,6 +45,27 @@ public class JudgingController {
         this.auditStore = auditStore;
     }
 
+    @GetMapping("/api/judge/rubric")
+    public ResponseEntity<?> rubric(
+            HttpServletRequest request
+    ) {
+        var user = authService.currentUser(request);
+
+        if (user.isEmpty()) {
+            return ResponseEntity.status(401)
+                    .body("Authentication required");
+        }
+
+        String judgeId = fixtureJudgeId(user.get().role());
+
+        if (judgeId == null) {
+            return ResponseEntity.status(403)
+                    .body("Judge access required");
+        }
+
+        return ResponseEntity.ok(rubricStore.read());
+    }
+
     @GetMapping("/api/judge/ballots")
     public ResponseEntity<?> ballots(
             HttpServletRequest request
