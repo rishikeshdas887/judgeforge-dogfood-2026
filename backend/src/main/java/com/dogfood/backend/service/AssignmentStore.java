@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Service
@@ -141,6 +143,84 @@ public class AssignmentStore {
             assignment.put("source", "organizer_assignment");
 
             updated.add(assignment);
+        }
+
+        ObjectNode root =
+                JsonNodeFactory.instance.objectNode();
+
+        root.put(
+                "version",
+                readVersion(existing)
+        );
+        root.set("assignments", updated);
+
+        write(root);
+    }
+
+    public synchronized void appendAlgorithmicAssignments(
+            Map<String, List<String>> assignmentsByJudge,
+            Map<String, String> projectTracks
+    ) {
+        ArrayNode existing = readAll();
+        ArrayNode updated =
+                JsonNodeFactory.instance.arrayNode();
+
+        Set<String> activePairs = new HashSet<>();
+
+        for (JsonNode assignment : existing) {
+            updated.add(assignment.deepCopy());
+
+            if ("ACTIVE".equals(
+                    assignment.path("status").asText())) {
+
+                activePairs.add(
+                        assignment.path("judge").asText()
+                                + "::"
+                                + assignment.path("project").asText()
+                );
+            }
+        }
+
+        for (Map.Entry<String, List<String>> entry :
+                assignmentsByJudge.entrySet()) {
+
+            String judgeId = entry.getKey();
+
+            for (String projectId : entry.getValue()) {
+                String pairKey =
+                        judgeId + "::" + projectId;
+
+                if (!activePairs.add(pairKey)) {
+                    continue;
+                }
+
+                String track =
+                        projectTracks.get(projectId);
+
+                if (track == null) {
+                    throw new IllegalArgumentException(
+                            "Unknown project: " + projectId
+                    );
+                }
+
+                ObjectNode assignment =
+                        JsonNodeFactory.instance.objectNode();
+
+                assignment.put(
+                        "id",
+                        "asg_alg_" + judgeId + "_" + projectId
+                );
+                assignment.put("judge", judgeId);
+                assignment.put("project", projectId);
+                assignment.put("track", track);
+                assignment.put("status", "ACTIVE");
+                assignment.put(
+                        "source",
+                        "algorithmic_assignment"
+                );
+
+                updated.add(assignment);
+            }
         }
 
         ObjectNode root =
