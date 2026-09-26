@@ -32,8 +32,16 @@ Assignment records contain:
 - status
 - source
 
-The current implementation does not claim an automatic balancing algorithm.
-Assignments are explicit organizer decisions.
+The implementation supports both explicit organizer assignment and a
+deterministic automatic assignment algorithm.
+
+The automatic assignment endpoint accepts a target number of reviews per
+project, respects each judge's allowed tracks, avoids duplicate judge/project
+pairs, and selects the eligible judge with the lowest current assignment load.
+Ties are resolved by natural judge-id order so repeated runs are deterministic.
+
+The endpoint supports dry-run mode. Successful persisted automatic assignments
+are recorded with an `ALGORITHMIC_ASSIGNMENT_UPDATED` audit event.
 
 Every successful assignment update produces a `JUDGE_ASSIGNED` audit event
 containing the actor, target judge, before project list, after project list,
@@ -100,8 +108,8 @@ Each audit event records:
 The audit store is append-only from the application API. There is no normal
 delete endpoint for audit events.
 
-The organizer can read the audit log through the organizer-only audit
-endpoint.
+The organizer or admin can read the audit log through the organizer/admin
+audit endpoint.
 
 ## 6. Normalization
 
@@ -183,12 +191,12 @@ produces:
 
 The organizer can export judging data through the CSV export endpoint.
 
-The export is organizer-only and contains judge/project scoring information
+The export is organizer/admin-only and contains judge/project scoring information
 and feedback.
 
 ## 9. Result Publication
 
-The current implementation provides organizer-only normalization results
+The current implementation provides organizer/admin normalization results
 through the results endpoint.
 
 A separate result-publication action is not currently implemented, so this

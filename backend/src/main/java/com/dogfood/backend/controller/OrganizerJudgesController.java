@@ -106,11 +106,26 @@ public class OrganizerJudgesController {
                             : invitation.path("status").asText()
             );
 
-            item.put(
-                    "assigned_projects",
+            java.util.List<String> assignedProjectIds =
                     assignmentStore
                             .projectIdsForJudge(judgeId)
-                            .size()
+                            .stream()
+                            .sorted()
+                            .toList();
+
+            item.put(
+                    "assigned_projects",
+                    assignedProjectIds.size()
+            );
+
+            ArrayNode assignedProjects =
+                    JsonNodeFactory.instance.arrayNode();
+
+            assignedProjectIds.forEach(assignedProjects::add);
+
+            item.set(
+                    "assigned_project_ids",
+                    assignedProjects
             );
 
             ArrayNode tracks =
