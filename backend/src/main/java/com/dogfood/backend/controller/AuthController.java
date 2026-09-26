@@ -29,6 +29,7 @@ public class AuthController {
             case "judge_a" -> "jdg_a_91bc";
             case "judge_b" -> "jdg_b_44de";
             case "participant" -> "prt_2e88";
+            case "participant_b" -> "prt_b_5c3d";
             default -> null;
         };
 

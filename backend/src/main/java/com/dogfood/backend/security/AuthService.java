@@ -48,6 +48,12 @@ public class AuthService {
             );
         }
 
+        if (cookie.contains("session=prt_b_5c3d")) {
+            return Optional.of(
+                    new User("participant_b", Role.PARTICIPANT)
+            );
+        }
+
         return Optional.empty();
     }
 }
