@@ -25,14 +25,15 @@ T3 community voting and T4 advanced/optional capabilities are not claimed.
 
 * Organizer-controlled judge assignment.
 * Explicit project assignment per judge.
+* Batch and deterministic algorithmic judge assignment.
 * Configurable rubric criteria, weights, and maximum scores.
 * Backend validation of judge/project assignment.
 * Judge scoring restricted to the authenticated judge identity and assigned projects.
 * Participants cannot access judge scoring endpoints.
 * Organizer judging-progress dashboard.
 * Deterministic cross-judge normalization.
-* Organizer-only results access.
-* Organizer-only CSV export.
+* Organizer/admin results access.
+* Organizer/admin CSV export.
 * Append-only audit events for security-sensitive judging operations.
 
 ## Architecture
@@ -156,6 +157,8 @@ PUT /api/organizer/rubric
 GET  /api/organizer/judges
 POST /api/organizer/judges/...
 PUT  /api/organizer/judges/...
+POST /api/organizer/judges/assignments/batch
+POST /api/organizer/judges/assignments/auto
 
 GET /api/organizer/judging-progress
 
@@ -175,7 +178,7 @@ GET  /api/results
 GET /api/export.csv
 ```
 
-Organizer-only endpoints enforce organizer access on the backend.
+Organizer/admin endpoints enforce role access on the backend.
 
 ## Judge Assignment
 
@@ -265,7 +268,7 @@ The application exposes audit records through:
 GET /api/audit
 ```
 
-This endpoint is organizer-only.
+This endpoint is organizer/admin-only.
 
 There is no normal application endpoint for deleting audit history.
 
@@ -355,7 +358,7 @@ The organizer can export judging information through:
 GET /api/export.csv
 ```
 
-The export is organizer-only.
+The export is organizer/admin-only.
 
 ## Results
 
@@ -365,7 +368,7 @@ The current implementation provides the latest normalization run through:
 GET /api/results
 ```
 
-This endpoint is organizer-only.
+This endpoint is organizer/admin-only.
 
 A separate result-publication action is not currently implemented.
 
@@ -442,7 +445,6 @@ The current submission does not claim:
 
 * T3 community voting
 * T4 stretch capabilities
-* automatic judge balancing
 * a separate result-publication workflow
 * a `RESULT_PUBLISHED` audit event
 * an external database or hosted infrastructure
