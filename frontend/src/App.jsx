@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import OrganizerDashboard from './OrganizerDashboard'
 import JudgeDashboard from './JudgeDashboard'
+import ParticipantDashboard from './ParticipantDashboard'
 import './App.css'
 
 const ROLES = [
@@ -160,6 +161,10 @@ function App() {
 
           {(user.role === 'JUDGE_A' || user.role === 'JUDGE_B') && (
             <JudgeDashboard />
+          )}
+
+          {user.role === 'PARTICIPANT' && (
+            <ParticipantDashboard user={user} />
           )}
 
           <section className="gallery-section">
