@@ -819,6 +819,279 @@ public class ProjectStore {
         );
     }
 
+    public synchronized int bulkUpsert(
+            ArrayNode imported
+    ) {
+        if (imported == null) {
+            throw new IllegalArgumentException(
+                    "Imported projects are required"
+            );
+        }
+
+        ObjectNode root = readRoot();
+        ArrayNode projects =
+                root.withArray("projects");
+
+        java.util.Set<String> seenIds =
+                new java.util.HashSet<>();
+
+        int count = 0;
+
+        for (JsonNode input : imported) {
+            if (input == null || !input.isObject()) {
+                throw new IllegalArgumentException(
+                        "Every imported project must be an object"
+                );
+            }
+
+            ObjectNode project =
+                    (ObjectNode) input.deepCopy();
+
+            String id =
+                    project.path("id")
+                            .asText("")
+                            .trim();
+
+            if (id.isBlank()) {
+                id = "prj_" + UUID.randomUUID();
+                project.put("id", id);
+            }
+
+            if (!seenIds.add(id)) {
+                throw new IllegalArgumentException(
+                        "Duplicate project id in import: " + id
+                );
+            }
+
+            String eventId =
+                    firstNonBlank(
+                            project.path("event_id")
+                                    .asText(""),
+                            eventStore.currentEventId()
+                    );
+
+            if (!eventStore.currentEventId()
+                    .equals(eventId)) {
+                throw new IllegalArgumentException(
+                        "Project " + id +
+                                " belongs to another event"
+                );
+            }
+
+            String teamId =
+                    project.path("team")
+                            .asText("")
+                            .trim();
+
+            String trackId =
+                    project.path("track")
+                            .asText("")
+                            .trim();
+
+            String name =
+                    firstNonBlank(
+                            project.path("name")
+                                    .asText(""),
+                            project.path("title")
+                                    .asText("")
+                    );
+
+            if (teamId.isBlank()) {
+                throw new IllegalArgumentException(
+                        "Project " + id +
+                                ": team is required"
+                );
+            }
+
+            if (trackId.isBlank()) {
+                throw new IllegalArgumentException(
+                        "Project " + id +
+                                ": track is required"
+                );
+            }
+
+            if (name.isBlank()) {
+                throw new IllegalArgumentException(
+                        "Project " + id +
+                                ": name is required"
+                );
+            }
+
+            boolean validTeam = false;
+
+            for (JsonNode team :
+                    teamStore.readTeams()) {
+                if (teamId.equals(
+                        team.path("id").asText()
+                )) {
+                    validTeam = true;
+                    break;
+                }
+            }
+
+            if (!validTeam) {
+                throw new IllegalArgumentException(
+                        "Project " + id +
+                                ": unknown team " + teamId
+                );
+            }
+
+            ensureTrackExists(trackId);
+
+            String status =
+                    firstNonBlank(
+                            project.path("status")
+                                    .asText(""),
+                            "DRAFT"
+                    );
+
+            if (!"DRAFT".equals(status)
+                    && !"SUBMITTED".equals(status)) {
+                throw new IllegalArgumentException(
+                        "Project " + id +
+                                ": status must be DRAFT or SUBMITTED"
+                );
+            }
+
+            String description =
+                    firstNonBlank(
+                            project.path("long_description")
+                                    .asText(""),
+                            project.path("summary")
+                                    .asText("")
+                    );
+
+            String repositoryUrl =
+                    firstNonBlank(
+                            project.path("repository_url")
+                                    .asText(""),
+                            project.path("repo_url")
+                                    .asText("")
+                    );
+
+            String now =
+                    Instant.now().toString();
+
+            project.put("event_id", eventId);
+            project.put("team", teamId);
+            project.put("track", trackId);
+            project.put("name", name);
+            project.put("title", name);
+            project.put(
+                    "long_description",
+                    description
+            );
+            project.put("summary", description);
+            project.put(
+                    "repository_url",
+                    repositoryUrl
+            );
+            project.put(
+                    "repo_url",
+                    repositoryUrl
+            );
+            project.put("status", status);
+
+            if (!project.has("created_by")
+                    || project.path("created_by")
+                    .asText("").isBlank()) {
+                project.put(
+                        "created_by",
+                        "bulk-import"
+                );
+            }
+
+            if (!project.has("created_at")
+                    || project.path("created_at")
+                    .asText("").isBlank()) {
+                project.put(
+                        "created_at",
+                        now
+                );
+            }
+
+            project.put(
+                    "updated_at",
+                    now
+            );
+
+            if (!project.path("tech_tags").isArray()) {
+                project.set(
+                        "tech_tags",
+                        JsonNodeFactory.instance.arrayNode()
+                );
+            }
+
+            if (!project.path("image_gallery").isArray()) {
+                project.set(
+                        "image_gallery",
+                        JsonNodeFactory.instance.arrayNode()
+                );
+            }
+
+            if (!project.path("custom_answers").isObject()) {
+                project.set(
+                        "custom_answers",
+                        JsonNodeFactory.instance.objectNode()
+                );
+            }
+
+            if ("SUBMITTED".equals(status)) {
+                if (description.isBlank()) {
+                    throw new IllegalArgumentException(
+                            "Project " + id +
+                                    ": submitted project requires description"
+                    );
+                }
+
+                if (repositoryUrl.isBlank()) {
+                    throw new IllegalArgumentException(
+                            "Project " + id +
+                                    ": submitted project requires repository URL"
+                    );
+                }
+
+                if (!project.has("submitted_at")
+                        || project.path("submitted_at")
+                        .asText("").isBlank()) {
+                    project.put(
+                            "submitted_at",
+                            now
+                    );
+                }
+
+                validateCompleteSubmission(project);
+            } else {
+                project.remove("submitted_at");
+            }
+
+            boolean replaced = false;
+
+            for (int i = 0; i < projects.size(); i++) {
+                if (id.equals(
+                        projects.get(i).path("id").asText()
+                )) {
+                    projects.set(
+                            i,
+                            project
+                    );
+                    replaced = true;
+                    break;
+                }
+            }
+
+            if (!replaced) {
+                projects.add(project);
+            }
+
+            count++;
+        }
+
+        writeRoot(root);
+
+        return count;
+    }
+
     private ObjectNode readRoot() {
         try {
             JsonNode root =
