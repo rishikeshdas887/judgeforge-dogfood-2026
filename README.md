@@ -4,13 +4,15 @@ A self-hostable hackathon judging portal with a public project gallery, organize
 
 ## Current Tier Claim
 
-This repository claims and has verified:
+This repository claims:
 
 * **T1 — Core submission and gallery workflow**
 * **T2 — Judge assignment and judging integrity**
+* **T3 — Community voting, comments, and anti-abuse controls**
 
-The official acceptance suite verifies all seven published T1/T2 checks. T3 community
-voting and T4 stretch capabilities are not claimed.
+The official acceptance suite verifies all seven published T1/T2 checks. T3 has no
+automated check by design (per spec.md) and is documented in JUDGING.md, verified
+manually against the running portal. T4 stretch capabilities are not claimed.
 
 ## Implementation Contributions
 
