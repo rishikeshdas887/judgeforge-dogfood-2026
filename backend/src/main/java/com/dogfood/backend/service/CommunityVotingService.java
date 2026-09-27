@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tools.jackson.databind.JsonNode;
@@ -45,6 +46,7 @@ public class CommunityVotingService {
     private final Map<String, Deque<Instant>> rateWindows =
             new HashMap<>();
 
+    @Autowired
     public CommunityVotingService(
             JsonMapper jsonMapper,
             EventStore eventStore,
