@@ -71,4 +71,4 @@ Verified locally:
 Backend Maven tests passed.
 Frontend production build passed.
 
-All T4 work is currently isolated on the local `t4-local` branch.
+All T4 work is present on the default main branch.

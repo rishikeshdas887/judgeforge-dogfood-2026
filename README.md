@@ -9,6 +9,7 @@ This repository claims:
 * **T1 — Core submission and gallery workflow**
 * **T2 — Judge assignment and judging integrity**
 * **T3 — Community voting, comments, and anti-abuse controls**
+* **T4 — REST API, webhooks, certificates, signed judge records, embed gallery, and bulk import/export**
 
 The official acceptance suite verifies all seven published T1/T2 checks. T3 has no
 automated check by design (per spec.md) and is documented in JUDGING.md, verified
@@ -248,6 +249,14 @@ T2  csv export works .................. PASS
 
 The current claim is therefore:
 
+
+
+## Bonus Evidence
+
+The repository includes dedicated evidence for two optional bonus challenges:
+
+*  — fixture-backed raw vs normalized scores and rank movement.
+*  — threat model covering Sybil voting, ballot stuffing, submission scraping, judge collusion, and deadline gaming.
 ```text
 claimed T1 T2 T3 T4; official automated checks verify T1 T2; T3 T4 are verified separately as documented
 ```
@@ -287,3 +296,10 @@ documented separately and were manually verified against the running implementat
 
 The current implementation uses local JSON-backed persistence and does not require an
 external database, hosted authentication service, external API, or cloud account.
+
+## Bonus Evidence
+
+The repository includes dedicated evidence for two optional bonus challenges:
+
+* normalization-proof.md - fixture-backed raw vs normalized scores and rank movement.
+* THREAT-MODEL.md - threat model covering Sybil voting, ballot stuffing, submission scraping, judge collusion, and deadline gaming.
