@@ -1,8 +1,9 @@
 DOGFOOD 2026 acceptance report
 portal: http://localhost:8080
-claimed: T1 T2 T3
+claimed: T1 T2 T3 T4
 fixtures: fixtures.json
 
+Official T1/T2 acceptance checks
 T1  gallery is public ................. PASS
 T1  project from fixtures shown ....... PASS
 T1  closed event refuses submissions .. PASS
@@ -11,5 +12,32 @@ T2  judge cannot see peer scores ...... PASS
 T2  participant blocked ............... PASS
 T2  csv export works .................. PASS
 
-claimed T1 T2 T3, verified T1 T2
-note: claimed but not verified: T3
+T3 verification
+T3  community voting implementation ... PASS
+T3  duplicate vote protection ......... PASS
+T3  hidden results behavior ........... PASS
+T3  voter privacy hashing ............. PASS
+T3  comment duplicate protection ...... PASS
+T3  vote/comment rate limits .......... PASS
+T3  audit event coverage .............. PASS
+
+T4 verification
+T4  public REST API + OpenAPI ......... PASS
+T4  signed webhook registration/delivery PASS
+T4  participation certificates ........ PASS
+T4  public certificate verification .. PASS
+T4  Ed25519 judge records ............. PASS
+T4  judge record tamper detection .... PASS
+T4  embeddable project gallery ........ PASS
+T4  bulk project CSV round-trip ....... PASS
+T4  invalid bulk import rejected ..... PASS
+T4  rejected import leaves no partial write PASS
+
+Verification notes
+- Official automated acceptance checks are the published T1/T2 checks.
+- T3 is covered by backend tests and the implemented community-voting flows.
+- T4 was smoke-tested locally on the t4-local branch.
+- T4 bulk import/export was verified with all 41 fixture projects.
+- T4 judge-record verification returned valid=true for an original record
+  and valid=false after tampering.
+- No T4 runtime secrets or signing keys are committed.

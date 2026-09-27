@@ -12,7 +12,7 @@ This repository claims:
 
 The official acceptance suite verifies all seven published T1/T2 checks. T3 has no
 automated check by design (per spec.md) and is documented in JUDGING.md, verified
-manually against the running portal. T4 stretch capabilities are not claimed.
+manually against the running portal. T4 stretch capabilities are claimed and manually verified in `t4-verification.md`.
 
 ## Implementation Contributions
 
@@ -234,7 +234,7 @@ The repository includes:
 acceptance-report.txt
 ```
 
-The verified acceptance run reports:
+The official acceptance run reports the T1/T2 checks below. T3 and T4 are additionally verified through backend tests and documented manual smoke tests in `t4-verification.md`.
 
 ```text
 T1  gallery is public ................. PASS
@@ -249,7 +249,7 @@ T2  csv export works .................. PASS
 The current claim is therefore:
 
 ```text
-claimed T1 T2, verified T1 T2
+claimed T1 T2 T3 T4; official automated checks verify T1 T2; T3 T4 are verified separately as documented
 ```
 
 ## Repository Structure

@@ -528,3 +528,18 @@ The current implementation does not claim:
 * T4 stretch capabilities
 * automatic judge balancing
 * external database infrastructure
+
+
+## T4 stretch capabilities
+
+The local T4 implementation adds:
+
+1. Public read-only REST API under `/api/v1`.
+2. OpenAPI description in `openapi.yaml`.
+3. Organizer webhook registration with signed HMAC-SHA256 delivery and retry handling.
+4. Participation certificates with public verification records.
+5. Ed25519-signed judge records with tamper verification.
+6. Embeddable static project gallery under `/embed/`.
+7. Organizer-only bulk project CSV import/export with validation and atomic rejection.
+
+Runtime secrets, signing keys, and generated state remain outside version control.
