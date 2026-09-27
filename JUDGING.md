@@ -215,3 +215,55 @@ version, and publication timestamp. Judge identities and raw judge scores are
 not exposed by the public snapshot.
 
 Successful publication records a `RESULT_PUBLISHED` audit event.
+
+## 10. Community Voting (T3)
+
+Community voting is organizer-configured with three access modes: open link,
+email-gated, or authenticated. The organizer sets the voting window (open/close
+timestamps) and, for email-gated access, an allow-list of eligible voter emails.
+
+### Ballot Presentation
+
+Each voter receives a randomized project ordering per ballot request, preventing
+position bias across voters. Voter identity is resolved server-side (via cookie
+or gated email) rather than trusted from client input.
+
+### Results Visibility
+
+Results remain hidden from the public endpoint until the voting window closes.
+The results endpoint checks voting status server-side; a non-organizer request
+during an open voting window is refused rather than filtered client-side.
+
+### Duplicate Prevention
+
+A voter identity may cast one vote per event. A repeat vote attempt from the
+same resolved identity returns HTTP 409, enforced at the backend before the
+vote is persisted.
+
+### Comment Moderation and Privacy
+
+Comments are public-readable but the response never exposes the underlying
+voter hash — only display name, body, and timestamp. Duplicate comment
+submission from the same identity for the same project is rejected with
+HTTP 409.
+
+### Rate Limiting
+
+Comment submission is rate-limited to 6 requests per minute per identity.
+A 7th request within the window returns HTTP 429. This was verified directly
+against the running portal: 6 sequential comments returned 201, and the 7th
+returned 429 with a "Too many requests" message.
+
+### Audit Trail
+
+Organizer changes to voting configuration produce a
+`COMMUNITY_VOTING_CONFIG_UPDATED` audit event, following the same
+actor/action/target/before/after/reason/request-id shape as the T2 judging
+audit events described in Section 5.
+
+### Verification Note
+
+T3 has no automated check in `run.py` by design (per spec.md); the behaviors
+above were verified manually against the running portal via direct HTTP
+requests (vote submission, duplicate rejection, comment rate limiting, and
+result visibility before/after the voting window).

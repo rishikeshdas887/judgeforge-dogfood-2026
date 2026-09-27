@@ -2,8 +2,8 @@
 base_url = "http://localhost:8080"
 
 [tiers]
-claimed = ["T1", "T2"]
-pitch = "A fixture-backed hackathon judging portal with role-isolated scores and organizer CSV export."
+claimed = ["T1", "T2", "T3"]
+pitch = "A fixture-backed hackathon judging portal with role-isolated scores, organizer CSV export, and community voting with rate limiting and audit trails."
 
 [auth]
 organizer   = "Cookie: session=org_7f2a"
