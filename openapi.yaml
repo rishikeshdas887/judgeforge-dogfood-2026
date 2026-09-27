@@ -1,29 +1,524 @@
 openapi: 3.0.3
 info:
-  title: DogFood Public API
-  version: 1.0.0
-  description: Read-only public API for the DogFood hackathon portal.
-
+  title: JudgeForge DOGFOOD 2026 API
+  version: 1.1.0
+  description: >-
+    Published API contract for the JudgeForge DOGFOOD 2026 portal. The contract
+    documents the business actions exposed by the web UI as well as the public
+    T4 read API, organizer integrations, certificates, signed judge records,
+    and bulk project import/export. The session cookie is the same local
+    browser session used by the web application; no external auth provider is
+    required.
 servers:
   - url: http://localhost:8080
+    description: Local Docker deployment
+
+tags:
+  - name: Authentication
+  - name: Public
+  - name: Participant
+  - name: Judge
+  - name: Organizer
+  - name: Community
+  - name: Audit
+  - name: T4 Integrations
+
+components:
+  securitySchemes:
+    sessionCookie:
+      type: apiKey
+      in: cookie
+      name: session
+      description: Local portal session cookie.
+
+  schemas:
+    Error:
+      type: object
+      additionalProperties: true
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+
+    AuthUser:
+      type: object
+      additionalProperties: true
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        name:
+          type: string
+        role:
+          type: string
+          enum: [ADMIN, ORGANIZER, JUDGE, PARTICIPANT]
+
+    LoginResponse:
+      type: object
+      additionalProperties: true
+      properties:
+        user:
+          $ref: '#/components/schemas/AuthUser'
+        authenticated:
+          type: boolean
+
+    Track:
+      type: object
+      additionalProperties: true
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+
+    Prize:
+      type: object
+      additionalProperties: true
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        amount:
+          type: number
+        description:
+          type: string
+
+    CustomQuestion:
+      type: object
+      additionalProperties: true
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        type:
+          type: string
+        required:
+          type: boolean
+
+    Event:
+      type: object
+      additionalProperties: true
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        startsAt:
+          type: string
+          format: date-time
+        submissionsCloseAt:
+          type: string
+          format: date-time
+        judgingStartsAt:
+          type: string
+          format: date-time
+        judgingEndsAt:
+          type: string
+          format: date-time
+        resultsPublishAt:
+          type: string
+          format: date-time
+        tracks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Track'
+        prizes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Prize'
+        customQuestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomQuestion'
+
+    EventCreate:
+      allOf:
+        - $ref: '#/components/schemas/Event'
+
+    Team:
+      type: object
+      additionalProperties: true
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        inviteToken:
+          type: string
+        members:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+
+    TeamCreate:
+      type: object
+      required: [name]
+      additionalProperties: true
+      properties:
+        name:
+          type: string
+
+    Invite:
+      type: object
+      additionalProperties: true
+      properties:
+        token:
+          type: string
+        teamId:
+          type: string
+        expiresAt:
+          type: string
+          format: date-time
+
+    Project:
+      type: object
+      additionalProperties: true
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        trackId:
+          type: string
+        teamId:
+          type: string
+        repositoryUrl:
+          type: string
+        demoUrl:
+          type: string
+        status:
+          type: string
+        submittedAt:
+          type: string
+          format: date-time
+
+    ProjectCreate:
+      type: object
+      required: [title]
+      additionalProperties: true
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        trackId:
+          type: string
+        teamId:
+          type: string
+        repositoryUrl:
+          type: string
+        demoUrl:
+          type: string
+
+    ProjectUpdate:
+      type: object
+      additionalProperties: true
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        trackId:
+          type: string
+        teamId:
+          type: string
+        repositoryUrl:
+          type: string
+        demoUrl:
+          type: string
+
+    RubricCriterion:
+      type: object
+      additionalProperties: true
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        weight:
+          type: number
+        maxScore:
+          type: number
+
+    Rubric:
+      type: object
+      additionalProperties: true
+      properties:
+        criteria:
+          type: array
+          items:
+            $ref: '#/components/schemas/RubricCriterion'
+
+    Ballot:
+      type: object
+      additionalProperties: true
+      properties:
+        projectId:
+          type: string
+        judgeId:
+          type: string
+        scores:
+          type: object
+          additionalProperties:
+            type: number
+        updatedAt:
+          type: string
+          format: date-time
+
+    ScoreSubmission:
+      type: object
+      required: [scores]
+      additionalProperties: true
+      properties:
+        scores:
+          type: object
+          additionalProperties:
+            type: number
+
+    Judge:
+      type: object
+      additionalProperties: true
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        status:
+          type: string
+        assignmentCount:
+          type: integer
+
+    BatchAssignmentRequest:
+      type: object
+      additionalProperties: true
+      properties:
+        assignments:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+            properties:
+              judgeId:
+                type: string
+              projectId:
+                type: string
+
+    AutoAssignmentRequest:
+      type: object
+      additionalProperties: true
+      properties:
+        judgeCount:
+          type: integer
+        assignmentsPerProject:
+          type: integer
+
+    VotingConfig:
+      type: object
+      additionalProperties: true
+      properties:
+        accessMode:
+          type: string
+          enum: [OPEN_LINK, EMAIL_GATED, AUTHENTICATED]
+        startsAt:
+          type: string
+          format: date-time
+        endsAt:
+          type: string
+          format: date-time
+        resultsHiddenUntilClose:
+          type: boolean
+        rateLimitPerMinute:
+          type: integer
+
+    VoteRequest:
+      type: object
+      additionalProperties: true
+      properties:
+        projectId:
+          type: string
+        email:
+          type: string
+
+    CommentRequest:
+      type: object
+      required: [projectId, text]
+      additionalProperties: true
+      properties:
+        projectId:
+          type: string
+        text:
+          type: string
+        email:
+          type: string
+
+    NormalizationResult:
+      type: object
+      additionalProperties: true
+      properties:
+        normalizationVersion:
+          type: string
+        generatedAt:
+          type: string
+          format: date-time
+        eligibleBallots:
+          type: integer
+        minimumSampleSize:
+          type: integer
+        inputFingerprint:
+          type: string
+        results:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+
+    WebhookRegistration:
+      type: object
+      additionalProperties: true
+      properties:
+        id:
+          type: string
+        url:
+          type: string
+          format: uri
+        secret:
+          type: string
+        events:
+          type: array
+          items:
+            type: string
+
+    Certificate:
+      type: object
+      additionalProperties: true
+      properties:
+        id:
+          type: string
+        projectId:
+          type: string
+        certificateUrl:
+          type: string
+        issuedAt:
+          type: string
+          format: date-time
+
+    SignedJudgeRecord:
+      type: object
+      additionalProperties: true
+      properties:
+        id:
+          type: string
+        judgeId:
+          type: string
+        payload:
+          type: object
+          additionalProperties: true
+        signature:
+          type: string
+        publicKeyId:
+          type: string
+
+  responses:
+    BadRequest:
+      description: Invalid request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or session is invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Authenticated session lacks permission for the action.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Conflict:
+      description: Request conflicts with current state, such as a closed event or duplicate action.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
 
 paths:
-  /api/v1/event:
+  /api/auth/me:
     get:
-      summary: Get the current event
-      operationId: getEvent
+      tags: [Authentication]
+      summary: Get the current session user
+      operationId: getCurrentUser
       responses:
         '200':
-          description: Current event
+          description: Current authentication/session state.
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/AuthUser'
 
-  /api/v1/projects:
+  /api/auth/login:
+    post:
+      tags: [Authentication]
+      summary: Start a local session for a portal role
+      operationId: login
+      parameters:
+        - name: role
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [admin, organizer, judge, participant]
+      responses:
+        '200':
+          description: Session established.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /api/auth/logout:
+    post:
+      tags: [Authentication]
+      summary: End the current session
+      operationId: logout
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Session ended.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /projects:
     get:
-      summary: List submitted projects
-      operationId: listProjects
+      tags: [Public]
+      summary: List projects in the public gallery
+      operationId: listGalleryProjects
       parameters:
         - name: search
           in: query
@@ -37,18 +532,247 @@ paths:
             type: string
       responses:
         '200':
-          description: Submitted projects
+          description: Searchable project gallery.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  type: object
+                  $ref: '#/components/schemas/Project'
 
-  /api/v1/projects/{projectId}:
+  /projects/new:
+    post:
+      tags: [Public]
+      summary: Submission-path acceptance probe
+      description: Kept for the repository acceptance suite; a closed event must reject this route.
+      operationId: submissionAcceptanceProbe
+      responses:
+        '200':
+          description: Route accepted.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+
+  /api/results/published:
     get:
-      summary: Get a submitted project
-      operationId: getProject
+      tags: [Public]
+      summary: Read published results
+      operationId: getPublishedResults
+      responses:
+        '200':
+          description: Public published result snapshot.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+
+  /api/participant/event:
+    get:
+      tags: [Participant]
+      summary: Read event configuration as a participant
+      operationId: getParticipantEvent
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Event visible to a participant.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /api/teams:
+    get:
+      tags: [Participant]
+      summary: List teams available to the current participant
+      operationId: listTeams
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Teams.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      tags: [Participant]
+      summary: Create a team
+      operationId: createTeam
+      security:
+        - sessionCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamCreate'
+      responses:
+        '200':
+          description: Team created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/teams/{teamId}/invites:
+    post:
+      tags: [Participant]
+      summary: Create a team invite
+      operationId: createTeamInvite
+      security:
+        - sessionCookie: []
+      parameters:
+        - name: teamId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Invite created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invite'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/teams/invites/{token}/accept:
+    post:
+      tags: [Participant]
+      summary: Accept a team invite
+      operationId: acceptTeamInvite
+      security:
+        - sessionCookie: []
+      parameters:
+        - name: token
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Invite accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/projects/mine:
+    get:
+      tags: [Participant]
+      summary: List the current participant's projects
+      operationId: listMyProjects
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Participant-owned projects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /api/projects:
+    post:
+      tags: [Participant]
+      summary: Create a project draft
+      operationId: createProject
+      security:
+        - sessionCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectCreate'
+      responses:
+        '200':
+          description: Draft created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/projects/{projectId}:
+    put:
+      tags: [Participant]
+      summary: Edit a project draft
+      operationId: updateProject
+      security:
+        - sessionCookie: []
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectUpdate'
+      responses:
+        '200':
+          description: Project updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/projects/{projectId}/submit:
+    post:
+      tags: [Participant]
+      summary: Submit a project
+      operationId: submitProject
+      security:
+        - sessionCookie: []
       parameters:
         - name: projectId
           in: path
@@ -57,10 +781,1065 @@ paths:
             type: string
       responses:
         '200':
-          description: Submitted project
+          description: Project submitted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/judge/projects:
+    get:
+      tags: [Judge]
+      summary: List projects assigned to the current judge
+      operationId: listJudgeProjects
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Assigned projects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/judge/rubric:
+    get:
+      tags: [Judge]
+      summary: Read the active judging rubric
+      operationId: getJudgeRubric
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Rubric.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rubric'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/judge/ballots:
+    get:
+      tags: [Judge]
+      summary: Read the current judge's ballots
+      operationId: getJudgeBallots
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Judge-local ballots.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ballot'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/judge/ballots/{projectId}:
+    put:
+      tags: [Judge]
+      summary: Save or update the current judge's ballot
+      operationId: saveJudgeBallot
+      security:
+        - sessionCookie: []
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScoreSubmission'
+      responses:
+        '200':
+          description: Ballot saved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ballot'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/judge/scores:
+    get:
+      tags: [Judge]
+      summary: Read judge score data under role isolation rules
+      description: Used by the official acceptance suite to verify own-score visibility and peer-score blocking.
+      operationId: getJudgeScores
+      security:
+        - sessionCookie: []
+      parameters:
+        - name: judge
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Permitted score view.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ballot'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/organizer/event:
+    get:
+      tags: [Organizer]
+      summary: Read event configuration
+      operationId: getOrganizerEvent
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Event configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    put:
+      tags: [Organizer]
+      summary: Update event configuration
+      operationId: updateOrganizerEvent
+      security:
+        - sessionCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        '200':
+          description: Event updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/organizer/events:
+    post:
+      tags: [Organizer]
+      summary: Create an event
+      operationId: createEvent
+      security:
+        - sessionCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventCreate'
+      responses:
+        '200':
+          description: Event created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/organizer/rubric:
+    get:
+      tags: [Organizer]
+      summary: Read organizer judging rubric
+      operationId: getOrganizerRubric
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Current rubric.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rubric'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    put:
+      tags: [Organizer]
+      summary: Update judging rubric
+      operationId: updateOrganizerRubric
+      security:
+        - sessionCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rubric'
+      responses:
+        '200':
+          description: Rubric updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rubric'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/organizer/judges:
+    get:
+      tags: [Organizer]
+      summary: List judges
+      operationId: listJudges
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Judges.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Judge'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/organizer/judges/{judgeId}/invite:
+    post:
+      tags: [Organizer]
+      summary: Invite a judge
+      operationId: inviteJudge
+      security:
+        - sessionCookie: []
+      parameters:
+        - name: judgeId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Invitation updated/sent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Judge'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/organizer/judges/{judgeId}/assignments:
+    put:
+      tags: [Organizer]
+      summary: Replace assignments for one judge
+      operationId: assignJudgeProjects
+      security:
+        - sessionCookie: []
+      parameters:
+        - name: judgeId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+              properties:
+                projectIds:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Assignments saved.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/organizer/judges/assignments/batch:
+    post:
+      tags: [Organizer]
+      summary: Create batch judge assignments
+      operationId: batchAssignJudges
+      security:
+        - sessionCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchAssignmentRequest'
+      responses:
+        '200':
+          description: Batch assignment result.
           content:
             application/json:
               schema:
                 type: object
+                additionalProperties: true
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/organizer/judges/assignments/auto:
+    post:
+      tags: [Organizer]
+      summary: Automatically assign judges to projects
+      operationId: autoAssignJudges
+      security:
+        - sessionCookie: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutoAssignmentRequest'
+      responses:
+        '200':
+          description: Automatically generated assignments.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/organizer/judging-progress:
+    get:
+      tags: [Organizer]
+      summary: Read judge progress dashboard data
+      operationId: getJudgingProgress
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Judging progress.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/results:
+    get:
+      tags: [Organizer]
+      summary: Read organizer result data
+      operationId: getOrganizerResults
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Result data.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/results/normalize:
+    post:
+      tags: [Organizer]
+      summary: Run score normalization
+      operationId: normalizeResults
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Normalization result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NormalizationResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+
+  /api/results/publish:
+    post:
+      tags: [Organizer]
+      summary: Publish judging results
+      operationId: publishResults
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Results published.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+
+  /api/export.csv:
+    get:
+      tags: [Organizer]
+      summary: Export judging results as CSV
+      operationId: exportResultsCsv
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: CSV export.
+          content:
+            text/csv:
+              schema:
+                type: string
+                format: binary
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/community/voting/config:
+    get:
+      tags: [Community]
+      summary: Read community voting configuration
+      operationId: getCommunityVotingConfig
+      responses:
+        '200':
+          description: Current community voting configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VotingConfig'
+
+  /api/community/voting/ballot:
+    get:
+      tags: [Community]
+      summary: Get the current randomized community ballot
+      operationId: getCommunityBallot
+      parameters:
+        - name: email
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Randomized voting ballot.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          description: Rate limit exceeded.
+
+  /api/community/voting/vote:
+    post:
+      tags: [Community]
+      summary: Cast a community vote
+      operationId: castCommunityVote
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VoteRequest'
+      responses:
+        '200':
+          description: Vote recorded.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          description: Rate limit exceeded.
+
+  /api/community/comments:
+    get:
+      tags: [Community]
+      summary: List community comments
+      operationId: listCommunityComments
+      parameters:
+        - name: project
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Comments for the selected project.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+    post:
+      tags: [Community]
+      summary: Add a community comment
+      operationId: addCommunityComment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentRequest'
+      responses:
+        '200':
+          description: Comment created.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          description: Rate limit exceeded.
+
+  /api/community/voting/results:
+    get:
+      tags: [Community]
+      summary: Read community voting results
+      operationId: getCommunityVotingResults
+      responses:
+        '200':
+          description: Results when the voting window permits visibility.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/organizer/community-voting:
+    get:
+      tags: [Organizer]
+      summary: Read community voting configuration for organizers
+      operationId: getOrganizerCommunityVoting
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Organizer community voting configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VotingConfig'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    put:
+      tags: [Organizer]
+      summary: Update community voting configuration
+      operationId: updateOrganizerCommunityVoting
+      security:
+        - sessionCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VotingConfig'
+      responses:
+        '200':
+          description: Configuration updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VotingConfig'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/audit:
+    get:
+      tags: [Audit]
+      summary: Read the audit trail
+      operationId: getAuditTrail
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Recorded audit events.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/v1/event:
+    get:
+      tags: [T4 Integrations]
+      summary: Get the current event through the public API
+      operationId: publicGetEvent
+      responses:
+        '200':
+          description: Current event.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+
+  /api/v1/projects:
+    get:
+      tags: [T4 Integrations]
+      summary: List submitted projects through the public API
+      operationId: publicListProjects
+      parameters:
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: track
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Submitted projects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+
+  /api/v1/projects/{projectId}:
+    get:
+      tags: [T4 Integrations]
+      summary: Get a submitted project through the public API
+      operationId: publicGetProject
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Submitted project.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
         '404':
-          description: Project not found or not submitted
+          $ref: '#/components/responses/NotFound'
+
+  /api/organizer/webhooks:
+    post:
+      tags: [T4 Integrations]
+      summary: Register a webhook
+      operationId: registerWebhook
+      security:
+        - sessionCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookRegistration'
+      responses:
+        '200':
+          description: Webhook registered.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookRegistration'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    get:
+      tags: [T4 Integrations]
+      summary: List registered webhooks
+      operationId: listWebhooks
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Registered webhooks.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WebhookRegistration'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/organizer/webhooks/{webhookId}:
+    delete:
+      tags: [T4 Integrations]
+      summary: Delete a webhook
+      operationId: deleteWebhook
+      security:
+        - sessionCookie: []
+      parameters:
+        - name: webhookId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Webhook deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/organizer/certificates/projects/{projectId}:
+    post:
+      tags: [T4 Integrations]
+      summary: Generate a participation certificate for a project
+      operationId: generateProjectCertificate
+      security:
+        - sessionCookie: []
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Certificate generated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Certificate'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    get:
+      tags: [T4 Integrations]
+      summary: List certificates for a project
+      operationId: listProjectCertificates
+      security:
+        - sessionCookie: []
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Project certificates.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Certificate'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/certificates/{certificateId}:
+    get:
+      tags: [T4 Integrations]
+      summary: Retrieve a generated certificate
+      operationId: getCertificate
+      parameters:
+        - name: certificateId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Certificate.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Certificate'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/participant/participation-records:
+    get:
+      tags: [T4 Integrations]
+      summary: Read the participant's generated participation records
+      operationId: listParticipationRecords
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Participant records.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/organizer/judge-records/snapshot:
+    post:
+      tags: [T4 Integrations]
+      summary: Create a signed judge-record snapshot
+      operationId: createJudgeRecordSnapshot
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Signed snapshot created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignedJudgeRecord'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/organizer/judge-records:
+    get:
+      tags: [T4 Integrations]
+      summary: List signed judge records
+      operationId: listJudgeRecords
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Signed judge records.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SignedJudgeRecord'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/v1/judge-records/{recordId}:
+    get:
+      tags: [T4 Integrations]
+      summary: Read one publicly addressable signed judge record
+      operationId: getPublicJudgeRecord
+      parameters:
+        - name: recordId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Signed judge record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignedJudgeRecord'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/v1/judge-records/{recordId}/verify:
+    get:
+      tags: [T4 Integrations]
+      summary: Verify a signed judge record
+      operationId: verifyJudgeRecord
+      parameters:
+        - name: recordId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Verification result.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/v1/judge-records/public-key:
+    get:
+      tags: [T4 Integrations]
+      summary: Get the public verification key for judge records
+      operationId: getJudgeRecordPublicKey
+      responses:
+        '200':
+          description: Verification public key.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+
+  /api/organizer/projects/export.csv:
+    get:
+      tags: [T4 Integrations]
+      summary: Export projects in bulk as CSV
+      operationId: exportProjectsCsv
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Project CSV export.
+          content:
+            text/csv:
+              schema:
+                type: string
+                format: binary
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/organizer/projects/import:
+    post:
+      tags: [T4 Integrations]
+      summary: Bulk import projects
+      operationId: importProjects
+      security:
+        - sessionCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+          text/csv:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: Import result.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
