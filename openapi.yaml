@@ -1,0 +1,66 @@
+openapi: 3.0.3
+info:
+  title: DogFood Public API
+  version: 1.0.0
+  description: Read-only public API for the DogFood hackathon portal.
+
+servers:
+  - url: http://localhost:8080
+
+paths:
+  /api/v1/event:
+    get:
+      summary: Get the current event
+      operationId: getEvent
+      responses:
+        '200':
+          description: Current event
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/v1/projects:
+    get:
+      summary: List submitted projects
+      operationId: listProjects
+      parameters:
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: track
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Submitted projects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+
+  /api/v1/projects/{projectId}:
+    get:
+      summary: Get a submitted project
+      operationId: getProject
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Submitted project
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: Project not found or not submitted
