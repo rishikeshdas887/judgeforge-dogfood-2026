@@ -256,10 +256,20 @@ returned 429 with a "Too many requests" message.
 
 ### Audit Trail
 
-Organizer changes to voting configuration produce a
-`COMMUNITY_VOTING_CONFIG_UPDATED` audit event, following the same
+Community voting produces six distinct audit event types, following the same
 actor/action/target/before/after/reason/request-id shape as the T2 judging
-audit events described in Section 5.
+audit events described in Section 5:
+
+- `COMMUNITY_VOTING_CONFIG_UPDATED` — organizer changes voting configuration
+- `COMMUNITY_VOTE_SUBMITTED` — a vote is successfully recorded
+- `COMMUNITY_VOTE_DUPLICATE` — a repeat vote attempt is rejected
+- `COMMUNITY_COMMENT_CREATED` — a comment is successfully recorded
+- `COMMUNITY_COMMENT_DUPLICATE` — a repeat comment attempt is rejected
+- `COMMUNITY_RATE_LIMITED` — a request is rejected for exceeding the rate limit
+
+This covers both successful actions and abuse attempts (duplicates, rate-limit
+violations), giving the organizer a complete record of voting activity and
+attempted abuse, not just configuration changes.
 
 ### Verification Note
 
