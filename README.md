@@ -249,17 +249,17 @@ T2  csv export works .................. PASS
 
 The current claim is therefore:
 
-
-
-## Bonus Evidence
-
-The repository includes dedicated evidence for two optional bonus challenges:
-
-*  — fixture-backed raw vs normalized scores and rank movement.
-*  — threat model covering Sybil voting, ballot stuffing, submission scraping, judge collusion, and deadline gaming.
 ```text
 claimed T1 T2 T3 T4; official automated checks verify T1 T2; T3 T4 are verified separately as documented
 ```
+
+## Bonus Evidence
+
+The repository includes dedicated evidence for three optional bonus challenges:
+
+* **Normalization Proof (+5)** — fixture-backed raw vs normalized scores, methodology, reproducibility fingerprint, and rank movement in `normalization-proof.md`.
+* **Threat Model (+3)** — documented Sybil voting, ballot stuffing, submission scraping, judge collusion, and deadline-gaming threats with mitigations and residual risks in `THREAT-MODEL.md`.
+* **API First (+3)** — published `openapi.yaml` covering the UI business-action API surface, with `API-FIRST-COVERAGE.md` and `verify-api-first.py` providing coverage evidence.
 
 ## Repository Structure
 
