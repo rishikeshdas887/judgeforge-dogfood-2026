@@ -303,3 +303,5 @@ The repository includes dedicated evidence for two optional bonus challenges:
 
 * normalization-proof.md - fixture-backed raw vs normalized scores and rank movement.
 * THREAT-MODEL.md - threat model covering Sybil voting, ballot stuffing, submission scraping, judge collusion, and deadline gaming.
+
+**Note:** Clone into a directory Docker has permission to bind-mount (e.g., your home directory). Docker Desktop's default file-sharing settings may block bind mounts from /tmp or other restricted paths.
