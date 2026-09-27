@@ -43,3 +43,7 @@ data/webhooks.json.tmp
 
 data/certificates.json
 data/certificates.json.tmp
+
+data/judge-records.json
+data/judge-records.json.tmp
+data/judge-record-signing.json
