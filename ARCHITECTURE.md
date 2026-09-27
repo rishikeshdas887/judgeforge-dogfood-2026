@@ -509,7 +509,7 @@ sole security mechanism.
 
 ## 16. Current Scope
 
-The architecture currently supports the claimed T1 and T2 functionality.
+The architecture currently supports the claimed T1, T2, T3, and T4 functionality.
 
 Implemented T2 capabilities include:
 
@@ -522,12 +522,10 @@ Implemented T2 capabilities include:
 * organizer CSV export
 * append-only audit events
 
-The current implementation does not claim:
+The current implementation does not claim behavior that is not implemented.
 
-* T3 community voting
-* T4 stretch capabilities
-* automatic judge balancing
-* external database infrastructure
+The implementation remains self-hosted and local-data-backed; it does not require
+external database infrastructure or hosted services.
 
 
 ## T4 stretch capabilities

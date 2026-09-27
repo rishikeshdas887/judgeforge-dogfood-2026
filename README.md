@@ -280,10 +280,10 @@ claimed T1 T2 T3 T4; official automated checks verify T1 T2; T3 T4 are verified 
 
 This repository intentionally documents only behavior that is implemented and verified.
 
-The current submission does not claim:
+The current submission claims T1, T2, T3, and T4.
 
-* T3 community voting
-* T4 stretch capabilities
+The official acceptance runner verifies the published T1/T2 checks. T3 and T4 are
+documented separately and were manually verified against the running implementation.
 
 The current implementation uses local JSON-backed persistence and does not require an
 external database, hosted authentication service, external API, or cloud account.
