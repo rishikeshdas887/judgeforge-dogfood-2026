@@ -3,6 +3,7 @@ import { Users, Gavel, ClipboardList, ShieldCheck, ArrowRight, LogOut } from 'lu
 import OrganizerDashboard from './OrganizerDashboard'
 import JudgeDashboard from './JudgeDashboard'
 import ParticipantDashboard from './ParticipantDashboard'
+import CommunityVoting from './CommunityVoting'
 
 const ROLES = [
   { value: 'participant', label: 'Participant', desc: 'Submit and manage your project', icon: Users },
@@ -246,6 +247,8 @@ function App() {
           )}
         </>
       )}
+
+      <CommunityVoting />
 
       <section className="max-w-5xl mx-auto mt-8">
         <div className="flex items-center justify-between mb-4">

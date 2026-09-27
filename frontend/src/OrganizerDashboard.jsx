@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import EventConfiguration from './EventConfiguration'
+import CommunityVotingAdmin from './CommunityVotingAdmin'
 
 async function readResponse(response, fallback) {
   const text = await response.text()
@@ -428,171 +429,159 @@ export default function OrganizerDashboard() {
     window.open('/api/export.csv', '_blank', 'noopener,noreferrer')
   }
 
+  const primaryBtn =
+    'rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors'
+  const secondaryBtn =
+    'rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-50 transition-colors'
+  const inputCls =
+    'w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-900'
+  const labelCls = 'block text-xs text-slate-400 mb-1'
+
   if (loadError) {
     return (
-      <section className="organizer-section">
-        <div className="empty-state">{loadError}</div>
+      <section className="max-w-5xl mx-auto mt-8">
+        <div className="rounded-xl border border-red-200 bg-red-50 p-6 text-sm text-red-600">
+          {loadError}
+        </div>
       </section>
     )
   }
 
   return (
-    <section className="organizer-section">
+    <section className="max-w-5xl mx-auto mt-8 space-y-6">
       <EventConfiguration />
+      <CommunityVotingAdmin />
 
-      <div className="section-header organizer-header">
+      <div className="flex items-center justify-between">
         <div>
-          <p className="eyebrow">ORGANIZER</p>
-          <h2>Judging Control</h2>
+          <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase">
+            Organizer
+          </p>
+          <h2 className="text-xl font-semibold text-slate-900 mt-1">Judging Control</h2>
         </div>
 
         {progress && (
-          <span>
-            Updated{' '}
-            {new Date(progress.generated_at).toLocaleTimeString()}
+          <span className="text-sm text-slate-500">
+            Updated {new Date(progress.generated_at).toLocaleTimeString()}
           </span>
         )}
       </div>
 
-      <div className="organizer-grid">
-        <div className="dashboard-card">
-          <div className="card-heading">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="flex items-start justify-between gap-4 mb-4">
             <div>
-              <h3>Weighted Rubric</h3>
-              <p>Configure criterion weights and score limits.</p>
+              <h3 className="text-base font-semibold text-slate-900">Weighted Rubric</h3>
+              <p className="text-sm text-slate-500 mt-1">Configure criterion weights and score limits.</p>
             </div>
-
-            <strong>{totalWeight.toFixed(2)}%</strong>
+            <strong className="text-lg font-semibold text-slate-900 whitespace-nowrap">
+              {totalWeight.toFixed(2)}%
+            </strong>
           </div>
 
           {rubric?.criteria?.map((criterion, index) => (
-            <div className="rubric-row" key={criterion.id}>
+            <div className="grid grid-cols-3 gap-3 py-3 border-t border-slate-100" key={criterion.id}>
               <div>
-                <label>Name</label>
+                <label className={labelCls}>Name</label>
                 <input
+                  className={inputCls}
                   value={criterion.name}
-                  onChange={(event) =>
-                    updateCriterion(
-                      index,
-                      'name',
-                      event.target.value,
-                    )
-                  }
+                  onChange={(event) => updateCriterion(index, 'name', event.target.value)}
                 />
               </div>
 
               <div>
-                <label>Weight %</label>
+                <label className={labelCls}>Weight %</label>
                 <input
                   type="number"
                   min="0"
                   step="0.01"
+                  className={inputCls}
                   value={criterion.weight}
-                  onChange={(event) =>
-                    updateCriterion(
-                      index,
-                      'weight',
-                      event.target.value,
-                    )
-                  }
+                  onChange={(event) => updateCriterion(index, 'weight', event.target.value)}
                 />
               </div>
 
               <div>
-                <label>Max score</label>
+                <label className={labelCls}>Max score</label>
                 <input
                   type="number"
                   min="0"
                   step="0.01"
+                  className={inputCls}
                   value={criterion.max_score}
-                  onChange={(event) =>
-                    updateCriterion(
-                      index,
-                      'max_score',
-                      event.target.value,
-                    )
-                  }
+                  onChange={(event) => updateCriterion(index, 'max_score', event.target.value)}
                 />
               </div>
             </div>
           ))}
 
-          <div className="card-actions">
+          <div className="flex items-center justify-between mt-4">
             <span
               className={
                 Math.abs(totalWeight - 100) < 0.01
-                  ? 'weight-valid'
-                  : 'weight-invalid'
+                  ? 'text-sm font-semibold text-green-600'
+                  : 'text-sm font-semibold text-red-600'
               }
             >
-              {Math.abs(totalWeight - 100) < 0.01
-                ? 'Weights total 100%'
-                : 'Weights must total 100%'}
+              {Math.abs(totalWeight - 100) < 0.01 ? 'Weights total 100%' : 'Weights must total 100%'}
             </span>
 
             <button
-              className="primary-button compact-button"
-              disabled={
-                saving || Math.abs(totalWeight - 100) >= 0.01
-              }
+              className={primaryBtn}
+              disabled={saving || Math.abs(totalWeight - 100) >= 0.01}
               onClick={saveRubric}
             >
               {saving ? 'Saving...' : 'Save rubric'}
             </button>
           </div>
 
-          {message && <p className="form-message">{message}</p>}
+          {message && <p className="text-sm text-slate-500 mt-2">{message}</p>}
         </div>
 
-        <div className="dashboard-card">
-          <div className="card-heading">
+        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="flex items-start justify-between gap-4 mb-4">
             <div>
-              <h3>Judging Progress</h3>
-              <p>Live assignment completion across all judges.</p>
+              <h3 className="text-base font-semibold text-slate-900">Judging Progress</h3>
+              <p className="text-sm text-slate-500 mt-1">Live assignment completion across all judges.</p>
             </div>
-
-            <strong>
+            <strong className="text-lg font-semibold text-slate-900">
               {progress?.overall_completion_percent?.toFixed(2) ?? '0.00'}%
             </strong>
           </div>
 
-          <div className="progress-summary">
-            <div>
-              <span>Assigned</span>
-              <strong>{progress?.total_assigned_reviews ?? 0}</strong>
+          <div className="grid grid-cols-3 gap-3">
+            <div className="rounded-lg bg-slate-50 p-3">
+              <span className="block text-xs text-slate-400 mb-1">Assigned</span>
+              <strong className="text-lg font-semibold text-slate-900">{progress?.total_assigned_reviews ?? 0}</strong>
             </div>
-
-            <div>
-              <span>Completed</span>
-              <strong>{progress?.total_completed_reviews ?? 0}</strong>
+            <div className="rounded-lg bg-slate-50 p-3">
+              <span className="block text-xs text-slate-400 mb-1">Completed</span>
+              <strong className="text-lg font-semibold text-slate-900">{progress?.total_completed_reviews ?? 0}</strong>
             </div>
-
-            <div>
-              <span>Pending</span>
-              <strong>{progress?.total_pending_reviews ?? 0}</strong>
+            <div className="rounded-lg bg-slate-50 p-3">
+              <span className="block text-xs text-slate-400 mb-1">Pending</span>
+              <strong className="text-lg font-semibold text-slate-900">{progress?.total_pending_reviews ?? 0}</strong>
             </div>
           </div>
 
-          <div className="progress-bar">
+          <div className="h-2.5 rounded-full bg-slate-200 overflow-hidden my-4">
             <div
-              style={{
-                width: `${progress?.overall_completion_percent ?? 0}%`,
-              }}
+              className="h-full bg-slate-900"
+              style={{ width: `${progress?.overall_completion_percent ?? 0}%` }}
             />
           </div>
 
-          <div className="judge-progress-list">
+          <div className="max-h-96 overflow-y-auto border-t border-slate-100 divide-y divide-slate-100">
             {progress?.judges?.map((judge) => (
-              <div className="judge-progress-row" key={judge.judge}>
+              <div className="flex items-center justify-between gap-4 py-3" key={judge.judge}>
                 <div>
-                  <strong>{judge.name}</strong>
-                  <span>
-                    {judge.judge} · {judge.completed_reviews}/
-                    {judge.assigned_reviews} completed
+                  <strong className="block text-sm font-semibold text-slate-900">{judge.name}</strong>
+                  <span className="block text-xs text-slate-400 mt-0.5">
+                    {judge.judge} · {judge.completed_reviews}/{judge.assigned_reviews} completed
                   </span>
                 </div>
-
-                <strong>
+                <strong className="text-sm font-semibold text-slate-900">
                   {judge.completion_percent.toFixed(2)}%
                 </strong>
               </div>
@@ -601,36 +590,32 @@ export default function OrganizerDashboard() {
         </div>
       </div>
 
-      <div className="organizer-panel-grid">
-        <div className="dashboard-card">
-          <div className="card-heading">
-            <div>
-              <h3>Judge Management</h3>
-              <p>Invite judges and manage their assignments.</p>
-            </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="mb-4">
+            <h3 className="text-base font-semibold text-slate-900">Judge Management</h3>
+            <p className="text-sm text-slate-500 mt-1">Invite judges and manage their assignments.</p>
           </div>
 
           {judgesLoading ? (
-            <p>Loading judges...</p>
+            <p className="text-sm text-slate-500">Loading judges...</p>
           ) : (
-            <div className="judge-management-list">
+            <div className="max-h-96 overflow-y-auto divide-y divide-slate-100">
               {judges.map((judge) => (
-                <div className="judge-management-row" key={judge.judge}>
-                  <div>
-                    <strong>{judge.name}</strong>
-                    <span>
+                <div className="flex items-center justify-between gap-4 py-3" key={judge.judge}>
+                  <div className="min-w-0">
+                    <strong className="block text-sm font-semibold text-slate-900">{judge.name}</strong>
+                    <span className="block text-xs text-slate-400 mt-0.5">
                       {judge.judge} · {judge.email}
                     </span>
-                    <span>
-                      {judge.invitation_status} ·{' '}
-                      {judge.assigned_projects} assigned · tracks:{' '}
-                      {judge.allowed_tracks.join(', ')}
+                    <span className="block text-xs text-slate-400 mt-0.5">
+                      {judge.invitation_status} · {judge.assigned_projects} assigned · tracks: {judge.allowed_tracks.join(', ')}
                     </span>
                   </div>
 
-                  <div className="judge-management-actions">
+                  <div className="flex gap-2 flex-shrink-0">
                     <button
-                      className="secondary-button compact-button"
+                      className={secondaryBtn}
                       onClick={() => {
                         setSelectedJudge(judge.judge)
                         setAssignmentMessage('')
@@ -638,11 +623,7 @@ export default function OrganizerDashboard() {
                     >
                       Manage
                     </button>
-
-                    <button
-                      className="primary-button compact-button"
-                      onClick={() => inviteJudge(judge.judge)}
-                    >
+                    <button className={primaryBtn} onClick={() => inviteJudge(judge.judge)}>
                       Invite
                     </button>
                   </div>
@@ -652,21 +633,19 @@ export default function OrganizerDashboard() {
           )}
         </div>
 
-        <div className="dashboard-card">
-          <div className="card-heading">
-            <div>
-              <h3>Assignments</h3>
-              <p>
-                {selectedJudgeDetails
-                  ? `Managing ${selectedJudgeDetails.name} (${selectedJudge})`
-                  : 'Select a judge to manage assignments.'}
-              </p>
-            </div>
+        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="mb-4">
+            <h3 className="text-base font-semibold text-slate-900">Assignments</h3>
+            <p className="text-sm text-slate-500 mt-1">
+              {selectedJudgeDetails
+                ? `Managing ${selectedJudgeDetails.name} (${selectedJudge})`
+                : 'Select a judge to manage assignments.'}
+            </p>
           </div>
 
-          <label>Judge</label>
+          <label className={labelCls}>Judge</label>
           <select
-            className="organizer-select"
+            className={`${inputCls} bg-white`}
             value={selectedJudge}
             onChange={(event) => setSelectedJudge(event.target.value)}
           >
@@ -677,137 +656,108 @@ export default function OrganizerDashboard() {
             ))}
           </select>
 
-          <div className="project-picker">
+          <div className="max-h-72 overflow-y-auto border border-slate-100 rounded-lg mt-3">
             {projects.map((project) => (
-              <label key={project.id} className="project-check-row">
+              <label
+                key={project.id}
+                className="flex items-start gap-2 px-3 py-2 border-b border-slate-100 last:border-0 cursor-pointer hover:bg-slate-50"
+              >
                 <input
                   type="checkbox"
+                  className="mt-1"
                   checked={selectedProjects.includes(project.id)}
                   onChange={() => toggleProject(project.id)}
                 />
-                <span>
-                  <strong>{project.id}</strong> · {project.title || project.name}
-                  <small>{project.track}</small>
+                <span className="text-sm text-slate-700">
+                  <strong className="font-semibold">{project.id}</strong> · {project.title || project.name}
+                  <small className="block text-xs text-slate-400">{project.track}</small>
                 </span>
               </label>
             ))}
           </div>
 
-          <div className="card-actions">
-            <span>{selectedProjects.length} selected</span>
-            <button
-              className="primary-button compact-button"
-              onClick={saveManualAssignment}
-            >
+          <div className="flex items-center justify-between mt-4">
+            <span className="text-sm text-slate-500">{selectedProjects.length} selected</span>
+            <button className={primaryBtn} onClick={saveManualAssignment}>
               Save assignment
             </button>
           </div>
 
-          <div className="assignment-subpanel">
-            <h4>Automatic assignment</h4>
-            <div className="inline-controls">
-              <label>
-                Reviews / project
+          <div className="mt-5 pt-4 border-t border-slate-100">
+            <h4 className="text-sm font-semibold text-slate-900 mb-3">Automatic assignment</h4>
+            <div className="flex items-end gap-3">
+              <label className="flex-1">
+                <span className={labelCls}>Reviews / project</span>
                 <input
                   type="number"
                   min="1"
                   max={judges.length || 1}
+                  className={inputCls}
                   value={targetReviews}
-                  onChange={(event) =>
-                    setTargetReviews(event.target.value)
-                  }
+                  onChange={(event) => setTargetReviews(event.target.value)}
                 />
               </label>
-              <button
-                className="primary-button compact-button"
-                onClick={runAutomaticAssignment}
-              >
+              <button className={primaryBtn} onClick={runAutomaticAssignment}>
                 Run automatic assignment
               </button>
             </div>
           </div>
 
-          <div className="assignment-subpanel">
-            <h4>Batch assignment JSON</h4>
+          <div className="mt-5 pt-4 border-t border-slate-100">
+            <h4 className="text-sm font-semibold text-slate-900 mb-3">Batch assignment JSON</h4>
             <textarea
-              className="organizer-textarea"
+              className={inputCls}
               rows="8"
               value={batchJson}
               onChange={(event) => setBatchJson(event.target.value)}
               placeholder='{"assignments":[{"judge_id":"jdg_01","project_ids":["prj_01"]}]}'
             />
-            <div className="card-actions">
-              <button
-                className="secondary-button compact-button"
-                onClick={() => runBatchAssignment(true)}
-              >
+            <div className="flex gap-2 mt-3">
+              <button className={secondaryBtn} onClick={() => runBatchAssignment(true)}>
                 Validate batch
               </button>
-              <button
-                className="primary-button compact-button"
-                onClick={() => runBatchAssignment(false)}
-              >
+              <button className={primaryBtn} onClick={() => runBatchAssignment(false)}>
                 Apply batch
               </button>
             </div>
           </div>
 
-          {assignmentMessage && (
-            <p className="form-message">{assignmentMessage}</p>
-          )}
+          {assignmentMessage && <p className="text-sm text-slate-500 mt-3">{assignmentMessage}</p>}
         </div>
       </div>
 
-      <div className="dashboard-card results-card">
-        <div className="card-heading">
+      <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div className="flex items-start justify-between gap-4 mb-4">
           <div>
-            <h3>Normalization & Results</h3>
-            <p>
-              Run deterministic normalization, inspect the latest run, or
-              export judging data.
+            <h3 className="text-base font-semibold text-slate-900">Normalization & Results</h3>
+            <p className="text-sm text-slate-500 mt-1">
+              Run deterministic normalization, inspect the latest run, or export judging data.
             </p>
           </div>
-
-          <strong>
+          <strong className="text-sm font-semibold text-slate-900 whitespace-nowrap">
             {results?.normalization_version ?? 'No run'}
           </strong>
         </div>
 
-        <div className="results-actions">
-          <button
-            className="primary-button compact-button"
-            onClick={normalizeResults}
-          >
+        <div className="flex flex-wrap gap-2">
+          <button className={primaryBtn} onClick={normalizeResults}>
             Run normalization
           </button>
-
-          <button
-            className="secondary-button compact-button"
-            onClick={publishResults}
-            disabled={!results}
-          >
+          <button className={secondaryBtn} onClick={publishResults} disabled={!results}>
             Publish results
           </button>
-
-          <button
-            className="secondary-button compact-button"
-            onClick={refreshResults}
-          >
+          <button className={secondaryBtn} onClick={refreshResults}>
             Refresh results
           </button>
-
-          <button
-            className="secondary-button compact-button"
-            onClick={exportCsv}
-          >
+          <button className={secondaryBtn} onClick={exportCsv}>
             Export CSV
           </button>
         </div>
 
-        {resultMessage && <p className="form-message">{resultMessage}</p>}
+        {resultMessage && <p className="text-sm text-slate-500 mt-3">{resultMessage}</p>}
 
         {results && (
-          <pre className="results-json">
+          <pre className="mt-4 max-h-96 overflow-auto rounded-lg bg-slate-50 p-4 text-xs text-slate-600">
             {JSON.stringify(results, null, 2)}
           </pre>
         )}
