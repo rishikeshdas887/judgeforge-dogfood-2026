@@ -37,3 +37,6 @@ build/
 /data/teams.json
 /data/projects.json
 /data/*.tmp
+
+data/webhooks.json
+data/webhooks.json.tmp

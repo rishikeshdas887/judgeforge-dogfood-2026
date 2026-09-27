@@ -1,5 +1,7 @@
 package com.dogfood.backend.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.json.JsonMapper;
@@ -17,6 +19,9 @@ public class AuditStore {
 
     private final JsonMapper jsonMapper;
     private final Path auditPath;
+
+    @Autowired(required = false)
+    private ApplicationEventPublisher eventPublisher;
 
     public AuditStore(JsonMapper jsonMapper) {
         this.jsonMapper = jsonMapper;
@@ -86,6 +91,14 @@ public class AuditStore {
         events.add(event);
 
         write(events);
+
+        if (eventPublisher != null) {
+            eventPublisher.publishEvent(
+                    new com.dogfood.backend.webhook.AuditEventCreated(
+                            event.deepCopy()
+                    )
+            );
+        }
     }
 
     public synchronized ArrayNode readAll() {
