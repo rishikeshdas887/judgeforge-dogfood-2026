@@ -40,3 +40,6 @@ build/
 
 data/webhooks.json
 data/webhooks.json.tmp
+
+data/certificates.json
+data/certificates.json.tmp
