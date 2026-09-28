@@ -33,6 +33,9 @@ The DOGFOOD requirement is that every action available in the UI is available th
 | Judge ballots | GET | `/api/judge/ballots` |
 | Save judge ballot | PUT | `/api/judge/ballots/{projectId}` |
 | Judge score isolation probe | GET | `/api/judge/scores` |
+| Judge Pairwise next comparison | GET | `/api/judge/pairwise/next` |
+| Judge Pairwise progress | GET | `/api/judge/pairwise/progress` |
+| Submit Pairwise comparison | POST | `/api/judge/pairwise/comparisons` |
 | Organizer event view | GET | `/api/organizer/event` |
 | Organizer event update | PUT | `/api/organizer/event` |
 | Create event | POST | `/api/organizer/events` |

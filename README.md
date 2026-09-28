@@ -11,9 +11,33 @@ This repository claims:
 * **T3 — Public community voting and anti-abuse controls**
 * **T4 — REST/webhooks, certificates, signed records, embed, and bulk tools**
 
-The official DOGFOOD acceptance suite currently verifies all published T1/T2 checks successfully.
+The official DOGFOOD acceptance suite verifies the published T1/T2 HTTP checks. T3 and T4 have separate reproducible runtime verification in the repository. All four optional bonuses are implemented and documented.
 
-**Bonus:** Pairwise Mode is implemented for judge-side project comparison using a Bradley-Terry estimator. It is an optional bonus capability and is not part of the T1/T2 claim.
+## Submission Status
+
+| Area | Status | Evidence / surface |
+|---|---|---|
+| T1 — Core submission and gallery | **Implemented** | Participant workflow + public gallery + acceptance report |
+| T2 — Judge assignment and judging integrity | **Implemented** | Judge/Organizer UI + acceptance report + `JUDGING.md` |
+| T3 — Community voting and anti-abuse | **Implemented** | Public Community Voting UI + `docs/T3-VERIFICATION.md` |
+| T4 — REST/webhooks/certificates/records/embed/bulk | **Implemented** | Local API surface + `docs/T4-VERIFICATION.md` |
+| Bonus — Normalization proof (+5) | **Implemented** | `normalization-proof.md` + Organizer normalization UI |
+| Bonus — Pairwise judging (+5) | **Implemented** | Judge Pairwise Mode UI + Bradley-Terry results endpoint |
+| Bonus — Threat model (+3) | **Implemented** | `THREAT-MODEL.md` |
+| Bonus — API First (+3) | **Implemented** | `openapi.yaml` + `API-FIRST-COVERAGE.md` + `verify-api-first.py` |
+
+> Bonus points are separate from the main tier score and are used as tie-break / Best Judging Engine criteria under the DOGFOOD rules.
+
+### What an evaluator can see immediately
+
+1. `docker compose up` starts the seeded offline portal.
+2. Public visitors can browse the fixture gallery and community-voting surface.
+3. The participant role exposes team formation, invite acceptance, draft/edit/submit behavior, and deadline enforcement.
+4. Judge A/B expose isolated scoring plus the optional Pairwise Mode.
+5. Organizer/Admin exposes event configuration, judge assignment, rubric, progress, normalization, publication, CSV export, audit, and community-voting administration.
+6. T4 integration capabilities are directly available through the documented local REST API and are backed by reproducible runtime verification.
+
+The acceptance runner remains intentionally limited to the published seven T1/T2 checks; the additional T3/T4 and bonus evidence is documented separately rather than being presented as part of the official acceptance runner.
 ## Implementation Contributions
 
 The implementation combines a Spring Boot backend with a React/Vite/Nginx frontend
@@ -129,6 +153,12 @@ Requirements:
 Start the complete application:
 
 ```bash
+docker compose up
+```
+
+To force a rebuild after changing application code or Dockerfiles:
+
+```bash
 docker compose up --build
 ```
 
@@ -237,8 +267,10 @@ The current backend data directory contains:
 assignments.json
 audit-events.json
 ballots.json
+community-voting.json
 judge-invitations.json
 normalization-results.json
+pairwise-comparisons.json
 rubric.json
 ```
 
@@ -272,11 +304,14 @@ claimed T1 T2 T3 T4; official automated checks verify T1 T2; T3 T4 are verified 
 
 ## Bonus Evidence
 
-The repository includes dedicated evidence for three optional bonus challenges:
+The repository includes dedicated evidence for all four optional bonus challenges:
 
-* **Normalization Proof (+5)** — fixture-backed raw vs normalized scores, methodology, reproducibility fingerprint, and rank movement in `normalization-proof.md`.
-* **Threat Model (+3)** — documented Sybil voting, ballot stuffing, submission scraping, judge collusion, and deadline-gaming threats with mitigations and residual risks in `THREAT-MODEL.md`.
-* **API First (+3)** — published `openapi.yaml` covering the UI business-action API surface, with `API-FIRST-COVERAGE.md` and `verify-api-first.py` providing coverage evidence.
+* **Normalization Proof (+5)** — fixture-backed raw vs normalized scores, methodology, reproducibility fingerprint, and rank movement in `normalization-proof.md`. The Organizer UI exposes the normalization action and result summary.
+* **Pairwise Judging (+5)** — judge-side Pairwise Mode with persistent comparisons and a Bradley-Terry estimator. Evidence is implemented in the Judge UI and backend controller, with the API documented in `openapi.yaml`.
+* **Threat Model (+3)** — `THREAT-MODEL.md` documents Sybil voting, ballot stuffing, scraping, judge collusion, deadline gaming, mitigations, and residual risks.
+* **API First (+3)** — `openapi.yaml`, `API-FIRST-COVERAGE.md`, and `verify-api-first.py` cover the UI business-action API surface plus the T4 integration API.
+
+The four bonuses are separate from the main tier score and are intended as tie-break / Best Judging Engine criteria under the DOGFOOD rules.
 
 ## Repository Structure
 
@@ -306,19 +341,13 @@ The repository includes dedicated evidence for three optional bonus challenges:
 
 This repository intentionally documents only behavior that is implemented and verified.
 
-The current submission claims T1, T2, T3, and T4.
+The current submission claims T1, T2, T3, and T4, with all four optional bonuses implemented.
 
 The official acceptance runner verifies the published T1/T2 checks. T3 and T4 are
-documented separately and were manually verified against the running implementation.
+verified separately with the reproducible runtime evidence in `docs/T3-VERIFICATION.md`
+and `docs/T4-VERIFICATION.md`.
 
 The current implementation uses local JSON-backed persistence and does not require an
 external database, hosted authentication service, external API, or cloud account.
-
-## Bonus Evidence
-
-The repository includes dedicated evidence for two optional bonus challenges:
-
-* normalization-proof.md - fixture-backed raw vs normalized scores and rank movement.
-* THREAT-MODEL.md - threat model covering Sybil voting, ballot stuffing, submission scraping, judge collusion, and deadline gaming.
 
 **Note:** Clone into a directory Docker has permission to bind-mount (e.g., your home directory). Docker Desktop's default file-sharing settings may block bind mounts from /tmp or other restricted paths.

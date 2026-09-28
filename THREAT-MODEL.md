@@ -116,5 +116,5 @@ The deployment does not require a hosted authentication service, hosted database
 Relevant controls are exercised through:
 - The published seven-check acceptance suite for T1 and T2 behavior.
 - Manual T3 verification documented in JUDGING.md.
-- T4 verification documented in t4-verification.md.
+- T4 verification documented in docs/T4-VERIFICATION.md.
 - Backend automated tests.

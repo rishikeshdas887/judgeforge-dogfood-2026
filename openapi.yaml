@@ -919,6 +919,85 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 
+
+  /api/judge/pairwise/next:
+    get:
+      tags: [Judge]
+      summary: Get the next assigned pairwise comparison
+      operationId: getNextPairwiseComparison
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Next pairwise comparison or completion state.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/judge/pairwise/progress:
+    get:
+      tags: [Judge]
+      summary: Get the authenticated judge's pairwise progress
+      operationId: getPairwiseProgress
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Pairwise progress.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/judge/pairwise/comparisons:
+    post:
+      tags: [Judge]
+      summary: Submit a pairwise project comparison
+      operationId: submitPairwiseComparison
+      security:
+        - sessionCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [project_a, project_b, winner]
+              properties:
+                project_a:
+                  type: string
+                project_b:
+                  type: string
+                winner:
+                  type: string
+      responses:
+        '201':
+          description: Pairwise comparison recorded.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+
   /api/organizer/event:
     get:
       tags: [Organizer]
