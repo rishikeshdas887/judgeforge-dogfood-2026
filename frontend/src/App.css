@@ -3809,6 +3809,298 @@ body {
   }
 }
 
+
+/* =========================================================
+   ORGANIZER READABILITY + EVENT FORM PATCH
+   Visual-only: no backend/API behavior changes.
+   ========================================================= */
+
+.organizer-console-header {
+  align-items: center;
+  min-height: 122px;
+  padding: 24px 26px;
+  margin-bottom: 20px;
+}
+
+.organizer-console-kicker {
+  font-size: 11px;
+  line-height: 1.3;
+}
+
+.organizer-console-header h2 {
+  font-size: 28px;
+  line-height: 1.15;
+}
+
+.organizer-console-header p {
+  max-width: 760px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.organizer-console-metric {
+  min-width: 170px;
+  padding-left: 22px;
+}
+
+.organizer-console-metric span {
+  font-size: 10px;
+}
+
+.organizer-console-metric strong {
+  font-size: 22px;
+}
+
+.organizer-console .text-xs {
+  font-size: 0.76rem !important;
+}
+
+.organizer-console .text-sm {
+  font-size: 0.92rem !important;
+}
+
+.organizer-console .text-base {
+  font-size: 1.05rem !important;
+}
+
+.organizer-console h3 {
+  font-size: 1.12rem !important;
+}
+
+.organizer-console h4 {
+  font-size: 1rem !important;
+}
+
+.organizer-console label {
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.organizer-console input,
+.organizer-console select,
+.organizer-console textarea {
+  min-height: 42px;
+  padding: 10px 12px !important;
+  font-size: 0.92rem !important;
+  line-height: 1.35;
+}
+
+.organizer-console textarea {
+  min-height: 110px;
+}
+
+.organizer-console .event-form-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  align-items: end;
+}
+
+.organizer-console .event-form-grid > label {
+  display: grid;
+  gap: 7px;
+}
+
+.organizer-console .event-list-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: 26px;
+  margin-bottom: 11px;
+}
+
+.organizer-console .event-list-header h4 {
+  margin: 0;
+}
+
+.organizer-console .event-list-header p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.organizer-console .event-item-list {
+  display: grid;
+  gap: 10px;
+}
+
+.organizer-console .event-item-row {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.75fr) minmax(200px, 1.5fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+}
+
+.organizer-console .custom-question-row {
+  display: grid;
+  grid-template-columns:
+    minmax(120px, 0.75fr)
+    minmax(230px, 1.6fr)
+    minmax(120px, 0.75fr)
+    auto
+    auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+}
+
+.organizer-console .checkbox-label {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  min-height: 42px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.organizer-console .checkbox-label input {
+  min-height: auto;
+  width: 17px;
+  height: 17px;
+  padding: 0 !important;
+}
+
+.organizer-console .event-item-row .secondary-button,
+.organizer-console .custom-question-row .secondary-button {
+  min-height: 42px;
+  padding: 0 14px;
+  white-space: nowrap;
+}
+
+.organizer-console .card-actions {
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.organizer-console .primary-button,
+.organizer-console .secondary-button {
+  min-height: 42px;
+  padding: 0 16px;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.organizer-console .progress-summary span {
+  font-size: 0.8rem;
+}
+
+.organizer-console .progress-summary strong {
+  font-size: 1.42rem;
+}
+
+.organizer-console .judge-progress-row span {
+  font-size: 0.82rem;
+}
+
+.organizer-console .judge-progress-row strong {
+  font-size: 0.94rem;
+}
+
+/* Judge readability: visual-only, same existing data and controls. */
+.judge-console .judge-eyebrow {
+  font-size: 0.70rem;
+}
+
+.judge-console .judge-criterion-id {
+  font-size: 0.66rem;
+}
+
+.judge-console .judge-criterion h3 {
+  font-size: 1.08rem;
+}
+
+.judge-console .judge-criterion-weight span {
+  font-size: 0.64rem;
+}
+
+.judge-console .judge-criterion-weight strong {
+  font-size: 1rem;
+}
+
+.judge-console .judge-score-option {
+  min-width: 40px;
+  height: 38px;
+  font-size: 0.84rem;
+}
+
+.judge-console .judge-score-input-wrap > span {
+  font-size: 0.64rem;
+}
+
+.judge-console .judge-score-input-wrap input {
+  height: 38px;
+  font-size: 0.88rem;
+}
+
+.judge-console .judge-criterion-footer {
+  font-size: 0.66rem;
+  line-height: 1.45;
+}
+
+.judge-console .judge-section-title > span,
+.judge-console .judge-comment-header > span {
+  font-size: 0.66rem;
+}
+
+@media (max-width: 980px) {
+  .organizer-console .event-form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .organizer-console .event-form-grid > label:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .organizer-console .event-item-row {
+    grid-template-columns: 1fr 1.5fr auto;
+  }
+
+  .organizer-console .custom-question-row {
+    grid-template-columns: 1fr 1.5fr;
+  }
+
+  .organizer-console .custom-question-row .checkbox-label,
+  .organizer-console .custom-question-row .secondary-button {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 700px) {
+  .organizer-console-header {
+    padding: 20px;
+  }
+
+  .organizer-console-header h2 {
+    font-size: 24px;
+  }
+
+  .organizer-console .event-form-grid,
+  .organizer-console .event-form-grid > label:first-child,
+  .organizer-console .event-item-row,
+  .organizer-console .custom-question-row {
+    grid-template-columns: 1fr;
+  }
+
+  .organizer-console .event-form-grid > label:first-child {
+    grid-column: auto;
+  }
+
+  .organizer-console .event-list-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .organizer-console .event-item-row .secondary-button,
+  .organizer-console .custom-question-row .secondary-button,
+  .organizer-console .primary-button,
+  .organizer-console .secondary-button {
+    width: 100%;
+  }
+}
+
 /* =========================================================
    DOGFOOD PARTICIPANT CONSOLE
    ========================================================= */
@@ -4478,4 +4770,1112 @@ body {
   .judge-pairwise {
     padding: 18px;
   }
+}
+
+/* =========================================================
+   FINAL READABILITY PASS
+   Visual-only: no backend/API behavior changes.
+   ========================================================= */
+
+/* ---------- GLOBAL PORTAL HEADER ---------- */
+
+.dogfood-header {
+  min-height: 88px;
+}
+
+.dogfood-brand {
+  gap: 14px;
+}
+
+.dogfood-brand-mark {
+  width: 44px;
+  height: 44px;
+  font-size: 1rem;
+}
+
+.dogfood-brand p {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+}
+
+.dogfood-brand h1 {
+  font-size: 1.34rem;
+  line-height: 1.15;
+}
+
+.dogfood-header-actions {
+  gap: 12px;
+}
+
+.dogfood-session-chip {
+  min-height: 40px;
+  padding: 8px 11px;
+  font-size: 0.7rem;
+}
+
+.dogfood-header-status {
+  font-size: 0.7rem;
+}
+
+.dogfood-logout {
+  min-height: 42px;
+  padding: 9px 13px;
+  font-size: 0.8rem;
+}
+
+.dogfood-context-bar {
+  min-height: 54px;
+  font-size: 0.68rem;
+}
+
+.dogfood-enter-button {
+  min-height: 50px;
+  font-size: 0.82rem;
+}
+
+.dogfood-role-name {
+  font-size: 0.94rem;
+}
+
+.dogfood-role-desc {
+  font-size: 0.8rem;
+}
+
+/* ---------- COMMUNITY VOTING ---------- */
+
+.community-breadcrumb {
+  font-size: 0.67rem;
+}
+
+.community-status,
+.community-access-token {
+  font-size: 0.68rem;
+}
+
+.community-kicker {
+  font-size: 0.7rem;
+}
+
+.community-title-row h2 {
+  font-size: clamp(2rem, 3.2vw, 2.65rem);
+}
+
+.community-title-row p {
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+.community-event-bar span {
+  font-size: 0.64rem;
+}
+
+.community-event-bar strong {
+  font-size: 0.82rem;
+}
+
+.community-event-state strong {
+  font-size: 0.82rem;
+}
+
+.community-info-item span {
+  font-size: 0.61rem;
+}
+
+.community-info-item strong {
+  font-size: 0.86rem;
+}
+
+.community-info-copy strong {
+  font-size: 0.78rem;
+}
+
+.community-info-copy span {
+  font-size: 0.72rem;
+}
+
+.community-section-kicker {
+  font-size: 0.64rem;
+}
+
+.community-section-heading h3,
+.community-results-head h3 {
+  font-size: 1.18rem;
+}
+
+.community-section-count {
+  font-size: 0.65rem;
+}
+
+.community-project-index {
+  font-size: 0.7rem;
+}
+
+.community-project-id {
+  font-size: 0.62rem;
+}
+
+.community-project-tags span {
+  font-size: 0.58rem;
+}
+
+.community-project-copy h4 {
+  font-size: 1.18rem;
+}
+
+.community-project-copy p {
+  font-size: 0.84rem;
+  line-height: 1.65;
+}
+
+.community-vote-button {
+  min-height: 48px;
+  font-size: 0.72rem;
+}
+
+.community-project-meta span,
+.community-repo-link {
+  font-size: 0.61rem;
+}
+
+.community-project-meta strong {
+  font-size: 0.54rem;
+}
+
+.community-comment-header h5 {
+  font-size: 0.8rem;
+}
+
+.community-comment-header > span {
+  font-size: 0.63rem;
+}
+
+.community-comment p {
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+.community-comment-form input,
+.community-comment-form .community-secondary-button {
+  font-size: 0.72rem;
+}
+
+/* ---------- ORGANIZER / ADMIN ---------- */
+
+.organizer-console-header {
+  min-height: 136px;
+  padding: 26px 28px;
+}
+
+.organizer-console-kicker {
+  font-size: 12px;
+}
+
+.organizer-console-header h2 {
+  font-size: 32px;
+}
+
+.organizer-console-header p {
+  font-size: 15px;
+}
+
+.organizer-console-metric {
+  min-width: 190px;
+}
+
+.organizer-console-metric span {
+  font-size: 11px;
+}
+
+.organizer-console-metric strong {
+  font-size: 24px;
+}
+
+.organizer-console .text-xs {
+  font-size: 0.82rem !important;
+}
+
+.organizer-console .text-sm {
+  font-size: 0.94rem !important;
+}
+
+.organizer-console .text-base {
+  font-size: 1.06rem !important;
+}
+
+.organizer-console h3 {
+  font-size: 1.2rem !important;
+}
+
+.organizer-console h4 {
+  font-size: 1.08rem !important;
+}
+
+.organizer-console p {
+  font-size: 0.88rem;
+}
+
+.organizer-console label {
+  font-size: 0.84rem;
+}
+
+.organizer-console input,
+.organizer-console select,
+.organizer-console textarea {
+  font-size: 0.96rem;
+}
+
+.organizer-console .secondary-button,
+.organizer-console .primary-button {
+  min-height: 44px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 0.82rem;
+}
+
+.organizer-console .event-item-row,
+.organizer-console .custom-question-row {
+  font-size: 0.9rem;
+}
+
+/* ---------- JUDGE A + JUDGE B ---------- */
+
+.judge-mobile-header {
+  min-height: 72px;
+  padding: 0 28px;
+}
+
+.judge-brand {
+  gap: 12px;
+}
+
+.judge-brand-mark {
+  width: 36px;
+  height: 36px;
+}
+
+.judge-brand strong {
+  font-size: 0.95rem;
+}
+
+.judge-brand span {
+  font-size: 0.72rem;
+}
+
+.judge-mobile-status {
+  font-size: 0.7rem;
+}
+
+.judge-meta-bar {
+  min-height: 46px;
+  padding: 0 28px;
+}
+
+.judge-meta-left {
+  font-size: 0.68rem;
+}
+
+.judge-role-badge {
+  font-size: 0.67rem;
+}
+
+.judge-panel-heading h3 {
+  font-size: 1.12rem;
+}
+
+.judge-eyebrow {
+  font-size: 0.72rem;
+}
+
+.judge-queue-top {
+  font-size: 0.68rem;
+}
+
+.judge-queue-card > strong {
+  font-size: 0.94rem;
+}
+
+.judge-queue-bottom {
+  font-size: 0.7rem;
+}
+
+.judge-breadcrumb {
+  font-size: 0.68rem;
+}
+
+.judge-project-id {
+  font-size: 0.72rem;
+}
+
+.judge-title-row p {
+  font-size: 0.92rem;
+}
+
+.judge-project-meta span,
+.judge-project-meta a {
+  font-size: 0.66rem;
+}
+
+.judge-score-box span,
+.judge-score-box small {
+  font-size: 0.64rem;
+}
+
+.judge-score-box strong {
+  font-size: 2.15rem;
+}
+
+.judge-isolation strong {
+  font-size: 0.7rem;
+}
+
+.judge-isolation p {
+  font-size: 0.82rem;
+}
+
+.judge-section-title h2,
+.judge-comment-header h2 {
+  font-size: 1.34rem;
+}
+
+.judge-section-title > span,
+.judge-comment-header > span {
+  font-size: 0.66rem;
+}
+
+.judge-criterion {
+  padding: 19px;
+}
+
+.judge-criterion-id {
+  font-size: 0.68rem;
+}
+
+.judge-criterion h3 {
+  font-size: 1.08rem;
+}
+
+.judge-criterion-weight span {
+  font-size: 0.64rem;
+}
+
+.judge-criterion-weight strong {
+  font-size: 1.05rem;
+}
+
+.judge-score-option {
+  min-width: 41px;
+  height: 40px;
+  font-size: 0.86rem;
+}
+
+.judge-score-input-wrap > span {
+  font-size: 0.65rem;
+}
+
+.judge-score-input-wrap input {
+  height: 40px;
+  font-size: 0.9rem;
+}
+
+.judge-criterion-footer {
+  margin-top: 13px;
+  padding-top: 12px;
+  font-size: 0.68rem;
+}
+
+.judge-comment-panel textarea {
+  font-size: 0.88rem;
+}
+
+@media (max-width: 700px) {
+  .dogfood-header {
+    min-height: 78px;
+    width: min(100% - 24px, 1440px);
+  }
+
+  .dogfood-brand h1 {
+    font-size: 1.08rem;
+  }
+
+  .dogfood-header-status,
+  .dogfood-session-chip {
+    display: none;
+  }
+
+  .community-title-row h2 {
+    font-size: 1.9rem;
+  }
+
+  .organizer-console-header {
+    min-height: 0;
+  }
+
+  .organizer-console-header h2 {
+    font-size: 27px;
+  }
+
+  .judge-mobile-header {
+    padding: 0 16px;
+  }
+
+  .judge-meta-bar {
+    padding: 0 16px;
+  }
+
+  .judge-score-option {
+    min-width: 38px;
+  }
+}
+
+/* =========================================================
+   STRONG READABILITY OVERRIDE
+   Visual-only: no backend/API behavior changes.
+   ========================================================= */
+
+/* ---------- PORTAL SHELL ---------- */
+
+.dogfood-header {
+  min-height: 96px;
+}
+
+.dogfood-brand-mark {
+  width: 48px;
+  height: 48px;
+  font-size: 1.05rem;
+}
+
+.dogfood-brand p {
+  font-size: 0.78rem;
+}
+
+.dogfood-brand h1 {
+  font-size: 1.55rem;
+  line-height: 1.15;
+}
+
+.dogfood-session-chip,
+.dogfood-header-status {
+  font-size: 0.78rem;
+}
+
+.dogfood-logout {
+  min-height: 46px;
+  padding: 10px 15px;
+  font-size: 0.86rem;
+}
+
+.dogfood-context-bar {
+  min-height: 58px;
+  font-size: 0.76rem;
+}
+
+.dogfood-enter-button {
+  min-height: 54px;
+  font-size: 0.9rem;
+}
+
+.dogfood-role-name {
+  font-size: 1rem;
+}
+
+.dogfood-role-desc {
+  font-size: 0.86rem;
+}
+
+/* ---------- COMMUNITY VOTING ---------- */
+
+.community-breadcrumb {
+  font-size: 0.78rem;
+}
+
+.community-status,
+.community-access-token {
+  font-size: 0.78rem;
+}
+
+.community-kicker {
+  font-size: 0.78rem;
+}
+
+.community-title-row h2 {
+  font-size: clamp(2.2rem, 3.4vw, 3rem);
+}
+
+.community-title-row p {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.community-event-bar span {
+  font-size: 0.72rem;
+}
+
+.community-event-bar strong,
+.community-event-state strong {
+  font-size: 0.95rem;
+}
+
+.community-info-item span {
+  font-size: 0.7rem;
+}
+
+.community-info-item strong {
+  font-size: 0.96rem;
+}
+
+.community-info-copy strong {
+  font-size: 0.86rem;
+}
+
+.community-info-copy span {
+  font-size: 0.78rem;
+}
+
+.community-section-kicker {
+  font-size: 0.72rem;
+}
+
+.community-section-heading h3,
+.community-results-head h3 {
+  font-size: 1.35rem;
+}
+
+.community-section-count {
+  font-size: 0.72rem;
+}
+
+.community-project-index {
+  font-size: 0.78rem;
+}
+
+.community-project-id {
+  font-size: 0.72rem;
+}
+
+.community-project-tags span {
+  font-size: 0.68rem;
+  padding: 5px 8px;
+}
+
+.community-project-copy h4 {
+  font-size: 1.32rem;
+}
+
+.community-project-copy p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.community-vote-button {
+  min-height: 52px;
+  font-size: 0.82rem;
+}
+
+.community-project-meta span,
+.community-repo-link {
+  min-height: 32px;
+  font-size: 0.7rem;
+  padding: 6px 9px;
+}
+
+.community-project-meta strong {
+  font-size: 0.62rem;
+}
+
+.community-comment-header h5 {
+  font-size: 0.9rem;
+}
+
+.community-comment-header > span {
+  font-size: 0.72rem;
+}
+
+.community-comment p {
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+.community-comment-form input,
+.community-comment-form .community-secondary-button {
+  font-size: 0.8rem;
+}
+
+/* ---------- ORGANIZER / ADMIN ---------- */
+
+.organizer-console-header {
+  min-height: 150px;
+  padding: 28px 30px;
+}
+
+.organizer-console-kicker {
+  font-size: 0.8rem;
+}
+
+.organizer-console-header h2 {
+  font-size: 2.15rem;
+}
+
+.organizer-console-header p {
+  font-size: 1rem;
+}
+
+.organizer-console-metric {
+  min-width: 210px;
+}
+
+.organizer-console-metric span {
+  font-size: 0.72rem;
+}
+
+.organizer-console-metric strong {
+  font-size: 1.65rem;
+}
+
+.organizer-console p {
+  font-size: 0.95rem;
+}
+
+.organizer-console label,
+.organizer-console .text-xs {
+  font-size: 0.88rem !important;
+}
+
+.organizer-console .text-sm {
+  font-size: 1rem !important;
+}
+
+.organizer-console .text-base {
+  font-size: 1.1rem !important;
+}
+
+.organizer-console h3 {
+  font-size: 1.35rem !important;
+}
+
+.organizer-console h4 {
+  font-size: 1.2rem !important;
+}
+
+.organizer-console input,
+.organizer-console select,
+.organizer-console textarea {
+  min-height: 46px;
+  font-size: 1rem;
+}
+
+.organizer-console textarea {
+  min-height: 120px;
+}
+
+.organizer-console .secondary-button,
+.organizer-console .primary-button {
+  min-height: 48px;
+  font-size: 0.9rem;
+}
+
+/* ---------- JUDGE A + JUDGE B ---------- */
+
+.judge-mobile-header {
+  min-height: 78px;
+}
+
+.judge-brand strong {
+  font-size: 1.05rem;
+}
+
+.judge-brand span {
+  font-size: 0.78rem;
+}
+
+.judge-mobile-status {
+  font-size: 0.78rem;
+}
+
+.judge-meta-bar {
+  min-height: 50px;
+}
+
+.judge-meta-left {
+  font-size: 0.76rem;
+}
+
+.judge-role-badge {
+  font-size: 0.74rem;
+}
+
+.judge-eyebrow {
+  font-size: 0.8rem;
+}
+
+.judge-panel-heading h3 {
+  font-size: 1.25rem;
+}
+
+.judge-queue-top,
+.judge-queue-bottom {
+  font-size: 0.76rem;
+}
+
+.judge-queue-card > strong {
+  font-size: 1rem;
+}
+
+.judge-breadcrumb {
+  font-size: 0.76rem;
+}
+
+.judge-project-id {
+  font-size: 0.8rem;
+}
+
+.judge-title-row p {
+  font-size: 1rem;
+}
+
+.judge-project-meta span,
+.judge-project-meta a {
+  font-size: 0.72rem;
+}
+
+.judge-score-box span,
+.judge-score-box small {
+  font-size: 0.72rem;
+}
+
+.judge-score-box strong {
+  font-size: 2.35rem;
+}
+
+.judge-isolation strong {
+  font-size: 0.78rem;
+}
+
+.judge-isolation p {
+  font-size: 0.9rem;
+}
+
+.judge-section-title h2,
+.judge-comment-header h2 {
+  font-size: 1.45rem;
+}
+
+.judge-section-title > span,
+.judge-comment-header > span {
+  font-size: 0.72rem;
+}
+
+.judge-criterion {
+  padding: 20px;
+}
+
+.judge-criterion-id {
+  font-size: 0.76rem;
+}
+
+.judge-criterion h3 {
+  font-size: 1.2rem;
+}
+
+.judge-criterion-weight span {
+  font-size: 0.72rem;
+}
+
+.judge-criterion-weight strong {
+  font-size: 1.15rem;
+}
+
+.judge-score-option {
+  min-width: 46px;
+  height: 44px;
+  font-size: 0.95rem;
+}
+
+.judge-score-input-wrap {
+  width: 120px;
+}
+
+.judge-score-input-wrap > span {
+  font-size: 0.72rem;
+}
+
+.judge-score-input-wrap input {
+  height: 44px;
+  font-size: 1rem;
+}
+
+.judge-criterion-footer {
+  font-size: 0.76rem;
+}
+
+.judge-comment-panel textarea {
+  font-size: 0.95rem;
+}
+
+/* ---------- TRANSITION / SECTION LABELS ---------- */
+
+.dogfood-community-transition-label {
+  font-size: 0.7rem;
+}
+
+@media (max-width: 700px) {
+  .dogfood-brand h1 {
+    font-size: 1.2rem;
+  }
+
+  .community-title-row h2 {
+    font-size: 2rem;
+  }
+
+  .organizer-console-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .judge-score-option {
+    min-width: 42px;
+  }
+}
+
+/* =========================================================
+   COMMUNITY EDGE ALIGNMENT
+   Visual-only: no backend/API behavior changes.
+   ========================================================= */
+
+.dogfood-community-stage {
+  width: min(1440px, calc(100% - 40px)) !important;
+  max-width: 1440px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  overflow-x: hidden;
+}
+
+.dogfood-community-stage > .community-console {
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.dogfood-community-stage .community-shell {
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+@media (max-width: 700px) {
+  .dogfood-community-stage {
+    width: calc(100% - 24px) !important;
+  }
+
+  .dogfood-community-stage .community-shell {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}
+
+/* =========================================================
+   PUBLIC GALLERY READABILITY
+   Visual-only: no backend/API behavior changes.
+   Shared by participant, organizer, admin and public views.
+   ========================================================= */
+
+.dogfood-section-heading {
+  margin-bottom: 18px;
+}
+
+.dogfood-section-heading h2 {
+  font-size: 1.65rem !important;
+  line-height: 1.2;
+}
+
+.dogfood-section-heading > strong {
+  font-size: 0.78rem !important;
+}
+
+.dogfood-gallery-tools {
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.dogfood-search,
+.dogfood-filter {
+  min-height: 48px;
+  font-size: 0.9rem;
+}
+
+.dogfood-search input,
+.dogfood-filter select {
+  font-size: 0.9rem;
+}
+
+.dogfood-filter {
+  min-width: 190px;
+}
+
+.dogfood-project-grid {
+  gap: 12px;
+}
+
+.dogfood-project-card {
+  min-height: 210px;
+  padding: 20px;
+}
+
+.dogfood-project-topline {
+  font-size: 0.7rem !important;
+}
+
+.dogfood-project-card h3 {
+  margin: 24px 0 9px;
+  font-size: 1.25rem !important;
+  line-height: 1.3;
+}
+
+.dogfood-project-card p {
+  font-size: 0.9rem !important;
+  line-height: 1.65;
+}
+
+.dogfood-project-footer {
+  padding-top: 19px;
+  font-size: 0.7rem !important;
+}
+
+.dogfood-project-footer a {
+  font-size: 0.72rem !important;
+  font-weight: 700;
+}
+
+.dogfood-empty {
+  font-size: 0.9rem !important;
+}
+
+@media (max-width: 700px) {
+  .dogfood-section-heading h2 {
+    font-size: 1.45rem !important;
+  }
+
+  .dogfood-project-card h3 {
+    font-size: 1.15rem !important;
+  }
+
+  .dogfood-project-card p {
+    font-size: 0.86rem !important;
+  }
+}
+/* =========================================================
+   FINAL UI POLISH
+   Visual-only: no backend/API behavior changes.
+   ========================================================= */
+
+html,
+body,
+#root {
+  background: #050914;
+}
+
+html,
+body {
+  overscroll-behavior-y: none;
+}
+
+.community-state-label,
+.community-comment-header h5 {
+  font-size: 0.9rem !important;
+}
+
+.community-state-card strong,
+.community-identity-panel strong {
+  font-size: 0.9rem !important;
+}
+
+.community-state-card p,
+.community-identity-panel p,
+.community-comment p {
+  font-size: 0.88rem !important;
+  line-height: 1.6;
+}
+
+.community-panel-kicker,
+.community-info-item span,
+.community-comment-header > span {
+  font-size: 0.74rem !important;
+}
+
+.community-info-copy strong {
+  font-size: 0.84rem !important;
+}
+
+.community-info-copy span {
+  font-size: 0.76rem !important;
+}
+
+.community-comment-empty {
+  min-height: 52px;
+  display: grid;
+  place-items: center;
+  font-size: 0.86rem !important;
+}
+
+.community-comment-form input,
+.community-comment-form .community-secondary-button {
+  font-size: 0.82rem !important;
+}
+
+.participant-section .eyebrow {
+  font-size: 0.75rem !important;
+}
+
+.participant-section .section-header h2,
+.participant-section .section-header h3 {
+  font-size: 1.18rem !important;
+}
+
+.participant-section .section-header span {
+  font-size: 0.82rem !important;
+}
+
+.participant-section .muted {
+  font-size: 0.88rem !important;
+}
+
+.participant-section .status-open,
+.participant-section .status-closed {
+  font-size: 0.72rem !important;
+}
+
+.participant-section .team-card strong,
+.participant-section .submission-card strong {
+  font-size: 0.96rem !important;
+}
+
+.participant-section .team-card p,
+.participant-section .submission-card p {
+  font-size: 0.8rem !important;
+}
+
+.participant-section .invite-box span,
+.participant-section label {
+  font-size: 0.82rem !important;
+}
+
+.participant-section .invite-box code {
+  font-size: 0.82rem !important;
+}
+
+.participant-section input,
+.participant-section select,
+.participant-section textarea {
+  font-size: 0.94rem !important;
+}
+
+.participant-section .primary-button,
+.participant-section .secondary-button {
+  font-size: 0.82rem !important;
+}
+
+.participant-section .portal-message {
+  font-size: 0.84rem !important;
 }

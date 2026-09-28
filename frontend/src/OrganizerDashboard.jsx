@@ -451,7 +451,7 @@ export default function OrganizerDashboard() {
     <section className="organizer-console">
       <header className="organizer-console-header">
         <div>
-          <span className="organizer-console-kicker">ORGANIZER CONSOLE</span>
+          <span className="organizer-console-kicker">OPERATIONS CONSOLE</span>
           <h2>Event Operations</h2>
           <p>Configure the event, assign judges, monitor progress, and publish results.</p>
         </div>
@@ -470,7 +470,7 @@ export default function OrganizerDashboard() {
       <div className="flex items-center justify-between organizer-console-section-heading">
         <div>
           <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase">
-            Organizer
+            JUDGING OPERATIONS
           </p>
           <h2 className="text-xl font-semibold text-slate-900 mt-1">Judging Control</h2>
         </div>
