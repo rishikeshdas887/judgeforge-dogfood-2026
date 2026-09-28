@@ -448,11 +448,26 @@ export default function OrganizerDashboard() {
   }
 
   return (
-    <section className="max-w-5xl mx-auto mt-8 space-y-6">
-      <EventConfiguration />
-      <CommunityVotingAdmin />
+    <section className="organizer-console">
+      <header className="organizer-console-header">
+        <div>
+          <span className="organizer-console-kicker">ORGANIZER CONSOLE</span>
+          <h2>Event Operations</h2>
+          <p>Configure the event, assign judges, monitor progress, and publish results.</p>
+        </div>
 
-      <div className="flex items-center justify-between">
+        <div className="organizer-console-metric">
+          <span>JUDGING PROGRESS</span>
+          <strong>{progress?.overall_completion_percent?.toFixed(2) ?? '0.00'}%</strong>
+        </div>
+      </header>
+
+      <div className="organizer-console-sections">
+        <EventConfiguration />
+        <CommunityVotingAdmin />
+      </div>
+
+      <div className="flex items-center justify-between organizer-console-section-heading">
         <div>
           <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase">
             Organizer

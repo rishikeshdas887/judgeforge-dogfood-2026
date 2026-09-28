@@ -2461,3 +2461,260 @@ body {
     text-align: center;
   }
 }
+
+/* =========================================================
+   DOGFOOD ORGANIZER CONSOLE
+   ========================================================= */
+
+.organizer-console {
+  --organizer-bg: #060a10;
+  --organizer-surface: #0b111b;
+  --organizer-surface-2: #0f1724;
+  --organizer-surface-3: #131d2b;
+  --organizer-border: #1f2b3d;
+  --organizer-border-strong: #30425c;
+  --organizer-text: #f1f5f9;
+  --organizer-muted: #94a3b8;
+  --organizer-dim: #64748b;
+  --organizer-cyan: #22d3ee;
+  --organizer-cyan-dark: #0891b2;
+  --organizer-green: #2dd4bf;
+  --organizer-red: #f43f5e;
+  --organizer-yellow: #fbbf24;
+
+  width: min(1440px, calc(100% - 40px));
+  margin: 24px auto 48px;
+  color: var(--organizer-text);
+}
+
+.organizer-console *,
+.organizer-console *::before,
+.organizer-console *::after {
+  box-sizing: border-box;
+}
+
+.organizer-console-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 16px;
+  padding: 18px 20px;
+  border: 1px solid var(--organizer-border);
+  background:
+    linear-gradient(180deg, rgba(34, 211, 238, 0.035), transparent 160px),
+    var(--organizer-surface);
+}
+
+.organizer-console-kicker {
+  color: var(--organizer-cyan);
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+}
+
+.organizer-console-header h2 {
+  margin: 6px 0 0;
+  color: var(--organizer-text);
+  font-size: 22px;
+  line-height: 1.15;
+}
+
+.organizer-console-header p {
+  margin: 7px 0 0;
+  color: var(--organizer-muted);
+  font-size: 12px;
+}
+
+.organizer-console-metric {
+  flex: 0 0 auto;
+  min-width: 150px;
+  padding-left: 18px;
+  border-left: 1px solid var(--organizer-border);
+}
+
+.organizer-console-metric span {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--organizer-dim);
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+}
+
+.organizer-console-metric strong {
+  color: var(--organizer-cyan);
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 18px;
+}
+
+.organizer-console-sections {
+  display: grid;
+  gap: 14px;
+}
+
+.organizer-console .dashboard-card,
+.organizer-console .bg-white {
+  border-color: var(--organizer-border) !important;
+  background: var(--organizer-surface) !important;
+  color: var(--organizer-text) !important;
+  box-shadow: none !important;
+}
+
+.organizer-console .dashboard-card {
+  border-radius: 8px;
+}
+
+.organizer-console .card-heading {
+  border-bottom: 1px solid var(--organizer-border);
+  padding-bottom: 14px;
+}
+
+.organizer-console .card-heading h3,
+.organizer-console h3,
+.organizer-console h4 {
+  color: var(--organizer-text) !important;
+}
+
+.organizer-console .card-heading p,
+.organizer-console p {
+  color: var(--organizer-muted);
+}
+
+.organizer-console .text-slate-900 {
+  color: var(--organizer-text) !important;
+}
+
+.organizer-console .text-slate-700,
+.organizer-console .text-slate-600 {
+  color: var(--organizer-muted) !important;
+}
+
+.organizer-console .text-slate-500,
+.organizer-console .text-slate-400 {
+  color: var(--organizer-dim) !important;
+}
+
+.organizer-console .bg-slate-50 {
+  background: var(--organizer-surface-2) !important;
+}
+
+.organizer-console .border-slate-100,
+.organizer-console .border-slate-200,
+.organizer-console .border-slate-300 {
+  border-color: var(--organizer-border) !important;
+}
+
+.organizer-console input,
+.organizer-console select,
+.organizer-console textarea {
+  border-color: var(--organizer-border-strong) !important;
+  background: var(--organizer-surface-2) !important;
+  color: var(--organizer-text) !important;
+  outline: none;
+}
+
+.organizer-console input::placeholder,
+.organizer-console textarea::placeholder {
+  color: var(--organizer-dim);
+}
+
+.organizer-console input:focus,
+.organizer-console select:focus,
+.organizer-console textarea:focus {
+  border-color: var(--organizer-cyan-dark) !important;
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.07);
+}
+
+.organizer-console .bg-slate-900 {
+  border-color: var(--organizer-cyan) !important;
+  background: var(--organizer-cyan) !important;
+  color: #021218 !important;
+}
+
+.organizer-console .hover\:bg-slate-800:hover {
+  background: #67e8f9 !important;
+}
+
+.organizer-console .rounded-lg,
+.organizer-console .rounded-xl {
+  border-radius: 7px;
+}
+
+.organizer-console .event-item-row,
+.organizer-console .custom-question-row {
+  border-color: var(--organizer-border) !important;
+  background: var(--organizer-surface-2) !important;
+}
+
+.organizer-console .progress-summary div {
+  background: var(--organizer-surface-2);
+  border: 1px solid var(--organizer-border);
+}
+
+.organizer-console .progress-bar {
+  background: var(--organizer-border);
+}
+
+.organizer-console .progress-bar > div {
+  background: var(--organizer-cyan);
+}
+
+.organizer-console .judge-progress-list,
+.organizer-console .judge-management-list {
+  border-color: var(--organizer-border);
+}
+
+.organizer-console .form-message {
+  color: var(--organizer-green);
+}
+
+.organizer-console .error {
+  color: #fda4af;
+}
+
+.organizer-console .secondary-button {
+  border-color: var(--organizer-border-strong);
+  background: var(--organizer-surface-2);
+  color: var(--organizer-muted);
+}
+
+.organizer-console .secondary-button:hover:not(:disabled) {
+  border-color: var(--organizer-cyan-dark);
+  color: var(--organizer-text);
+}
+
+.organizer-console .primary-button {
+  border-color: var(--organizer-cyan);
+  background: var(--organizer-cyan);
+  color: #021218;
+}
+
+.organizer-console .organizer-console-section-heading {
+  margin-top: 24px;
+}
+
+.organizer-console pre {
+  border: 1px solid var(--organizer-border) !important;
+  background: #070d16 !important;
+  color: var(--organizer-muted) !important;
+}
+
+@media (max-width: 700px) {
+  .organizer-console {
+    width: min(100% - 24px, 1440px);
+    margin-top: 16px;
+  }
+
+  .organizer-console-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .organizer-console-metric {
+    width: 100%;
+    padding: 12px 0 0;
+    border-top: 1px solid var(--organizer-border);
+    border-left: 0;
+  }
+}
