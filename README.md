@@ -6,7 +6,7 @@ A self-hostable hackathon judging portal with a public project gallery, organize
 
 This repository claims:
 
-* **T1 — Core event creation, team formation, submissions and public gallery **
+* T1 — Core event creation, team formation, submissions and public gallery 
 * **T2 — Judge assignment and judging integrity**
 * **T3 — Public community voting and anti-abuse controls**
 * **T4 — REST/webhooks, certificates, signed records, embed, and bulk tools**
