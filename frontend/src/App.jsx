@@ -321,9 +321,19 @@ function App() {
         </>
       )}
 
-      <section className="dogfood-module dogfood-community-module">
-        <CommunityVoting />
-      </section>
+      {(!user || (user.role !== 'JUDGE_A' && user.role !== 'JUDGE_B')) && (
+        <section className="dogfood-community-stage" aria-label="Community Voting">
+          <div className="dogfood-community-transition" aria-hidden="true">
+            <span className="dogfood-community-transition-line" />
+            <span className="dogfood-community-transition-label">
+              PUBLIC COMMUNITY LAYER
+            </span>
+            <span className="dogfood-community-transition-line" />
+          </div>
+
+          <CommunityVoting />
+        </section>
+      )}
 
       <section className="dogfood-gallery">
         <div className="dogfood-section-heading">
