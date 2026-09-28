@@ -1,16 +1,50 @@
 import { useEffect, useState } from 'react'
-import { Users, Gavel, ClipboardList, ShieldCheck, ArrowRight, LogOut } from 'lucide-react'
+import {
+  ArrowRight,
+  ClipboardList,
+  Gavel,
+  LogOut,
+  Search,
+  ShieldCheck,
+  SlidersHorizontal,
+  Users,
+} from 'lucide-react'
 import OrganizerDashboard from './OrganizerDashboard'
 import JudgeDashboard from './JudgeDashboard'
 import ParticipantDashboard from './ParticipantDashboard'
 import CommunityVoting from './CommunityVoting'
 
 const ROLES = [
-  { value: 'participant', label: 'Participant', desc: 'Submit and manage your project', icon: Users },
-  { value: 'judge_a', label: 'Judge A', desc: 'Score assigned projects', icon: Gavel },
-  { value: 'judge_b', label: 'Judge B', desc: 'Score assigned projects', icon: Gavel },
-  { value: 'organizer', label: 'Organizer', desc: 'Manage the event & judging', icon: ClipboardList },
-  { value: 'admin', label: 'Admin', desc: 'Full platform access', icon: ShieldCheck },
+  {
+    value: 'participant',
+    label: 'Participant',
+    desc: 'Submit and manage your project',
+    icon: Users,
+  },
+  {
+    value: 'judge_a',
+    label: 'Judge A',
+    desc: 'Score assigned projects',
+    icon: Gavel,
+  },
+  {
+    value: 'judge_b',
+    label: 'Judge B',
+    desc: 'Score assigned projects',
+    icon: Gavel,
+  },
+  {
+    value: 'organizer',
+    label: 'Organizer',
+    desc: 'Manage the event & judging',
+    icon: ClipboardList,
+  },
+  {
+    value: 'admin',
+    label: 'Admin',
+    desc: 'Full platform access',
+    icon: ShieldCheck,
+  },
 ]
 
 function App() {
@@ -39,11 +73,14 @@ function App() {
 
   async function checkSession() {
     try {
-      const response = await fetch('/api/auth/me')
+      const response = await fetch('/api/auth/me', {
+        credentials: 'include',
+      })
 
       if (response.ok) {
         const data = await response.json()
         setUser(data)
+        setRole(data.role?.toLowerCase() ?? 'participant')
       }
     } catch {
       setError('Could not connect to the portal.')
@@ -84,6 +121,7 @@ function App() {
     })
 
     setUser(null)
+    setError('')
   }
 
   async function loadPublishedResults() {
@@ -95,7 +133,7 @@ function App() {
         return
       }
 
-      if (response.ok === false) {
+      if (!response.ok) {
         throw new Error('Could not load published results')
       }
 
@@ -147,61 +185,85 @@ function App() {
 
   if (loading) {
     return (
-      <main className="min-h-screen flex items-center justify-center text-slate-500">
-        Loading portal...
+      <main className="dogfood-loading">
+        <span className="dogfood-loading-mark">DF</span>
+        <span>INITIALIZING PORTAL...</span>
       </main>
     )
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 px-6 py-8">
-      <header className="max-w-5xl mx-auto flex items-center justify-between mb-8">
-        <div>
-          <p className="text-xs font-semibold tracking-[0.2em] text-slate-400 uppercase">
-            DOGFOOD 2026
-          </p>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">Hackathon Portal</h1>
+    <main className="dogfood-app">
+      <header className="dogfood-header">
+        <div className="dogfood-brand">
+          <div className="dogfood-brand-mark">DF</div>
+
+          <div>
+            <p>DOGFOOD 2026</p>
+            <h1>Hackathon Portal</h1>
+          </div>
         </div>
 
-        {user && (
-          <button
-            className="flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors"
-            onClick={logout}
-          >
-            <LogOut size={16} />
-            Logout
-          </button>
-        )}
+        <div className="dogfood-header-actions">
+          {user ? (
+            <>
+              <div className="dogfood-session-chip">
+                <span className="dogfood-session-dot" />
+                <span>
+                  {formatRole(user.role)}
+                </span>
+                <strong>{user.id}</strong>
+              </div>
+
+              <button
+                className="dogfood-logout"
+                type="button"
+                onClick={logout}
+              >
+                <LogOut size={15} />
+                Logout
+              </button>
+            </>
+          ) : (
+            <span className="dogfood-header-status">
+              LOCAL / OFFLINE
+            </span>
+          )}
+        </div>
       </header>
 
       {!user ? (
-        <section className="max-w-xl mx-auto rounded-2xl border border-slate-200 bg-white p-8 shadow-sm mb-8">
-          <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase">
-            Access Portal
-          </p>
-          <h2 className="text-2xl font-semibold text-slate-900 mt-1">Choose your role</h2>
-          <p className="text-sm text-slate-500 mt-2">
-            Sign in as a participant, judge, organizer, or admin to access
-            the corresponding portal features.
-          </p>
+        <section className="dogfood-access">
+          <div className="dogfood-access-copy">
+            <span className="dogfood-kicker">ACCESS PORTAL</span>
+            <h2>Choose your operating role.</h2>
+            <p>
+              Enter the local hackathon portal as a participant,
+              judge, organizer, or administrator.
+            </p>
+          </div>
 
-          <div className="grid grid-cols-2 gap-3 mt-6">
+          <div className="dogfood-role-grid">
             {ROLES.map((item) => {
               const Icon = item.icon
               const active = role === item.value
+
               return (
                 <button
                   key={item.value}
+                  type="button"
                   onClick={() => setRole(item.value)}
-                  className={`group flex flex-col items-start gap-2 rounded-xl border p-4 text-left transition-all
-                    ${active
-                      ? 'border-slate-900 bg-slate-900 text-white shadow-md'
-                      : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:shadow-sm'
-                    }`}
+                  className={
+                    active
+                      ? 'dogfood-role is-active'
+                      : 'dogfood-role'
+                  }
                 >
-                  <Icon size={18} className={active ? 'text-white' : 'text-slate-400 group-hover:text-slate-600'} />
-                  <span className="text-sm font-semibold">{item.label}</span>
-                  <span className={`text-xs ${active ? 'text-slate-300' : 'text-slate-400'}`}>
+                  <Icon size={17} />
+                  <span className="dogfood-role-name">
+                    {item.label}
+                  </span>
+                  <span className="dogfood-role-desc">
                     {item.desc}
                   </span>
                 </button>
@@ -210,35 +272,46 @@ function App() {
           </div>
 
           <button
-            className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 py-3.5 text-sm font-semibold text-white hover:bg-slate-800 disabled:opacity-60 transition-colors"
+            className="dogfood-enter-button"
+            type="button"
             onClick={login}
             disabled={loginLoading}
           >
-            {loginLoading ? 'Signing in...' : 'Continue'}
+            {loginLoading ? 'AUTHENTICATING...' : 'ENTER PORTAL'}
             {!loginLoading && <ArrowRight size={16} />}
           </button>
 
-          {error && <p className="text-sm text-red-600 mt-3">{error}</p>}
+          {error && (
+            <div className="dogfood-global-error">
+              {error}
+            </div>
+          )}
         </section>
       ) : (
         <>
-          <section className="max-w-5xl mx-auto rounded-2xl border border-slate-200 bg-white p-6 shadow-sm mb-8">
+          {!(user.role === 'JUDGE_A' || user.role === 'JUDGE_B') && (
+
+          <section className="dogfood-context-bar">
             <div>
-              <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase">
-                Signed In
-              </p>
-              <h2 className="text-xl font-semibold text-slate-900 mt-1">{formatRole(user.role)}</h2>
-              <p className="text-sm text-slate-500 mt-1">
-                Account: <strong className="text-slate-700">{user.id}</strong>
-              </p>
+              <span>ACTIVE SESSION</span>
+              <strong>{formatRole(user.role)}</strong>
+              <em>{user.id}</em>
+            </div>
+
+            <div className="dogfood-context-state">
+              <span />
+              LOCAL SYSTEM
             </div>
           </section>
+          )}
 
-          {(user.role === 'ORGANIZER' || user.role === 'ADMIN') && (
+          {(user.role === 'ORGANIZER' ||
+            user.role === 'ADMIN') && (
             <OrganizerDashboard />
           )}
 
-          {(user.role === 'JUDGE_A' || user.role === 'JUDGE_B') && (
+          {(user.role === 'JUDGE_A' ||
+            user.role === 'JUDGE_B') && (
             <JudgeDashboard />
           )}
 
@@ -248,72 +321,79 @@ function App() {
         </>
       )}
 
-      <CommunityVoting />
+      <section className="dogfood-module dogfood-community-module">
+        <CommunityVoting />
+      </section>
 
-      <section className="max-w-5xl mx-auto mt-8">
-        <div className="flex items-center justify-between mb-4">
+      <section className="dogfood-gallery">
+        <div className="dogfood-section-heading">
           <div>
-            <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase">
-              Public Gallery
-            </p>
-            <h2 className="text-xl font-semibold text-slate-900 mt-1">Projects</h2>
+            <span className="dogfood-kicker">PUBLIC GALLERY</span>
+            <h2>Submitted Projects</h2>
           </div>
 
-          <span className="text-sm text-slate-500">{projects.length} projects</span>
+          <strong>{projects.length} projects</strong>
         </div>
 
-        <div className="flex gap-3 mb-6">
-          <input
-            type="search"
-            value={search}
-            placeholder="Search projects, teams, or tracks..."
-            onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 rounded-lg border border-slate-300 px-4 py-2.5 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900"
-          />
+        <div className="dogfood-gallery-tools">
+          <div className="dogfood-search">
+            <Search size={16} />
+            <input
+              type="search"
+              value={search}
+              placeholder="Search projects, teams, or tracks..."
+              onChange={(event) =>
+                setSearch(event.target.value)
+              }
+            />
+          </div>
 
-          <select
-            value={trackFilter}
-            onChange={(e) => setTrackFilter(e.target.value)}
-            className="rounded-lg border border-slate-300 px-4 py-2.5 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-slate-900"
-          >
-            <option value="">All tracks</option>
-            {tracks.map((track) => (
-              <option key={track} value={track}>
-                {track}
-              </option>
-            ))}
-          </select>
+          <label className="dogfood-filter">
+            <SlidersHorizontal size={15} />
+            <select
+              value={trackFilter}
+              onChange={(event) =>
+                setTrackFilter(event.target.value)
+              }
+            >
+              <option value="">All tracks</option>
+
+              {tracks.map((track) => (
+                <option key={track} value={track}>
+                  {track}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="dogfood-project-grid">
           {projects.length === 0 ? (
-            <div className="col-span-full text-center text-sm text-slate-400 py-12">
+            <div className="dogfood-empty">
               No projects match the current filters.
             </div>
           ) : (
             projects.map((project) => (
               <article
                 key={project.id}
-                className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow"
+                className="dogfood-project-card"
               >
-                <div className="flex items-center justify-between text-xs text-slate-400 mb-2">
-                  <span>{project.track}</span>
+                <div className="dogfood-project-topline">
                   <span>{project.id}</span>
+                  <span>{project.track}</span>
                 </div>
 
-                <h3 className="text-base font-semibold text-slate-900">{project.title}</h3>
-                <p className="text-sm text-slate-500 mt-1">{project.summary}</p>
+                <h3>{project.title}</h3>
 
-                <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-100">
-                  <span className="text-xs text-slate-400">{project.team}</span>
+                <p>{project.summary}</p>
 
-                  
-                    <a
-                  
-                      href={project.repo_url}
+                <div className="dogfood-project-footer">
+                  <span>{project.team}</span>
+
+                  <a
+                    href={project.repo_url}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-xs font-medium text-slate-900 hover:underline"
                   >
                     Repository →
                   </a>
@@ -324,35 +404,47 @@ function App() {
         </div>
 
         {publishedResults?.results?.length > 0 && (
-          <section className="mt-10">
-            <div className="flex items-center justify-between mb-4">
+          <section className="dogfood-results">
+            <div className="dogfood-section-heading">
               <div>
-                <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase">
-                  Published Results
-                </p>
-                <h2 className="text-xl font-semibold text-slate-900 mt-1">Final Rankings</h2>
+                <span className="dogfood-kicker">
+                  PUBLISHED RESULTS
+                </span>
+                <h2>Final Rankings</h2>
               </div>
-              <span className="text-sm text-slate-500">{publishedResults.results.length} ranked</span>
+
+              <strong>
+                {publishedResults.results.length} ranked
+              </strong>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="dogfood-project-grid">
               {publishedResults.results.map((result) => (
                 <article
                   key={result.project}
-                  className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"
+                  className="dogfood-project-card"
                 >
-                  <div className="flex items-center justify-between text-xs text-slate-400 mb-2">
-                    <span>Rank #{result.rank}</span>
+                  <div className="dogfood-project-topline">
+                    <span>RANK #{result.rank}</span>
                     <span>{result.project}</span>
                   </div>
 
-                  <h3 className="text-base font-semibold text-slate-900">{result.title}</h3>
-                  <p className="text-sm text-slate-500 mt-1">
-                    Normalized score: {Number(result.normalized_average).toFixed(2)}
+                  <h3>{result.title}</h3>
+
+                  <p>
+                    Normalized score:{' '}
+                    {Number(
+                      result.normalized_average,
+                    ).toFixed(2)}
                   </p>
 
-                  <div className="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-400">
-                    Published {new Date(publishedResults.published_at).toLocaleString()}
+                  <div className="dogfood-project-footer">
+                    <span>
+                      Published{' '}
+                      {new Date(
+                        publishedResults.published_at,
+                      ).toLocaleString()}
+                    </span>
                   </div>
                 </article>
               ))}

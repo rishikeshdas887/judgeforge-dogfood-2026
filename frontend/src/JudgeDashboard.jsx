@@ -1,16 +1,38 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import {
+  AlertCircle,
+  ArrowLeft,
+  ArrowRight,
+  Check,
+  ChevronLeft,
+  ChevronRight,
+  CircleUserRound,
+  ExternalLink,
+  FileCode2,
+  Info,
+  LockKeyhole,
+  Menu,
+  Save,
+  ShieldCheck,
+  Terminal,
+  X,
+} from 'lucide-react'
 
 export default function JudgeDashboard() {
   const [projects, setProjects] = useState([])
   const [rubric, setRubric] = useState(null)
   const [forms, setForms] = useState({})
+  const [selectedProjectId, setSelectedProjectId] = useState('')
   const [loading, setLoading] = useState(true)
   const [savingProject, setSavingProject] = useState('')
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
+  const [mobileQueueOpen, setMobileQueueOpen] = useState(false)
 
   async function loadJudgeData() {
     try {
+      setError('')
+
       const [projectsResponse, rubricResponse, ballotsResponse] =
         await Promise.all([
           fetch('/api/judge/projects', {
@@ -75,6 +97,24 @@ export default function JudgeDashboard() {
       setProjects(assignedProjects)
       setRubric(rubricData)
       setForms(initialForms)
+
+      if (assignedProjects.length > 0) {
+        setSelectedProjectId((current) => {
+          if (
+            current &&
+            assignedProjects.some((project) => project.id === current)
+          ) {
+            return current
+          }
+
+          const firstPending = assignedProjects.find(
+            (project) =>
+              savedByProject[project.id]?.weighted_score === undefined,
+          )
+
+          return firstPending?.id ?? assignedProjects[0].id
+        })
+      }
     } catch (err) {
       setError(err.message)
     } finally {
@@ -97,6 +137,9 @@ export default function JudgeDashboard() {
         },
       },
     }))
+
+    setMessage('')
+    setError('')
   }
 
   function updateComment(projectId, value) {
@@ -107,6 +150,9 @@ export default function JudgeDashboard() {
         comment: value,
       },
     }))
+
+    setMessage('')
+    setError('')
   }
 
   async function saveBallot(projectId) {
@@ -133,7 +179,9 @@ export default function JudgeDashboard() {
           (score) => Number.isNaN(score),
         )
       ) {
-        throw new Error('Enter a score for every rubric criterion.')
+        throw new Error(
+          'Enter a score for every rubric criterion.',
+        )
       }
 
       const response = await fetch(
@@ -151,13 +199,15 @@ export default function JudgeDashboard() {
         },
       )
 
-      const text = await response.text()
+      const responseText = await response.text()
 
       if (!response.ok) {
-        throw new Error(text || 'Could not save ballot')
+        throw new Error(
+          responseText || 'Could not save ballot',
+        )
       }
 
-      const saved = JSON.parse(text)
+      const saved = JSON.parse(responseText)
 
       setForms((current) => ({
         ...current,
@@ -169,7 +219,7 @@ export default function JudgeDashboard() {
         },
       }))
 
-      setMessage(`Saved score for ${projectId}.`)
+      setMessage(`Score saved for ${projectId}.`)
     } catch (err) {
       setError(err.message)
     } finally {
@@ -177,128 +227,680 @@ export default function JudgeDashboard() {
     }
   }
 
+  const selectedProject = useMemo(
+    () =>
+      projects.find(
+        (project) => project.id === selectedProjectId,
+      ) ?? null,
+    [projects, selectedProjectId],
+  )
+
+  const selectedForm =
+    selectedProject && forms[selectedProject.id]
+      ? forms[selectedProject.id]
+      : null
+
+  const evaluatedCount = projects.filter(
+    (project) =>
+      forms[project.id]?.weighted_score !== null &&
+      forms[project.id]?.weighted_score !== undefined,
+  ).length
+
+  const pendingCount = Math.max(
+    projects.length - evaluatedCount,
+    0,
+  )
+
+  const localWeightedScore = useMemo(() => {
+    if (!selectedForm || !rubric) {
+      return null
+    }
+
+    let total = 0
+
+    for (const criterion of rubric.criteria) {
+      const score = Number(
+        selectedForm.criteria[criterion.id],
+      )
+
+      if (!Number.isFinite(score)) {
+        return null
+      }
+
+      const maxScore = Number(criterion.max_score)
+
+      if (!maxScore) {
+        return null
+      }
+
+      total +=
+        (score / maxScore) *
+        (Number(criterion.weight) / 100) *
+        5
+    }
+
+    return total.toFixed(2)
+  }, [selectedForm, rubric])
+
+  function selectProject(projectId) {
+    setSelectedProjectId(projectId)
+    setMobileQueueOpen(false)
+    setMessage('')
+    setError('')
+  }
+
+  function moveProject(direction) {
+    if (projects.length === 0) {
+      return
+    }
+
+    const currentIndex = projects.findIndex(
+      (project) => project.id === selectedProjectId,
+    )
+
+    if (currentIndex === -1) {
+      setSelectedProjectId(projects[0].id)
+      return
+    }
+
+    const nextIndex =
+      direction === 'next'
+        ? Math.min(currentIndex + 1, projects.length - 1)
+        : Math.max(currentIndex - 1, 0)
+
+    setSelectedProjectId(projects[nextIndex].id)
+    setMessage('')
+    setError('')
+  }
+
   if (loading) {
     return (
-      <section className="organizer-section">
-        <div className="empty-state">Loading judge workspace...</div>
+      <section className="judge-console judge-console-state">
+        <div className="judge-state-card">
+          <Terminal size={18} />
+          <span>Loading judge workspace...</span>
+        </div>
       </section>
     )
   }
 
   if (error && !rubric) {
     return (
-      <section className="organizer-section">
-        <div className="empty-state">{error}</div>
+      <section className="judge-console judge-console-state">
+        <div className="judge-state-card judge-state-error">
+          <AlertCircle size={18} />
+          <span>{error}</span>
+        </div>
+      </section>
+    )
+  }
+
+  if (!selectedProject) {
+    return (
+      <section className="judge-console judge-console-state">
+        <div className="judge-state-card">
+          <Info size={18} />
+          <span>
+            No projects are currently assigned to this judge.
+          </span>
+        </div>
       </section>
     )
   }
 
   return (
-    <section className="organizer-section">
-      <div className="section-header organizer-header">
-        <div>
-          <p className="eyebrow">JUDGE</p>
-          <h2>Assigned Projects</h2>
+    <section className="judge-console">
+      {/* MOBILE / TOP HEADER */}
+      <header className="judge-mobile-header">
+        <div className="judge-brand">
+          <div className="judge-brand-mark">
+            <Terminal size={17} />
+          </div>
+
+          <div>
+            <strong>DOGFOOD</strong>
+            <span>JUDGE CONSOLE</span>
+          </div>
         </div>
 
-        <span>{projects.length} assigned</span>
+        <div className="judge-header-right">
+          <span className="judge-mobile-status">
+            ACTIVE EVALUATION
+          </span>
+
+          <CircleUserRound size={19} />
+        </div>
+      </header>
+
+      {/* EVENT / ROLE BAR */}
+      <div className="judge-meta-bar">
+        <div className="judge-meta-left">
+          <span className="judge-live-dot" />
+          <span>LOCAL</span>
+          <span className="judge-divider">/</span>
+          <span>JUDGE EVALUATION</span>
+        </div>
+
+        <div className="judge-meta-right">
+          <span className="judge-role-badge">
+            ROLE: JUDGE
+          </span>
+
+          <button
+            className="judge-mobile-menu"
+            type="button"
+            onClick={() =>
+              setMobileQueueOpen((current) => !current)
+            }
+            aria-label="Toggle assigned queue"
+          >
+            {mobileQueueOpen ? (
+              <X size={15} />
+            ) : (
+              <Menu size={15} />
+            )}
+          </button>
+        </div>
       </div>
 
-      {projects.length === 0 ? (
-        <div className="empty-state">
-          No projects are currently assigned to this judge.
-        </div>
-      ) : (
-        <div className="judge-project-list">
+      {/* MOBILE QUEUE */}
+      {mobileQueueOpen && (
+        <div className="judge-mobile-queue">
+          <div className="judge-mobile-queue-header">
+            <span>ASSIGNED PROJECTS</span>
+            <span>
+              {evaluatedCount}/{projects.length}
+            </span>
+          </div>
+
           {projects.map((project) => {
-            const form = forms[project.id]
+            const saved =
+              forms[project.id]?.weighted_score !== null &&
+              forms[project.id]?.weighted_score !== undefined
 
             return (
-              <article className="dashboard-card" key={project.id}>
-                <div className="card-heading">
-                  <div>
-                    <p className="eyebrow">{project.id}</p>
-                    <h3>{project.title}</h3>
-                    <p>{project.summary}</p>
+              <button
+                key={project.id}
+                type="button"
+                className={`judge-queue-item ${
+                  project.id === selectedProject.id
+                    ? 'is-active'
+                    : ''
+                }`}
+                onClick={() => selectProject(project.id)}
+              >
+                <span className="judge-queue-id">
+                  {project.id}
+                </span>
+
+                <strong>
+                  {project.title}
+                </strong>
+
+                <span className={saved ? 'is-done' : ''}>
+                  {saved ? 'EVALUATED' : 'PENDING'}
+                </span>
+              </button>
+            )
+          })}
+        </div>
+      )}
+
+      {/* MAIN WORKSPACE */}
+      <div className="judge-workspace">
+        {/* DESKTOP QUEUE */}
+        <aside className="judge-queue">
+          <div className="judge-panel-heading">
+            <div>
+              <span className="judge-eyebrow">
+                ASSIGNED QUEUE
+              </span>
+
+              <h3>
+                Evaluation Worklist
+              </h3>
+            </div>
+
+            <span className="judge-count">
+              {projects.length}
+            </span>
+          </div>
+
+          <div className="judge-progress-strip">
+            <span>
+              COMPLETED
+            </span>
+
+            <strong>
+              {evaluatedCount}/{projects.length}
+            </strong>
+
+            <span>
+              {pendingCount} pending
+            </span>
+          </div>
+
+          <div className="judge-queue-list">
+            {projects.map((project) => {
+              const form = forms[project.id]
+
+              const saved =
+                form?.weighted_score !== null &&
+                form?.weighted_score !== undefined
+
+              const isActive =
+                project.id === selectedProject.id
+
+              return (
+                <button
+                  key={project.id}
+                  type="button"
+                  className={`judge-queue-card ${
+                    isActive ? 'is-active' : ''
+                  }`}
+                  onClick={() =>
+                    selectProject(project.id)
+                  }
+                >
+                  <div className="judge-queue-top">
+                    <span>{project.id}</span>
+
+                    <span
+                      className={
+                        saved
+                          ? 'queue-status done'
+                          : 'queue-status'
+                      }
+                    >
+                      {saved
+                        ? 'EVALUATED'
+                        : isActive
+                          ? 'IN PROGRESS'
+                          : 'PENDING'}
+                    </span>
                   </div>
 
-                  {form?.weighted_score !== null &&
-                    form?.weighted_score !== undefined && (
-                      <strong>
-                        {form.weighted_score.toFixed(2)} / 5
-                      </strong>
+                  <strong>
+                    {project.title}
+                  </strong>
+
+                  <div className="judge-queue-bottom">
+                    <span>
+                      {project.team ?? 'Team'}
+                    </span>
+
+                    {saved ? (
+                      <span>
+                        {Number(
+                          form.weighted_score,
+                        ).toFixed(2)}
+                        /5
+                      </span>
+                    ) : (
+                      <span>
+                        —
+                      </span>
                     )}
+                  </div>
+                </button>
+              )
+            })}
+          </div>
+        </aside>
+
+        {/* ACTIVE EVALUATION */}
+        <main className="judge-evaluation">
+          <div className="judge-evaluation-header">
+            <div>
+              <div className="judge-breadcrumb">
+                <span>JUDGE</span>
+                <span>/</span>
+                <strong>ACTIVE EVALUATION</strong>
+              </div>
+
+              <div className="judge-title-row">
+                <div>
+                  <span className="judge-project-id">
+                    {selectedProject.id}
+                  </span>
+
+                  <h1>
+                    {selectedProject.title}
+                  </h1>
+
+                  <p>
+                    {selectedProject.summary}
+                  </p>
                 </div>
 
-                <div className="judge-rubric-grid">
-                  {rubric.criteria.map((criterion) => (
-                    <div key={criterion.id}>
-                      <label>
-                        {criterion.name} · max {criterion.max_score}
-                      </label>
+                <div className="judge-score-box">
+                  <span>
+                    WEIGHTED SCORE
+                  </span>
+
+                  <strong>
+                    {selectedForm?.weighted_score !==
+                    null &&
+                    selectedForm?.weighted_score !==
+                      undefined
+                      ? Number(
+                          selectedForm.weighted_score,
+                        ).toFixed(2)
+                      : localWeightedScore ?? '—'}
+                  </strong>
+
+                  <small>
+                    / 5.00
+                  </small>
+                </div>
+              </div>
+
+              <div className="judge-project-meta">
+                {selectedProject.team && (
+                  <span>
+                    TEAM: {selectedProject.team}
+                  </span>
+                )}
+
+                {selectedProject.track && (
+                  <span>
+                    TRACK: {selectedProject.track}
+                  </span>
+                )}
+
+                {selectedProject.repo_url && (
+                  <a
+                    href={selectedProject.repo_url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <FileCode2 size={14} />
+                    REPOSITORY
+                    <ExternalLink size={12} />
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* ISOLATION NOTICE */}
+          <div className="judge-isolation">
+            <div className="judge-isolation-icon">
+              <LockKeyhole size={17} />
+            </div>
+
+            <div>
+              <strong>
+                JUDGE ISOLATION ACTIVE
+              </strong>
+
+              <p>
+                This evaluation view is restricted to projects
+                assigned to the authenticated judge. Peer judge
+                ballots are not exposed through the judge API.
+              </p>
+            </div>
+
+            <ShieldCheck size={18} />
+          </div>
+
+          {/* RUBRIC */}
+          <div className="judge-section-title">
+            <div>
+              <span className="judge-eyebrow">
+                EVALUATION MATRIX
+              </span>
+
+              <h2>
+                Weighted Rubric
+              </h2>
+            </div>
+
+            <span>
+              {rubric.criteria.length} criteria
+            </span>
+          </div>
+
+          <div className="judge-rubric-stack">
+            {rubric.criteria.map((criterion) => {
+              const currentValue =
+                selectedForm?.criteria?.[criterion.id] ??
+                ''
+
+              const numericValue =
+                Number(currentValue)
+
+              const maxScore =
+                Number(criterion.max_score)
+
+              const weightedPreview =
+                Number.isFinite(numericValue) &&
+                maxScore > 0
+                  ? (
+                      (numericValue / maxScore) *
+                      (Number(criterion.weight) / 100) *
+                      5
+                    ).toFixed(2)
+                  : '—'
+
+              const quickScores =
+                Number.isInteger(maxScore) &&
+                maxScore <= 10
+                  ? Array.from(
+                      { length: maxScore },
+                      (_, index) => index + 1,
+                    )
+                  : []
+
+              return (
+                <article
+                  className="judge-criterion"
+                  key={criterion.id}
+                >
+                  <div className="judge-criterion-head">
+                    <div>
+                      <span className="judge-criterion-id">
+                        {criterion.id}
+                      </span>
+
+                      <h3>
+                        {criterion.name}
+                      </h3>
+                    </div>
+
+                    <div className="judge-criterion-weight">
+                      <span>
+                        WEIGHT
+                      </span>
+
+                      <strong>
+                        {criterion.weight}%
+                      </strong>
+                    </div>
+                  </div>
+
+                  <div className="judge-score-row">
+                    <div className="judge-score-options">
+                      {quickScores.map((score) => (
+                        <button
+                          key={score}
+                          type="button"
+                          className={
+                            Number(currentValue) === score
+                              ? 'judge-score-option is-selected'
+                              : 'judge-score-option'
+                          }
+                          onClick={() =>
+                            updateScore(
+                              selectedProject.id,
+                              criterion.id,
+                              String(score),
+                            )
+                          }
+                        >
+                          {score}
+                        </button>
+                      ))}
+                    </div>
+
+                    <div className="judge-score-input-wrap">
+                      <span>
+                        SCORE
+                      </span>
 
                       <input
                         type="number"
                         min="0"
                         max={criterion.max_score}
                         step="0.01"
-                        value={form?.criteria?.[criterion.id] ?? ''}
+                        value={currentValue}
                         onChange={(event) =>
                           updateScore(
-                            project.id,
+                            selectedProject.id,
                             criterion.id,
                             event.target.value,
                           )
                         }
+                        aria-label={`Score for ${criterion.name}`}
                       />
-
-                      <small>
-                        Weight {criterion.weight}%
-                      </small>
                     </div>
-                  ))}
-                </div>
+                  </div>
 
-                <label className="judge-comment-label">
-                  Judge comment
-                </label>
-
-                <textarea
-                  className="judge-comment"
-                  rows="4"
-                  value={form?.comment ?? ''}
-                  onChange={(event) =>
-                    updateComment(project.id, event.target.value)
-                  }
-                  placeholder="Record concise evidence for the score."
-                />
-
-                <div className="card-actions">
-                  {message && message.includes(project.id) ? (
-                    <span className="weight-valid">{message}</span>
-                  ) : (
+                  <div className="judge-criterion-footer">
                     <span>
-                      Scores are enforced again by the backend.
+                      Allowed: 0–{criterion.max_score}
                     </span>
-                  )}
 
-                  <button
-                    className="primary-button compact-button"
-                    disabled={savingProject === project.id}
-                    onClick={() => saveBallot(project.id)}
-                  >
-                    {savingProject === project.id
-                      ? 'Saving...'
-                      : 'Save score'}
-                  </button>
-                </div>
-              </article>
-            )
-          })}
-        </div>
-      )}
+                    <span>
+                      Weighted contribution: {weightedPreview}
+                    </span>
+                  </div>
+                </article>
+              )
+            })}
+          </div>
 
-      {error && rubric && <p className="error">{error}</p>}
+          {/* COMMENT */}
+          <section className="judge-comment-panel">
+            <div className="judge-comment-header">
+              <div>
+                <span className="judge-eyebrow">
+                  EVIDENCE / RATIONALE
+                </span>
+
+                <h2>
+                  Judge Comment
+                </h2>
+              </div>
+
+              <span>
+                {selectedForm?.comment?.length ?? 0} chars
+              </span>
+            </div>
+
+            <textarea
+              value={selectedForm?.comment ?? ''}
+              onChange={(event) =>
+                updateComment(
+                  selectedProject.id,
+                  event.target.value,
+                )
+              }
+              rows="5"
+              placeholder="Record concise evidence supporting the scores."
+            />
+          </section>
+
+          {/* FEEDBACK */}
+          {message && (
+            <div className="judge-feedback judge-feedback-success">
+              <Check size={16} />
+              <span>{message}</span>
+            </div>
+          )}
+
+          {error && rubric && (
+            <div className="judge-feedback judge-feedback-error">
+              <AlertCircle size={16} />
+              <span>{error}</span>
+            </div>
+          )}
+
+          {/* ACTION BAR */}
+          <footer className="judge-action-bar">
+            <div className="judge-navigation-actions">
+              <button
+                type="button"
+                className="judge-secondary-button"
+                onClick={() => moveProject('previous')}
+                disabled={
+                  projects.findIndex(
+                    (project) =>
+                      project.id === selectedProject.id,
+                  ) <= 0
+                }
+              >
+                <ChevronLeft size={16} />
+                Previous
+              </button>
+
+              <button
+                type="button"
+                className="judge-secondary-button"
+                onClick={() => moveProject('next')}
+                disabled={
+                  projects.findIndex(
+                    (project) =>
+                      project.id === selectedProject.id,
+                  ) >=
+                  projects.length - 1
+                }
+              >
+                Next
+                <ChevronRight size={16} />
+              </button>
+            </div>
+
+            <div className="judge-action-context">
+              <span>ACTIVE EVALUATION</span>
+              <strong>
+                {projects.findIndex(
+                  (project) =>
+                    project.id === selectedProject.id,
+                ) + 1}
+              </strong>
+              <span>/ {projects.length}</span>
+            </div>
+
+            <button
+              type="button"
+              className="judge-primary-button"
+              disabled={savingProject === selectedProject.id}
+              onClick={() =>
+                saveBallot(selectedProject.id)
+              }
+            >
+              {savingProject === selectedProject.id ? (
+                <>
+                  <Save size={16} />
+                  Saving...
+                </>
+              ) : message &&
+                message.includes(selectedProject.id) ? (
+                <>
+                  <Check size={16} />
+                  Saved
+                </>
+              ) : (
+                <>
+                  <Check size={16} />
+                  Save evaluation
+                </>
+              )}
+            </button>
+          </footer>
+        </main>
+      </div>
     </section>
   )
 }
