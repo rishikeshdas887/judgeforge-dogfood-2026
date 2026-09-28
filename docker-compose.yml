@@ -7,6 +7,12 @@ services:
     restart: unless-stopped
     volumes:
       - ./backend/data:/app/data
+    healthcheck:
+      test: ["CMD-SHELL", "grep -q ':1F90 .* 0A ' /proc/net/tcp /proc/net/tcp6 || exit 1"]
+      interval: 2s
+      timeout: 2s
+      retries: 40
+      start_period: 5s
 
   frontend:
     build:
@@ -14,6 +20,7 @@ services:
     container_name: dogfood-frontend
     restart: unless-stopped
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
     ports:
       - "8080:80"
