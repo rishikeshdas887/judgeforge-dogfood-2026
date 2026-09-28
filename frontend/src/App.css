@@ -3272,6 +3272,225 @@ body {
   }
 }
 
+/* =========================================================
+   STITCH-INSPIRED COMMUNITY VOTING OVERRIDES
+   Visual-only. No API/state/data changes.
+   ========================================================= */
+
+.community-console {
+  border-radius: 4px;
+  border-color: #1e293b;
+  background:
+    linear-gradient(180deg, rgba(34, 211, 238, 0.02), transparent 220px),
+    #050914;
+}
+
+.community-shell {
+  width: min(1180px, calc(100% - 48px));
+  padding-bottom: 36px;
+}
+
+.community-header {
+  padding-top: 16px;
+  background:
+    linear-gradient(180deg, rgba(34, 211, 238, 0.035), transparent 190px),
+    #0b111b;
+}
+
+.community-header-top {
+  padding-top: 14px;
+}
+
+.community-breadcrumb {
+  font-size: 0.57rem;
+  letter-spacing: 0.11em;
+}
+
+.community-status,
+.community-access-token {
+  border-radius: 3px;
+  background: #0f1724;
+  min-height: 27px;
+}
+
+.community-status.is-open {
+  background: rgba(45, 212, 191, 0.06);
+}
+
+.community-title-row {
+  padding-bottom: 21px;
+}
+
+.community-title-row h2 {
+  font-size: clamp(1.65rem, 3vw, 2.3rem);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.community-title-row p {
+  max-width: 700px;
+  font-size: 0.77rem;
+}
+
+.community-event-bar {
+  background: #0b111b;
+}
+
+.community-event-bar > div {
+  min-height: 58px;
+}
+
+.community-state-card,
+.community-identity-panel,
+.community-feedback,
+.community-results-hidden {
+  border-radius: 3px;
+  background: #0b111b;
+}
+
+.community-identity-panel {
+  background:
+    linear-gradient(90deg, rgba(34, 211, 238, 0.025), transparent 55%),
+    #0b111b;
+}
+
+.community-primary-button {
+  min-height: 40px;
+  border-radius: 3px;
+  font-weight: 900;
+  letter-spacing: 0.07em;
+}
+
+.community-secondary-button {
+  border-radius: 3px;
+}
+
+.community-info-strip {
+  border: 1px solid #1e293b;
+  background: #0b111b;
+  border-radius: 3px;
+}
+
+.community-section-heading,
+.community-results-head {
+  margin-top: 26px;
+}
+
+.community-project-list {
+  gap: 9px;
+}
+
+.community-project-card {
+  border-radius: 4px;
+  background: #0b111b;
+}
+
+.community-project-card::before {
+  width: 2px;
+  background: #26364d;
+}
+
+.community-project-card:hover {
+  border-color: #30425c;
+}
+
+.community-project-topline {
+  background: #0f1724;
+}
+
+.community-project-tags span {
+  border-radius: 3px;
+  background: #050914;
+}
+
+.community-project-body {
+  padding: 17px;
+}
+
+.community-project-copy h4 {
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.community-project-copy p {
+  font-size: 0.73rem;
+}
+
+.community-project-meta span,
+.community-repo-link {
+  border-radius: 3px;
+  background: #080e17;
+}
+
+.community-repo-link {
+  color: #22d3ee;
+}
+
+.community-vote-button {
+  min-height: 40px;
+}
+
+.community-comment-panel {
+  margin-top: 17px;
+}
+
+.community-comment {
+  border-radius: 3px;
+  background: #050914;
+}
+
+.community-comment-form {
+  padding: 9px;
+  border: 1px solid #1e293b;
+  border-radius: 3px;
+  background: #0f1724;
+}
+
+.community-comment-form input {
+  background: #050914;
+}
+
+.community-results {
+  margin-top: 30px;
+}
+
+.community-result-row {
+  border-radius: 3px;
+  background: #0b111b;
+}
+
+.community-result-bar {
+  background: #050914;
+}
+
+.community-results-hidden {
+  background: #0b111b;
+}
+
+.community-loading {
+  background: #050914;
+}
+
+@media (max-width: 900px) {
+  .community-shell {
+    width: min(100% - 36px, 1180px);
+  }
+}
+
+@media (max-width: 680px) {
+  .community-shell {
+    width: min(100% - 24px, 1180px);
+  }
+
+  .community-status-group {
+    justify-content: flex-start;
+  }
+
+  .community-project-body {
+    padding: 14px;
+  }
+}
+
 /* COMMUNITY VOTING PAGE-LEVEL SEPARATION */
 .dogfood-community-stage {
   width: min(1440px, calc(100% - 40px));
