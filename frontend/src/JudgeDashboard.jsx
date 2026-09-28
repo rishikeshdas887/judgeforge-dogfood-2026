@@ -18,6 +18,8 @@ import {
   X,
 } from 'lucide-react'
 
+import PairwisePanel from './PairwisePanel'
+
 export default function JudgeDashboard() {
   const [projects, setProjects] = useState([])
   const [rubric, setRubric] = useState(null)
@@ -28,6 +30,113 @@ export default function JudgeDashboard() {
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
   const [mobileQueueOpen, setMobileQueueOpen] = useState(false)
+  const [pairwiseMode, setPairwiseMode] = useState(false)
+  const [pairwiseComparison, setPairwiseComparison] = useState(null)
+  const [pairwiseProgress, setPairwiseProgress] = useState(null)
+  const [pairwiseLoading, setPairwiseLoading] = useState(false)
+  const [pairwiseSubmitting, setPairwiseSubmitting] = useState(false)
+  const [pairwiseMessage, setPairwiseMessage] = useState('')
+  const [pairwiseError, setPairwiseError] = useState('')
+
+  async function loadPairwiseData() {
+    setPairwiseLoading(true)
+    setPairwiseError('')
+
+    try {
+      const [nextResponse, progressResponse] = await Promise.all([
+        fetch('/api/judge/pairwise/next', {
+          credentials: 'include',
+        }),
+        fetch('/api/judge/pairwise/progress', {
+          credentials: 'include',
+        }),
+      ])
+
+      if (!nextResponse.ok) {
+        const body = await nextResponse.text()
+        throw new Error(
+          body || `Could not load pairwise comparison: ${nextResponse.status}`,
+        )
+      }
+
+      if (!progressResponse.ok) {
+        const body = await progressResponse.text()
+        throw new Error(
+          body || `Could not load pairwise progress: ${progressResponse.status}`,
+        )
+      }
+
+      const nextData = await nextResponse.json()
+      const progressData = await progressResponse.json()
+
+      setPairwiseComparison(nextData)
+      setPairwiseProgress(progressData)
+    } catch (err) {
+      setPairwiseError(err.message)
+    } finally {
+      setPairwiseLoading(false)
+    }
+  }
+
+  async function enterPairwiseMode() {
+    setPairwiseMode(true)
+    setPairwiseMessage('')
+    setPairwiseError('')
+    await loadPairwiseData()
+  }
+
+  function leavePairwiseMode() {
+    setPairwiseMode(false)
+    setPairwiseMessage('')
+    setPairwiseError('')
+  }
+
+  async function submitPairwiseComparison(winner) {
+    if (
+      !pairwiseComparison?.project_a?.id ||
+      !pairwiseComparison?.project_b?.id ||
+      !winner
+    ) {
+      return
+    }
+
+    setPairwiseSubmitting(true)
+    setPairwiseMessage('')
+    setPairwiseError('')
+
+    try {
+      const response = await fetch(
+        '/api/judge/pairwise/comparisons',
+        {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            project_a: pairwiseComparison.project_a.id,
+            project_b: pairwiseComparison.project_b.id,
+            winner,
+          }),
+        },
+      )
+
+      const responseText = await response.text()
+
+      if (!response.ok) {
+        throw new Error(
+          responseText || 'Could not save pairwise comparison',
+        )
+      }
+
+      setPairwiseMessage('Comparison recorded. Loading the next pair...')
+      await loadPairwiseData()
+    } catch (err) {
+      setPairwiseError(err.message)
+    } finally {
+      setPairwiseSubmitting(false)
+    }
+  }
 
   async function loadJudgeData() {
     try {
@@ -403,6 +512,45 @@ export default function JudgeDashboard() {
         </div>
       </div>
 
+      {/* JUDGING MODE */}
+      <div className="judge-mode-bar">
+        <div>
+          <span className="judge-eyebrow">JUDGING MODE</span>
+          <strong>
+            {pairwiseMode
+              ? 'Pairwise comparison'
+              : 'Weighted rubric'}
+          </strong>
+        </div>
+
+        <div className="judge-mode-switch" role="tablist">
+          <button
+            type="button"
+            className={
+              !pairwiseMode
+                ? 'judge-mode-button is-active'
+                : 'judge-mode-button'
+            }
+            onClick={leavePairwiseMode}
+          >
+            Standard rubric
+          </button>
+
+          <button
+            type="button"
+            className={
+              pairwiseMode
+                ? 'judge-mode-button is-active'
+                : 'judge-mode-button'
+            }
+            onClick={enterPairwiseMode}
+            disabled={pairwiseLoading}
+          >
+            {pairwiseLoading ? 'Loading...' : 'Pairwise mode'}
+          </button>
+        </div>
+      </div>
+
       {/* MOBILE QUEUE */}
       {mobileQueueOpen && (
         <div className="judge-mobile-queue">
@@ -446,8 +594,23 @@ export default function JudgeDashboard() {
         </div>
       )}
 
+      {/* PAIRWISE WORKSPACE */}
+      {pairwiseMode && (
+        <PairwisePanel
+          comparison={pairwiseComparison}
+          progress={pairwiseProgress}
+          loading={pairwiseLoading}
+          submitting={pairwiseSubmitting}
+          message={pairwiseMessage}
+          error={pairwiseError}
+          onChoose={submitPairwiseComparison}
+          onBack={leavePairwiseMode}
+          onReload={loadPairwiseData}
+        />
+      )}
+
       {/* MAIN WORKSPACE */}
-      <div className="judge-workspace">
+      <div className={`judge-workspace ${pairwiseMode ? "judge-workspace-hidden" : ""}`}>
         {/* DESKTOP QUEUE */}
         <aside className="judge-queue">
           <div className="judge-panel-heading">

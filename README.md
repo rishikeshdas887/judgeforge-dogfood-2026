@@ -8,13 +8,12 @@ This repository claims:
 
 * **T1 — Core submission and gallery workflow**
 * **T2 — Judge assignment and judging integrity**
-* **T3 — Community voting, comments, and anti-abuse controls**
-* **T4 — REST API, webhooks, certificates, signed judge records, embed gallery, and bulk import/export**
+* **T3 — Public community voting and anti-abuse controls**
+* **T4 — REST/webhooks, certificates, signed records, embed, and bulk tools**
 
-The official acceptance suite verifies all seven published T1/T2 checks. T3 has no
-automated check by design (per spec.md) and is documented in JUDGING.md, verified
-manually against the running portal. T4 stretch capabilities are claimed and manually verified in `t4-verification.md`.
+The official DOGFOOD acceptance suite currently verifies all published T1/T2 checks successfully.
 
+**Bonus:** Pairwise Mode is implemented for judge-side project comparison using a Bradley-Terry estimator. It is an optional bonus capability and is not part of the T1/T2 claim.
 ## Implementation Contributions
 
 The implementation combines a Spring Boot backend with a React/Vite/Nginx frontend
@@ -38,6 +37,7 @@ submission includes:
   protection against peer-score and participant access.
 * Judge progress tracking, deterministic cross-judge normalization, organizer/admin
   results access, CSV export, and append-only audit events.
+* Optional Pairwise Mode with judge-isolated comparisons, persistent comparison storage, and Bradley-Terry estimation.
 * Fixture-backed acceptance verification, backend tests, frontend production-build
   validation, and Docker-based local startup.
 
@@ -68,6 +68,19 @@ submission includes:
 * Organizer/admin results access.
 * Organizer/admin CSV export.
 * Append-only audit events for security-sensitive judging operations.
+
+## Bonus — Pairwise Mode
+
+Judges can optionally switch from weighted-rubric scoring to pairwise comparison mode.
+
+Each comparison:
+* uses only projects assigned to the authenticated judge;
+* is enforced server-side by the backend;
+* is persisted in `backend/data/pairwise-comparisons.json`;
+* records an append-only audit event;
+* contributes to a Bradley-Terry estimator exposed through the organizer-only results endpoint.
+
+Pairwise judging starts with an empty comparison set in the repository and builds comparisons during judging.
 
 ## Architecture
 
@@ -179,6 +192,10 @@ GET /api/judge/projects
 GET /api/judge/ballots
 PUT /api/judge/ballots/{projectId}
 GET /api/judge/scores
+GET /api/judge/pairwise/next
+GET /api/judge/pairwise/progress
+POST /api/judge/pairwise/comparisons
+GET /api/judge/pairwise/results
 ```
 
 ### Organizer
@@ -235,7 +252,7 @@ The repository includes:
 acceptance-report.txt
 ```
 
-The official acceptance run reports the T1/T2 checks below. T3 and T4 are additionally verified through backend tests and documented manual smoke tests in `t4-verification.md`.
+The official acceptance run reports the published T1/T2 checks below. T3 and T4 are additionally verified through reproducible runtime smoke tests documented in `docs/T3-VERIFICATION.md` and `docs/T4-VERIFICATION.md`.
 
 ```text
 T1  gallery is public ................. PASS
