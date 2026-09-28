@@ -6,7 +6,7 @@ A self-hostable hackathon judging portal with a public project gallery, organize
 
 This repository claims:
 
-* **T1 — Core submission and gallery workflow**
+* **T1 — Core event creation, team formation, submissions and public gallery **
 * **T2 — Judge assignment and judging integrity**
 * **T3 — Public community voting and anti-abuse controls**
 * **T4 — REST/webhooks, certificates, signed records, embed, and bulk tools**
@@ -17,7 +17,7 @@ The official DOGFOOD acceptance suite verifies the published T1/T2 HTTP checks. 
 
 | Area | Status | Evidence / surface |
 |---|---|---|
-| T1 — Core submission and gallery | **Implemented** | Participant workflow + public gallery + acceptance report |
+| T1 — Core submission and gallery | **Implemented** | Participant workflow + Event creation + team formation + submissions , public gallery + acceptance report(T1 checks Pass) |
 | T2 — Judge assignment and judging integrity | **Implemented** | Judge/Organizer UI + acceptance report + `JUDGING.md` |
 | T3 — Community voting and anti-abuse | **Implemented** | Public Community Voting UI + `docs/T3-VERIFICATION.md` |
 | T4 — REST/webhooks/certificates/records/embed/bulk | **Implemented** | Local API surface + `docs/T4-VERIFICATION.md` |
