@@ -3,7 +3,7 @@ base_url = "http://localhost:8080"
 
 [tiers]
 claimed = ["T1", "T2"]
-pitch = "A self-hosted hackathon judging portal with role-isolated scoring, community voting and anti-abuse controls, public APIs, signed webhooks, participation certificates, verifiable judge records, embeddable galleries, and bulk project import/export."
+pitch = "A self-hosted, offline-first hackathon portal with event creation, teams and submissions, judge assignment, role-isolated weighted scoring, deterministic cross-judge normalization, CSV export and an append-only audit log."
 
 [auth]
 organizer   = "Cookie: session=org_7f2a"
