@@ -6,21 +6,21 @@ A self-hostable hackathon judging portal with a public project gallery, organize
 
 This repository claims:
 
-* **T1 — Core submission and gallery workflow**
+* **T1 — Core: event creation, team formation, submissions and public gallery**
 * **T2 — Judge assignment and judging integrity**
-* **T3 — Public community voting and anti-abuse controls**
-* **T4 — REST/webhooks, certificates, signed records, embed, and bulk tools**
 
-The official DOGFOOD acceptance suite verifies the published T1/T2 HTTP checks. T3 and T4 have separate reproducible runtime verification in the repository. All four optional bonuses are implemented and documented.
+The official DOGFOOD acceptance suite verifies the published T1/T2 HTTP checks, and all seven pass.
+
+T3 (community voting), T4 (REST/webhooks, certificates, signed records, embed, bulk tools) and all four optional bonuses are also implemented but are **not claimed**, because the official checker does not verify them. Their evidence is in `docs/T3-VERIFICATION.md`, `docs/T4-VERIFICATION.md` and the bonus files listed below.
 
 ## Submission Status
 
 | Area | Status | Evidence / surface |
 |---|---|---|
-| T1 — Core submission and gallery | **Implemented** | Participant workflow + public gallery + acceptance report |
+| T1 — Core submission and gallery | **Implemented** | Event creation + team formation + submissions + public gallery + acceptance report|
 | T2 — Judge assignment and judging integrity | **Implemented** | Judge/Organizer UI + acceptance report + `JUDGING.md` |
-| T3 — Community voting and anti-abuse | **Implemented** | Public Community Voting UI + `docs/T3-VERIFICATION.md` |
-| T4 — REST/webhooks/certificates/records/embed/bulk | **Implemented** | Local API surface + `docs/T4-VERIFICATION.md` |
+| T3 — Community voting and anti-abuse | **Implemented (not claimed)** | Public Community Voting UI + `docs/T3-VERIFICATION.md` |
+| T4 — REST/webhooks/certificates/records/embed/bulk | **Implemented (not claimed)** | Local API surface + `docs/T4-VERIFICATION.md` |
 | Bonus — Normalization proof (+5) | **Implemented** | `normalization-proof.md` + Organizer normalization UI |
 | Bonus — Pairwise judging (+5) | **Implemented** | Judge Pairwise Mode UI + Bradley-Terry results endpoint |
 | Bonus — Threat model (+3) | **Implemented** | `THREAT-MODEL.md` |
@@ -38,6 +38,7 @@ The official DOGFOOD acceptance suite verifies the published T1/T2 HTTP checks. 
 6. T4 integration capabilities are directly available through the documented local REST API and are backed by reproducible runtime verification.
 
 The acceptance runner remains intentionally limited to the published seven T1/T2 checks; the additional T3/T4 and bonus evidence is documented separately rather than being presented as part of the official acceptance runner.
+
 ## Implementation Contributions
 
 The implementation combines a Spring Boot backend with a React/Vite/Nginx frontend
@@ -299,7 +300,7 @@ T2  csv export works .................. PASS
 The current claim is therefore:
 
 ```text
-claimed T1 T2 T3 T4; official automated checks verify T1 T2; T3 T4 are verified separately as documented
+claimed T1 T2, verified T1 T2
 ```
 
 ## Bonus Evidence
@@ -317,6 +318,7 @@ The four bonuses are separate from the main tier score and are intended as tie-b
 
 ```text
 .
+.
 ├── backend/
 │   ├── src/
 │   ├── data/
@@ -326,12 +328,22 @@ The four bonuses are separate from the main tier score and are intended as tie-b
 │   ├── src/
 │   ├── Dockerfile
 │   └── package.json
+├── docs/
+│   ├── T3-VERIFICATION.md
+│   └── T4-VERIFICATION.md
 ├── fixtures.json
 ├── docker-compose.yml
 ├── .dogfood.toml
+├── README.md
 ├── ARCHITECTURE.md
 ├── DATA-MODEL.md
 ├── JUDGING.md
+├── THREAT-MODEL.md
+├── normalization-proof.md
+├── openapi.yaml
+├── API-FIRST-COVERAGE.md
+├── verify-api-first.py
+├── LICENSE
 ├── acceptance-report.txt
 ├── run.py
 └── spec.md
@@ -341,11 +353,7 @@ The four bonuses are separate from the main tier score and are intended as tie-b
 
 This repository intentionally documents only behavior that is implemented and verified.
 
-The current submission claims T1, T2, T3, and T4, with all four optional bonuses implemented.
-
-The official acceptance runner verifies the published T1/T2 checks. T3 and T4 are
-verified separately with the reproducible runtime evidence in `docs/T3-VERIFICATION.md`
-and `docs/T4-VERIFICATION.md`.
+ The submission claims T1 and T2, which the official checker verifies. T3, T4 and the four bonus challenges were built beyond the claim and are verified separately in `docs/T3-VERIFICATION.md`and `docs/T4-VERIFICATION.md`.
 
 The current implementation uses local JSON-backed persistence and does not require an
 external database, hosted authentication service, external API, or cloud account.
