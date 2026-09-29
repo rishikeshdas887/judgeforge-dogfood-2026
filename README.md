@@ -317,7 +317,7 @@ The four bonuses are separate from the main tier score and are intended as tie-b
 ## Repository Structure
 
 ```text
-.
+
 .
 ├── backend/
 │   ├── src/
