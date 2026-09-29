@@ -15,22 +15,22 @@ T3 (community voting), T4 (REST/webhooks, certificates, signed records, embed, b
 
 ## Submission Status
 
-| Area | Status | Evidence / surface |
-|---|---|---|
-| T1 — Core submission and gallery | **Implemented** | Event creation + team formation + submissions + public gallery + acceptance report|
-| T2 — Judge assignment and judging integrity | **Implemented** | Judge/Organizer UI + acceptance report + `JUDGING.md` |
-| T3 — Community voting and anti-abuse | **Implemented (not claimed)** | Public Community Voting UI + `docs/T3-VERIFICATION.md` |
-| T4 — REST/webhooks/certificates/records/embed/bulk | **Implemented (not claimed)** | Local API surface + `docs/T4-VERIFICATION.md` |
-| Bonus — Normalization proof (+5) | **Implemented** | `normalization-proof.md` + Organizer normalization UI |
-| Bonus — Pairwise judging (+5) | **Implemented** | Judge Pairwise Mode UI + Bradley-Terry results endpoint |
-| Bonus — Threat model (+3) | **Implemented** | `THREAT-MODEL.md` |
-| Bonus — API First (+3) | **Implemented** | `openapi.yaml` + `API-FIRST-COVERAGE.md` + `verify-api-first.py` |
+| Area                                               | Status                        | Evidence / surface                                                                 |
+| -------------------------------------------------- | ----------------------------- | ---------------------------------------------------------------------------------- |
+| T1 — Core submission and gallery                   | **Implemented**               | Event creation + team formation + submissions + public gallery + acceptance report |
+| T2 — Judge assignment and judging integrity        | **Implemented**               | Judge/Organizer UI + acceptance report + `JUDGING.md`                              |
+| T3 — Community voting and anti-abuse               | **Implemented (not claimed)** | Public Community Voting UI + `docs/T3-VERIFICATION.md`                             |
+| T4 — REST/webhooks/certificates/records/embed/bulk | **Implemented (not claimed)** | Local API surface + `docs/T4-VERIFICATION.md`                                      |
+| Bonus — Normalization proof (+5)                   | **Implemented**               | `normalization-proof.md` + Organizer normalization UI                              |
+| Bonus — Pairwise judging (+5)                      | **Implemented**               | Judge Pairwise Mode UI + Bradley-Terry results endpoint                            |
+| Bonus — Threat model (+3)                          | **Implemented**               | `THREAT-MODEL.md`                                                                  |
+| Bonus — API First (+3)                             | **Implemented**               | `openapi.yaml` + `API-FIRST-COVERAGE.md` + `verify-api-first.py`                   |
 
 > Bonus points are separate from the main tier score and are used as tie-break / Best Judging Engine criteria under the DOGFOOD rules.
 
 ### What an evaluator can see immediately
 
-1. `docker compose up` starts the seeded offline portal.
+1. `docker compose up` starts the seeded portal. After the Docker images have been prepared, the running application requires no external network services.
 2. Public visitors can browse the fixture gallery and community-voting surface.
 3. The participant role exposes team formation, invite acceptance, draft/edit/submit behavior, and deadline enforcement.
 4. Judge A/B expose isolated scoring plus the optional Pairwise Mode.
@@ -99,6 +99,7 @@ submission includes:
 Judges can optionally switch from weighted-rubric scoring to pairwise comparison mode.
 
 Each comparison:
+
 * uses only projects assigned to the authenticated judge;
 * is enforced server-side by the backend;
 * is persisted in `backend/data/pairwise-comparisons.json`;
@@ -186,7 +187,6 @@ To explicitly rebuild the images after changing application code or Dockerfiles:
 ```bash
 docker compose up --build
 ```
-
 
 ## Authentication
 
@@ -364,7 +364,7 @@ The four bonuses are separate from the main tier score and are intended as tie-b
 
 This repository intentionally documents only behavior that is implemented and verified.
 
- The submission claims T1 and T2, which the official checker verifies. T3, T4 and the four bonus challenges were built beyond the claim and are verified separately in `docs/T3-VERIFICATION.md`and `docs/T4-VERIFICATION.md`.
+The submission claims T1 and T2, which the official checker verifies. T3, T4 and the four bonus challenges were built beyond the claim and are verified separately in `docs/T3-VERIFICATION.md`and `docs/T4-VERIFICATION.md`.
 
 The current implementation uses local JSON-backed persistence and does not require an
 external database, hosted authentication service, external API, or cloud account.
