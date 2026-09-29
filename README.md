@@ -1,6 +1,8 @@
-# DOGFOOD — Hack The Dog
+# JudgeForge — Hack The Dog
 
-A self-hostable hackathon judging portal with a public project gallery, organizer-controlled judge assignment, configurable weighted scoring, role-isolated judge ballots, deterministic cross-judge normalization, organizer judging progress, CSV export, and append-only audit logging.
+JudgeForge is a  self-hostable hackathon judging portal with a public project gallery, organizer-controlled judge assignment, configurable weighted scoring, role-isolated judge ballots, deterministic cross-judge normalization, organizer judging progress, CSV export, and append-only audit logging.
+
+Built for DOGFOOD 2026 (Hackathon Raptors).
 
 ## Current Tier Claim
 
