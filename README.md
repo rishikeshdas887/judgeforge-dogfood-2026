@@ -151,16 +151,12 @@ Requirements:
 * Docker
 * Docker Compose
 
-Start the complete application:
+Clone the repository and start the seeded portal:
 
 ```bash
+git clone https://github.com/rishikeshdas887/judgeforge-dogfood-2026.git
+cd judgeforge-dogfood-2026
 docker compose up
-```
-
-To force a rebuild after changing application code or Dockerfiles:
-
-```bash
-docker compose up --build
 ```
 
 The application is available at:
@@ -169,13 +165,28 @@ The application is available at:
 http://localhost:8080
 ```
 
-The frontend container serves the web application and proxies API requests to the backend container.
+`docker compose up` builds the local backend/frontend images when they are not already available and starts the complete portal.
 
-Stop the application:
+The running application uses only local containers and local JSON-backed data. No hosted database, hosted authentication service, external API, cloud account, or runtime internet connection is required.
+
+After the Docker images have been prepared, the portal can be started offline using the same command:
+
+```bash
+docker compose up
+```
+
+Stop the application with:
 
 ```bash
 docker compose down
 ```
+
+To explicitly rebuild the images after changing application code or Dockerfiles:
+
+```bash
+docker compose up --build
+```
+
 
 ## Authentication
 
